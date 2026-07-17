@@ -1,0 +1,65 @@
+schema_version: 1
+
+skills:
+  - id: discover-project-skills
+    title: Discover Project Skills
+    title_zh_cn: 发现项目技能
+    summary: Inventory repository skills, discover reusable candidates, and extract approved practices into portable Agent Skills.
+    summary_zh_cn: 盘点仓库已有技能，发现可复用候选，并把经过确认的成熟实践提炼成可移植的 Agent Skills。
+    path: skills/discover-project-skills
+    version: 0.2.0
+    status: experimental
+    languages:
+      - en
+      - zh-CN
+    capabilities:
+      - inventory
+      - discover
+      - extract
+      - audit
+    risk: low-by-default
+    default_behavior: read-only
+    tested_clients:
+      - codex
+    last_verified: 2026-07-14
+
+  - id: five-step-dev
+    title: Graded Five-Step Development
+    title_zh_cn: 分级五步开发法
+    summary: Risk-graded Research→Plan→Implement→Review→Verify workflow for business-minded developers who control quality via plan approval and evidence-based verification instead of line-by-line code review, with model-switch reminders to keep top-tier model usage on high-stakes decision points only.
+    summary_zh_cn: 面向业务型开发者的风险分级五步流程（Research→Plan→Implement→Review→Verify）：用计划审批和证据验收代替逐行看代码，并通过模型切换提醒把最强模型的额度只花在高危决策点上。
+    path: skills/five-step-dev
+    version: 0.1.0
+    status: experimental
+    languages:
+      - zh-CN
+    capabilities:
+      - task-grading
+      - workflow-orchestration
+      - model-routing
+      - verification-gating
+    risk: low-by-default
+    default_behavior: advisory
+    tested_clients:
+      - claude-code
+    last_verified: 2026-07-14
+
+  - id: five-step-retro
+    title: Five-Step Development Retrospective
+    title_zh_cn: 五步法复盘
+    summary: Improve the five-step development workflow through evidence-backed run retrospectives and human-approved updates.
+    summary_zh_cn: 基于真实运行日志复盘五步开发流程，并在人工批准后更新流程本身。
+    path: skills/five-step-retro
+    version: 0.1.0
+    status: experimental
+    languages:
+      - zh-CN
+    capabilities:
+      - workflow-retrospective
+      - evidence-analysis
+      - process-improvement
+    risk: low-by-default
+    default_behavior: advisory
+    tested_clients:
+      - claude-code
+    last_verified: 2026-07-14

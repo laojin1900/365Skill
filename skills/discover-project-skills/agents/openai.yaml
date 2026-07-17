@@ -1,0 +1,4 @@
+interface:
+  display_name: "Discover Project Skills / 发现项目技能"
+  short_description: "Discover and extract reusable project skills"
+  default_prompt: "Use $discover-project-skills to scan this repository and produce an English-Chinese project skill map."

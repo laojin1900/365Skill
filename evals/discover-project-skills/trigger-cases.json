@@ -1,0 +1,22 @@
+[
+  {"query": "帮我扫描一下这个仓库，看看目前已经沉淀了哪些 Agent Skills，以及还有哪些重复流程值得提炼。", "should_trigger": true},
+  {"query": "Generate a bilingual English-Chinese project skill map for this repo. Separate existing SKILL.md packages from candidate workflows and project-only rules.", "should_trigger": true},
+  {"query": "我们在三个项目里都重复做 Shopify 批量商品审核，你先从当前代码和文档里找证据，再判断能不能做成共享技能。", "should_trigger": true},
+  {"query": "Audit every existing skill in this repository. I want to know whether the descriptions trigger correctly and which scripts are untested.", "should_trigger": true},
+  {"query": "这个项目有哪些业务知识其实只是参考资料，哪些才是真正可以执行的技能？请分类并输出中英双语摘要。", "should_trigger": true},
+  {"query": "把当前仓库里关于发布前检查的成熟做法提炼成一个可移植的 skill，但先给我看候选证据。", "should_trigger": true},
+  {"query": "我刚接手这个项目。请盘点 AGENTS.md、自动化脚本和 runbook，告诉我团队实际有哪些可复用能力。", "should_trigger": true},
+  {"query": "Find duplicated operational workflows in this monorepo and score them as possible Agent Skills. Do not modify files yet.", "should_trigger": true},
+  {"query": "检查 skills 目录里的技能有没有过时的项目路径、外部依赖或者安全边界缺失。", "should_trigger": true},
+  {"query": "把你刚才发现的候选 2 做成标准 SKILL.md 包，输出到 /work/company-skills/skills。", "should_trigger": true},
+  {"query": "请把这个 PDF 转成 Word，保持标题和表格格式。", "should_trigger": false},
+  {"query": "修复登录页面点提交之后一直转圈的问题，并补上回归测试。", "should_trigger": false},
+  {"query": "Explain what the calculateTax function does and identify its time complexity.", "should_trigger": false},
+  {"query": "帮我安装已经确定好的 pdf 技能，不需要分析当前项目。", "should_trigger": false},
+  {"query": "列出 package.json 里所有依赖，看看哪些版本可以升级。", "should_trigger": false},
+  {"query": "只总结 README 的主要内容，控制在五个要点以内。", "should_trigger": false},
+  {"query": "给这个 Next.js 项目增加一个支持邮箱验证码的登录页。", "should_trigger": false},
+  {"query": "搜索 GitHub 上最热门的 Agent Skills 仓库并比较 star 数量。", "should_trigger": false},
+  {"query": "调用现有的 code-review skill 审查这个 PR，不要创建或盘点技能。", "should_trigger": false},
+  {"query": "把今天的会议记录整理成待办事项，并给每项加负责人。", "should_trigger": false}
+]

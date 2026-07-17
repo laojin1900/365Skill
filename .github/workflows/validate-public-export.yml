@@ -1,0 +1,26 @@
+name: Validate public skill export
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: node --test scripts/publication/*.test.mjs
+      - run: node scripts/publication/export-public-repository.mjs --output "${{ runner.temp }}/365skill-public"
+      - run: node "${{ runner.temp }}/365skill-public/scripts/publication/validate-public-repository.mjs" --root "${{ runner.temp }}/365skill-public"
+      - run: python3 -m unittest discover -s tests -v

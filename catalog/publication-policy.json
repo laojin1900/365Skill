@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "default_visibility": "private",
+  "public_skill_ids": [
+    "discover-project-skills",
+    "five-step-dev",
+    "five-step-retro"
+  ],
+  "shared_paths": [
+    ".github/workflows/validate-public-export.yml",
+    ".gitignore",
+    "LICENSE",
+    "README.md",
+    "README.zh-CN.md",
+    "SECURITY.md",
+    "catalog/skills.yaml",
+    "catalog/publication-policy.json",
+    "docs",
+    "scripts/publication",
+    "tests"
+  ]
+}
