@@ -63,3 +63,26 @@ skills:
     tested_clients:
       - claude-code
     last_verified: 2026-07-14
+
+  - id: shopify-theme-delivery
+    title: Shopify Theme Delivery
+    title_zh_cn: Shopify 主题交付
+    summary: Plan, validate, write, read back, and accept Shopify Online Store 2.0 theme changes with draft-first release safety and dynamic DOM stability checks.
+    summary_zh_cn: 以草稿优先的发布边界和动态 DOM 稳定性验证，规划、校验、写入、回读并验收 Shopify Online Store 2.0 主题修改。
+    path: skills/shopify-theme-delivery
+    version: 0.1.0
+    status: experimental
+    languages:
+      - en
+      - zh-CN
+    capabilities:
+      - theme-architecture
+      - draft-theme-delivery
+      - dynamic-ui-stability
+      - remote-readback
+      - browser-acceptance
+    risk: guarded-mutation
+    default_behavior: source-only-until-approved
+    tested_clients:
+      - codex
+    last_verified: 2026-07-18

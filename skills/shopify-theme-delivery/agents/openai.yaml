@@ -1,0 +1,4 @@
+interface:
+  display_name: "Shopify Theme Delivery"
+  short_description: "Safe Shopify theme changes and releases"
+  default_prompt: "Use $shopify-theme-delivery to plan, validate, and deliver a Shopify theme change with stable dynamic UI and verifiable acceptance."
