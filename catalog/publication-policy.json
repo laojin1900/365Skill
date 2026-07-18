@@ -18,6 +18,7 @@
     "catalog/skills.yaml",
     "catalog/publication-policy.json",
     "docs",
+    "install.sh",
     "scripts/publication",
     "tests"
   ]
