@@ -5,7 +5,8 @@
     "discover-project-skills",
     "five-step-dev",
     "five-step-retro",
-    "shopify-theme-delivery"
+    "shopify-theme-delivery",
+    "gws-workspace"
   ],
   "shared_paths": [
     ".github/workflows/validate-public-export.yml",

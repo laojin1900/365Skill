@@ -14,6 +14,7 @@
 | [`five-step-dev`](skills/five-step-dev/SKILL.md) | Experimental | 面向业务型开发者的风险分级五步开发流程（Research→Plan→Implement→Review→Verify）：用计划审批和证据验收把控质量，用模型切换提醒把最强模型额度只花在高危决策点 |
 | [`five-step-retro`](skills/five-step-retro/SKILL.md) | 实验中 | five-step-dev 的自我迭代循环：运行日志 + 六维度复盘 + 有证据的改进提案，人工批准后升级技能并提交本仓库 |
 | [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | 实验中 | Shopify Online Store 2.0 主题草稿优先交付：覆盖架构、内容保留、远程回读、浏览器验收和动态 DOM 稳定性验证 |
+| [`gws-workspace`](skills/gws-workspace/SKILL.md) | 实验中 | 通过 gws CLI 操作 Gmail、日历、Drive、Sheets、Docs、Slides、Chat、Tasks：默认只读的安全边界、辅助命令速查、从零 OAuth 配置指南 |
 
 ## 发布模型
 
@@ -85,6 +86,7 @@ Discovery 和 Audit 默认只读。只有用户明确要求提炼技能并提供
 python3 -m unittest discover -s tests -v
 python3 -m json.tool evals/discover-project-skills/trigger-cases.json >/dev/null
 python3 -m json.tool evals/shopify-theme-delivery/trigger-cases.json >/dev/null
+python3 -m json.tool evals/gws-workspace/trigger-cases.json >/dev/null
 node --test skills/shopify-theme-delivery/scripts/*.test.mjs
 node --test scripts/publication/*.test.mjs
 ```

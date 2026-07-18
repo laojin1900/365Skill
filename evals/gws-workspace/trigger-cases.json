@@ -1,0 +1,22 @@
+[
+  {"query": "帮我看看 Gmail 里有什么新邮件，整理一个未读摘要。", "should_trigger": true},
+  {"query": "Use gws to send an email to alice@example.com about the Q2 report — confirm the draft with me first.", "should_trigger": true},
+  {"query": "查一下我下周 Google 日历的日程安排。", "should_trigger": true},
+  {"query": "Upload ./report.pdf to my Google Drive and give me back the file link.", "should_trigger": true},
+  {"query": "把这个 Google 表格的第一行读出来看看列结构，然后追加一行数据。", "should_trigger": true},
+  {"query": "帮我在新电脑上装一下 gws 并走完 Google OAuth 配置。", "should_trigger": true},
+  {"query": "Triage my unread Gmail and draft replies for the three most important threads.", "should_trigger": true},
+  {"query": "每周一早上汇总上周邮件和本周日历日程，生成中文晨报。", "should_trigger": true},
+  {"query": "gws auth login 报 Access blocked，帮我排查一下 OAuth 配置哪里不对。", "should_trigger": true},
+  {"query": "Append today's inventory numbers as a new row in my Google Sheet tracker.", "should_trigger": true},
+  {"query": "帮我管理 Outlook 邮箱里的未读邮件。", "should_trigger": false},
+  {"query": "Set up a Shopify theme draft and validate the Liquid sections.", "should_trigger": false},
+  {"query": "用 gcloud 给我的 GCP 项目创建一个 Compute Engine 实例。", "should_trigger": false},
+  {"query": "帮我整理 macOS 本地日历 app 里的日程。", "should_trigger": false},
+  {"query": "Configure IAM roles and service accounts for my Google Cloud project.", "should_trigger": false},
+  {"query": "把这个 CSV 导入飞书多维表格。", "should_trigger": false},
+  {"query": "Write a Slack bot that posts daily standup reminders.", "should_trigger": false},
+  {"query": "帮我分析 Salesforce 里的客户数据。", "should_trigger": false},
+  {"query": "Deploy this Next.js site to Vercel and set up the domain.", "should_trigger": false},
+  {"query": "在我的 Notion 数据库里加一条会议纪要。", "should_trigger": false}
+]

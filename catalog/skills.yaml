@@ -86,3 +86,26 @@ skills:
     tested_clients:
       - codex
     last_verified: 2026-07-18
+
+  - id: gws-workspace
+    title: Google Workspace via gws CLI
+    title_zh_cn: gws 命令行操作 Google Workspace
+    summary: Operate Gmail, Calendar, Drive, Sheets, Docs, Slides, Chat, and Tasks through the gws CLI with read-by-default safety gates, helper-command patterns, and a from-zero OAuth setup guide.
+    summary_zh_cn: 通过 gws CLI 操作 Gmail、日历、Drive、Sheets、Docs、Slides、Chat、Tasks：默认只读的安全边界、辅助命令速查、从零 OAuth 配置指南。
+    path: skills/gws-workspace
+    version: 0.1.0
+    status: experimental
+    languages:
+      - en
+      - zh-CN
+    capabilities:
+      - email-operations
+      - calendar-agenda
+      - drive-file-management
+      - sheets-read-write
+      - cli-integration
+    risk: guarded-mutation
+    default_behavior: read-only-until-approved
+    tested_clients:
+      - kimi
+    last_verified: 2026-07-18
