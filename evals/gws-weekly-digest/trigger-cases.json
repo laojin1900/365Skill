@@ -1,0 +1,22 @@
+[
+  {"query": "帮我汇总上周的邮件和本周的日程，生成一份晨报。", "should_trigger": true},
+  {"query": "Generate my Monday briefing: last week's email stats plus this week's calendar.", "should_trigger": true},
+  {"query": "每周一早上自动跑一个邮件+日程周报，存成 markdown。", "should_trigger": true},
+  {"query": "Build a recurring weekly digest of my Gmail unread and upcoming events.", "should_trigger": true},
+  {"query": "上周哪些邮件可能还没回？结合这周日程给我个关注清单。", "should_trigger": true},
+  {"query": "Produce a markdown weekly digest file and a short chat summary from my mail and calendar.", "should_trigger": true},
+  {"query": "把晨报做成定时任务，周一早上跑。", "should_trigger": true},
+  {"query": "Which senders dominated my inbox last week, and what meetings do I have this week?", "should_trigger": true},
+  {"query": "给我一份上周邮件概况：总量、未读占比、Top 发件人。", "should_trigger": true},
+  {"query": "Set up the digest so it staggers around my other Monday automations.", "should_trigger": true},
+  {"query": "帮我给某人写一封回复邮件。", "should_trigger": false},
+  {"query": "Delete all unread newsletters from my inbox.", "should_trigger": false},
+  {"query": "查一下我 Outlook 邮箱的未读邮件。", "should_trigger": false},
+  {"query": "Create a calendar event with the client on Friday.", "should_trigger": false},
+  {"query": "Write a Shopify Liquid section for the hero banner.", "should_trigger": false},
+  {"query": "Summarize this PDF report into five bullet points.", "should_trigger": false},
+  {"query": "帮我整理飞书知识库里的文档。", "should_trigger": false},
+  {"query": "Run the payroll report for last month.", "should_trigger": false},
+  {"query": "监控我的服务器，宕机时告警。", "should_trigger": false},
+  {"query": "Translate this article into English.", "should_trigger": false}
+]

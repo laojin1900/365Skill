@@ -15,6 +15,7 @@
 | [`five-step-retro`](skills/five-step-retro/SKILL.md) | 实验中 | five-step-dev 的自我迭代循环：运行日志 + 六维度复盘 + 有证据的改进提案，人工批准后升级技能并提交本仓库 |
 | [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | 实验中 | Shopify Online Store 2.0 主题草稿优先交付：覆盖架构、内容保留、远程回读、浏览器验收和动态 DOM 稳定性验证 |
 | [`gws-workspace`](skills/gws-workspace/SKILL.md) | 实验中 | 通过 gws CLI 操作 Gmail、日历、Drive、Sheets、Docs、Slides、Chat、Tasks：默认只读的安全边界、辅助命令速查、从零 OAuth 配置指南 |
+| [`gws-weekly-digest`](skills/gws-weekly-digest/SKILL.md) | 实验中 | 用邮件和日历生成每周晨报：上周邮件统计、本周日程按天分组、markdown 晨报加会话摘要，严格只读 |
 
 ## 发布模型
 
@@ -87,6 +88,7 @@ python3 -m unittest discover -s tests -v
 python3 -m json.tool evals/discover-project-skills/trigger-cases.json >/dev/null
 python3 -m json.tool evals/shopify-theme-delivery/trigger-cases.json >/dev/null
 python3 -m json.tool evals/gws-workspace/trigger-cases.json >/dev/null
+python3 -m json.tool evals/gws-weekly-digest/trigger-cases.json >/dev/null
 node --test skills/shopify-theme-delivery/scripts/*.test.mjs
 node --test scripts/publication/*.test.mjs
 ```

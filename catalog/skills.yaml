@@ -109,3 +109,25 @@ skills:
     tested_clients:
       - kimi
     last_verified: 2026-07-18
+
+  - id: gws-weekly-digest
+    title: Weekly Mail and Calendar Digest
+    title_zh_cn: 每周邮件日程晨报
+    summary: Produce a recurring weekly briefing from mailbox and calendar — last week's mail stats, next seven days of events, markdown digest plus chat summary, strictly read-only.
+    summary_zh_cn: 用邮件和日历生成每周晨报：上周邮件统计、本周日程按天分组、markdown 晨报加会话摘要，严格只读。
+    path: skills/gws-weekly-digest
+    version: 0.1.0
+    status: experimental
+    languages:
+      - en
+      - zh-CN
+    capabilities:
+      - weekly-digest
+      - mail-stats
+      - schedule-aggregation
+      - read-only-reporting
+    risk: low-by-default
+    default_behavior: read-only
+    tested_clients:
+      - kimi
+    last_verified: 2026-07-18
