@@ -13,6 +13,7 @@ The repository follows the open `SKILL.md` directory format. Each skill is self-
 | [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | Experimental | Inventory existing project skills, discover reusable candidates, and extract approved practices into portable skill packages |
 | [`five-step-dev`](skills/five-step-dev/SKILL.md) | Experimental | Risk-graded five-step dev workflow (Research→Plan→Implement→Review→Verify) for business-minded developers: plan approval + evidence-based verification, with model-switch reminders that reserve top-tier models for high-stakes decisions (zh-CN) |
 | [`five-step-retro`](skills/five-step-retro/SKILL.md) | Experimental | Self-iteration loop for five-step-dev: run log + six-dimension retrospective + evidence-backed proposals, human-approved upgrades committed to this repo (zh-CN) |
+| [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | Experimental | Draft-first Shopify Online Store 2.0 theme delivery with architecture, preservation, remote readback, browser acceptance, and dynamic DOM settling checks |
 
 ## Publication Model
 
@@ -33,6 +34,16 @@ Invoke it from a new task in any project:
 
 ```text
 Use $discover-project-skills to scan the current repository and produce a project skill map.
+```
+
+For Shopify theme work, link and invoke the delivery skill:
+
+```bash
+ln -s "$PWD/skills/shopify-theme-delivery" ~/.codex/skills/shopify-theme-delivery
+```
+
+```text
+Use $shopify-theme-delivery to plan and validate this draft-theme change before any Shopify write.
 ```
 
 Run only the structural scanner:
@@ -73,6 +84,8 @@ Scan reports can still contain repository paths, filenames, commands, dependency
 ```bash
 python3 -m unittest discover -s tests -v
 python3 -m json.tool evals/discover-project-skills/trigger-cases.json >/dev/null
+python3 -m json.tool evals/shopify-theme-delivery/trigger-cases.json >/dev/null
+node --test skills/shopify-theme-delivery/scripts/*.test.mjs
 node --test scripts/publication/*.test.mjs
 ```
 

@@ -13,6 +13,7 @@
 | [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | Experimental | 盘点项目现有技能，发现可复用候选，并在明确授权后把成熟实践提炼成标准技能包 |
 | [`five-step-dev`](skills/five-step-dev/SKILL.md) | Experimental | 面向业务型开发者的风险分级五步开发流程（Research→Plan→Implement→Review→Verify）：用计划审批和证据验收把控质量，用模型切换提醒把最强模型额度只花在高危决策点 |
 | [`five-step-retro`](skills/five-step-retro/SKILL.md) | 实验中 | five-step-dev 的自我迭代循环：运行日志 + 六维度复盘 + 有证据的改进提案，人工批准后升级技能并提交本仓库 |
+| [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | 实验中 | Shopify Online Store 2.0 主题草稿优先交付：覆盖架构、内容保留、远程回读、浏览器验收和动态 DOM 稳定性验证 |
 
 ## 发布模型
 
@@ -33,6 +34,16 @@ ln -s "$PWD/skills/discover-project-skills" ~/.codex/skills/discover-project-ski
 
 ```text
 使用 $discover-project-skills 扫描当前仓库，输出项目技能地图。
+```
+
+进行 Shopify 主题工作时，可链接并调用主题交付技能：
+
+```bash
+ln -s "$PWD/skills/shopify-theme-delivery" ~/.codex/skills/shopify-theme-delivery
+```
+
+```text
+使用 $shopify-theme-delivery 先规划并验证这次主题草稿修改，不要直接写入 Shopify。
 ```
 
 只运行结构扫描器：
@@ -73,6 +84,8 @@ Discovery 和 Audit 默认只读。只有用户明确要求提炼技能并提供
 ```bash
 python3 -m unittest discover -s tests -v
 python3 -m json.tool evals/discover-project-skills/trigger-cases.json >/dev/null
+python3 -m json.tool evals/shopify-theme-delivery/trigger-cases.json >/dev/null
+node --test skills/shopify-theme-delivery/scripts/*.test.mjs
 node --test scripts/publication/*.test.mjs
 ```
 

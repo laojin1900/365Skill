@@ -1,0 +1,22 @@
+[
+  {"query": "请帮我修改 Shopify Online Store 2.0 的商品详情页，并先写入指定草稿主题验收，不要发布。", "should_trigger": true},
+  {"query": "Use the Shopify theme delivery workflow to migrate these Liquid sections while preserving Theme Editor content and app blocks.", "should_trigger": true},
+  {"query": "集合页筛选用了 MutationObserver，页面一直触发 requestAnimationFrame。请修复并证明初次渲染和一次外部更新后都能稳定。", "should_trigger": true},
+  {"query": "这个 Shopify 预览和源码不一致，按主题身份、模板绑定、远程回读、release marker 和缓存顺序诊断。", "should_trigger": true},
+  {"query": "Prepare a bounded draft-theme write manifest, checksum readback, desktop/mobile acceptance, and handoff. Do not publish.", "should_trigger": true},
+  {"query": "重做 Shopify 首页、分类页、详情页和搜索页，先输出完整 surface matrix 和品牌保留规则。", "should_trigger": true},
+  {"query": "Audit whether this templates/product.json change belongs in the JSON template or a Liquid section, then validate the package.", "should_trigger": true},
+  {"query": "Shopify predictive search looks correct but may be looping. Build an isolated settling regression before touching the draft theme.", "should_trigger": true},
+  {"query": "把主题改动一次性写入指定 unpublished theme，精确回读文件并确认 live theme 未变化。", "should_trigger": true},
+  {"query": "Create a release handoff for a Shopify theme draft with rollback identity, exclusions, preview evidence, and explicit not-published state.", "should_trigger": true},
+  {"query": "帮我批量修改 Shopify 商品标题、标签和库存。", "should_trigger": false},
+  {"query": "Build a Shopify app extension that validates checkout discounts.", "should_trigger": false},
+  {"query": "请分析这个独立 React 网站的首页 CSS，不涉及 Shopify。", "should_trigger": false},
+  {"query": "给我推荐三个适合美甲店的 Shopify 应用。", "should_trigger": false},
+  {"query": "把这份 CSV 的订单数据做成销售报表。", "should_trigger": false},
+  {"query": "修复 Next.js API route 的数据库超时问题。", "should_trigger": false},
+  {"query": "Publish this npm package to the JavaScript registry after running its unit tests.", "should_trigger": false},
+  {"query": "Translate these product descriptions into French and update the catalog data.", "should_trigger": false},
+  {"query": "Create a Figma mockup for a wholesale landing page, but do not implement a Shopify theme.", "should_trigger": false},
+  {"query": "Review the security of our Shopify Admin API credentials and webhook signing.", "should_trigger": false}
+]

@@ -4,7 +4,8 @@
   "public_skill_ids": [
     "discover-project-skills",
     "five-step-dev",
-    "five-step-retro"
+    "five-step-retro",
+    "shopify-theme-delivery"
   ],
   "shared_paths": [
     ".github/workflows/validate-public-export.yml",
