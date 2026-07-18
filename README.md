@@ -14,6 +14,7 @@ The repository follows the open `SKILL.md` directory format. Each skill is self-
 | [`five-step-dev`](skills/five-step-dev/SKILL.md) | Experimental | Risk-graded five-step dev workflow (Research→Plan→Implement→Review→Verify) for business-minded developers: plan approval + evidence-based verification, with model-switch reminders that reserve top-tier models for high-stakes decisions (zh-CN) |
 | [`five-step-retro`](skills/five-step-retro/SKILL.md) | Experimental | Self-iteration loop for five-step-dev: run log + six-dimension retrospective + evidence-backed proposals, human-approved upgrades committed to this repo (zh-CN) |
 | [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | Experimental | Draft-first Shopify Online Store 2.0 theme delivery with architecture, preservation, remote readback, browser acceptance, and dynamic DOM settling checks |
+| [`gws-workspace`](skills/gws-workspace/SKILL.md) | Experimental | Operate Gmail, Calendar, Drive, Sheets, Docs, Slides, Chat, and Tasks through the gws CLI: read-by-default safety gates, helper-command patterns, and a from-zero OAuth setup guide |
 
 ## Publication Model
 
@@ -85,6 +86,7 @@ Scan reports can still contain repository paths, filenames, commands, dependency
 python3 -m unittest discover -s tests -v
 python3 -m json.tool evals/discover-project-skills/trigger-cases.json >/dev/null
 python3 -m json.tool evals/shopify-theme-delivery/trigger-cases.json >/dev/null
+python3 -m json.tool evals/gws-workspace/trigger-cases.json >/dev/null
 node --test skills/shopify-theme-delivery/scripts/*.test.mjs
 node --test scripts/publication/*.test.mjs
 ```
