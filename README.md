@@ -13,6 +13,7 @@ The repository follows the open `SKILL.md` directory format. Each skill is self-
 | [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | Experimental | Inventory existing project skills, discover reusable candidates, and extract approved practices into portable skill packages |
 | [`five-step-dev`](skills/five-step-dev/SKILL.md) | Experimental | Risk-graded five-step dev workflow (Research→Plan→Implement→Review→Verify) for business-minded developers: plan approval + evidence-based verification, with model-switch reminders that reserve top-tier models for high-stakes decisions (zh-CN) |
 | [`five-step-retro`](skills/five-step-retro/SKILL.md) | Experimental | Self-iteration loop for five-step-dev: run log + six-dimension retrospective + evidence-backed proposals, human-approved upgrades committed to this repo (zh-CN) |
+| [`five-step-method`](skills/five-step-method/SKILL.md) | Experimental | Tool-agnostic edition of the graded five-step dev workflow: grade A/B/C, collide the requirement, then Research→Plan→Implement→Review→Verify, with a Claude Code / Codex adapter layer (zh-CN) |
 | [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | Experimental | Draft-first Shopify Online Store 2.0 theme delivery with architecture, preservation, remote readback, browser acceptance, and dynamic DOM settling checks |
 | [`gws-workspace`](skills/gws-workspace/SKILL.md) | Experimental | Operate Gmail, Calendar, Drive, Sheets, Docs, Slides, Chat, and Tasks through the gws CLI: read-by-default safety gates, helper-command patterns, and a from-zero OAuth setup guide |
 | [`gws-weekly-digest`](skills/gws-weekly-digest/SKILL.md) | Experimental | Recurring weekly briefing from mailbox and calendar: last week's mail stats, next seven days of events, markdown digest plus chat summary, strictly read-only |
@@ -89,6 +90,7 @@ python3 -m json.tool evals/discover-project-skills/trigger-cases.json >/dev/null
 python3 -m json.tool evals/shopify-theme-delivery/trigger-cases.json >/dev/null
 python3 -m json.tool evals/gws-workspace/trigger-cases.json >/dev/null
 python3 -m json.tool evals/gws-weekly-digest/trigger-cases.json >/dev/null
+python3 -m json.tool evals/five-step-method/trigger-cases.json >/dev/null
 node --test skills/shopify-theme-delivery/scripts/*.test.mjs
 node --test scripts/publication/*.test.mjs
 ```

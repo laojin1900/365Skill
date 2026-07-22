@@ -1,0 +1,22 @@
+[
+  { "query": "用五步法处理这个需求：给订单页加一个按状态筛选的功能", "should_trigger": true },
+  { "query": "帮我按分级开发流程做：改一下详情页的价格字体颜色", "should_trigger": true },
+  { "query": "这是个高危改动，动了权限表，帮我先判风险级再动手", "should_trigger": true },
+  { "query": "run this through the five-step method — add a CSV export to the customer list", "should_trigger": true },
+  { "query": "I'm not a coder, use the graded dev workflow to build a signup form", "should_trigger": true },
+  { "query": "我不懂代码，帮我把这个功能需求先碰撞清楚再动手做", "should_trigger": true },
+  { "query": "这个改动要不要先分级？涉及支付回调，帮我按流程走", "should_trigger": true },
+  { "query": "grade this dev task A/B/C first, then plan before you touch anything", "should_trigger": true },
+  { "query": "帮我给这个后台加个删除按钮，先按业务型开发流程判一下风险", "should_trigger": true },
+  { "query": "business-minded dev process please: refactor the shared checkout component", "should_trigger": true },
+  { "query": "帮我查一下这个报错是什么意思", "should_trigger": false },
+  { "query": "解释一下什么是数据库索引", "should_trigger": false },
+  { "query": "用 superpowers 的头脑风暴技能帮我想产品点子", "should_trigger": false },
+  { "query": "run the self-evolution retrospective on my past tasks", "should_trigger": false },
+  { "query": "帮我把这段英文翻译成中文", "should_trigger": false },
+  { "query": "search the web for the latest React version", "should_trigger": false },
+  { "query": "这个 Codex 和 Claude Code 有什么区别？", "should_trigger": false },
+  { "query": "帮我复盘一下上周的开发任务做得怎么样", "should_trigger": false },
+  { "query": "write a PRD document explaining our five-step system to others", "should_trigger": false },
+  { "query": "帮我把这个技能上传到 GitHub 仓库", "should_trigger": false }
+]

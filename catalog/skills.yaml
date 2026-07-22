@@ -64,6 +64,27 @@ skills:
       - claude-code
     last_verified: 2026-07-14
 
+  - id: five-step-method
+    title: Graded Five-Step Dev Method (Tool-Agnostic)
+    title_zh_cn: 分级五步开发法（工具无关通用版）
+    summary: Tool-agnostic edition of the graded five-step dev workflow for business-minded builders who do not read code — grade risk A/B/C, collide the requirement into shape, then Research→Plan→Implement→Review→Verify. Ships a Claude Code / Codex adapter layer.
+    summary_zh_cn: 分级五步开发法的工具无关版，给不读代码的业务型开发者：先判风险级 A/B/C，对仓促需求先碰撞成型，再走 Research→Plan→Implement→Review→Verify，附 Claude Code 与 Codex 适配层。
+    path: skills/five-step-method
+    version: 0.1.0
+    status: experimental
+    languages:
+      - en
+      - zh-CN
+    capabilities:
+      - task-grading
+      - requirement-collision
+      - graded-workflow
+      - cross-tool-adapter
+    risk: low-by-default
+    default_behavior: advisory
+    tested_clients:
+      - claude-code
+    last_verified: 2026-07-19
   - id: shopify-theme-delivery
     title: Shopify Theme Delivery
     title_zh_cn: Shopify 主题交付
