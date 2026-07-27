@@ -3,9 +3,6 @@
   "default_visibility": "private",
   "public_skill_ids": [
     "discover-project-skills",
-    "five-step-dev",
-    "five-step-retro",
-    "five-step-method",
     "shopify-theme-delivery",
     "gws-workspace",
     "gws-weekly-digest"
@@ -19,7 +16,6 @@
     "SECURITY.md",
     "catalog/skills.yaml",
     "catalog/publication-policy.json",
-    "docs",
     "install.sh",
     "scripts/publication",
     "tests"
