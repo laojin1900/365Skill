@@ -90,3 +90,25 @@ skills:
     tested_clients:
       - kimi
     last_verified: 2026-07-18
+
+  - id: parallel-sessions-protocol
+    title: Parallel Sessions Protocol
+    title_zh_cn: 多会话并行开发协议
+    summary: Coordinate any number of AI or human sessions developing one git repository in parallel — draft-PR board registration, resource claiming, ledger writes only at merge time, merge discipline, and a three-checkpoint awareness refresh.
+    summary_zh_cn: 协调任意数量的 AI 或人类会话并行开发同一个 git 仓库：Draft PR 公告板登记、资源认领、记账只在合并前写、合并纪律、三时点全局刷新。
+    path: skills/parallel-sessions-protocol
+    version: 0.1.0
+    status: experimental
+    languages:
+      - en
+      - zh-CN
+    capabilities:
+      - parallel-session-coordination
+      - work-claim-registration
+      - sequential-resource-allocation
+      - merge-discipline
+    risk: low-by-default
+    default_behavior: guarded-mutation
+    tested_clients:
+      - claude-code
+    last_verified: 2026-08-05

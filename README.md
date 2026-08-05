@@ -14,6 +14,7 @@ The repository follows the open `SKILL.md` directory format. Each skill is self-
 | [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | Experimental | Draft-first Shopify Online Store 2.0 theme delivery with architecture, preservation, remote readback, browser acceptance, and dynamic DOM settling checks |
 | [`gws-workspace`](skills/gws-workspace/SKILL.md) | Experimental | Operate Gmail, Calendar, Drive, Sheets, Docs, Slides, Chat, and Tasks through the gws CLI: read-by-default safety gates, helper-command patterns, and a from-zero OAuth setup guide |
 | [`gws-weekly-digest`](skills/gws-weekly-digest/SKILL.md) | Experimental | Recurring weekly briefing from mailbox and calendar: last week's mail stats, next seven days of events, markdown digest plus chat summary, strictly read-only |
+| [`parallel-sessions-protocol`](skills/parallel-sessions-protocol/SKILL.md) | Experimental | Coordinate any number of parallel sessions on one repository: draft-PR board registration, resource claiming, ledger writes only at merge time, merge discipline, three-checkpoint refresh |
 
 ## Publication Model
 
@@ -87,6 +88,7 @@ python3 -m json.tool evals/discover-project-skills/trigger-cases.json >/dev/null
 python3 -m json.tool evals/shopify-theme-delivery/trigger-cases.json >/dev/null
 python3 -m json.tool evals/gws-workspace/trigger-cases.json >/dev/null
 python3 -m json.tool evals/gws-weekly-digest/trigger-cases.json >/dev/null
+python3 -m json.tool evals/parallel-sessions-protocol/trigger-cases.json >/dev/null
 node --test skills/shopify-theme-delivery/scripts/*.test.mjs
 node --test scripts/publication/*.test.mjs
 ```

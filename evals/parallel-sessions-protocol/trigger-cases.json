@@ -1,0 +1,82 @@
+[
+  {
+    "query": "这个仓库现在有三个会话在同时开发，怎么协调不撞车？",
+    "should_trigger": true
+  },
+  {
+    "query": "How do I coordinate multiple Claude sessions working on the same repo in parallel?",
+    "should_trigger": true
+  },
+  {
+    "query": "多会话并行开发，开工登记怎么走？",
+    "should_trigger": true
+  },
+  {
+    "query": "决策编号又被两个会话同时占用了，有没有机制防止取号撞车？",
+    "should_trigger": true
+  },
+  {
+    "query": "我要开一条新的并行轨道，第一步做什么？",
+    "should_trigger": true
+  },
+  {
+    "query": "current-task 和 decisions 这类共享账本文件老是合并冲突，有没有结构性解法？",
+    "should_trigger": true
+  },
+  {
+    "query": "Another AI session is already editing the files I need to touch — what's the protocol?",
+    "should_trigger": true
+  },
+  {
+    "query": "并行开发时怎么知道其他会话的进度？公告板在哪看？",
+    "should_trigger": true
+  },
+  {
+    "query": "Set up a draft-PR board so parallel worktree sessions don't collide with each other",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我按多会话并行协议开工，先看公告板再认领范围",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我解决这个 rebase 冲突，两个文件冲突了",
+    "should_trigger": false
+  },
+  {
+    "query": "How do I create a git worktree and switch between them?",
+    "should_trigger": false
+  },
+  {
+    "query": "多个 PR 需要走总控和 QA 通道发布，帮我排发布顺序",
+    "should_trigger": false
+  },
+  {
+    "query": "把这两个任务并行派给两个 subagent 同时跑",
+    "should_trigger": false
+  },
+  {
+    "query": "CI 里怎么配置测试并行分片跑得快一点？",
+    "should_trigger": false
+  },
+  {
+    "query": "gh pr list 命令怎么按标签过滤？",
+    "should_trigger": false
+  },
+  {
+    "query": "Coordinate this release through the Controller and QA lane with leases",
+    "should_trigger": false
+  },
+  {
+    "query": "我们团队多人协作，git 分支策略用 gitflow 还是 trunk-based？",
+    "should_trigger": false
+  },
+  {
+    "query": "帮我把这个 feature 分支合并到 main",
+    "should_trigger": false
+  },
+  {
+    "query": "怎么用 tmux 同时开多个终端窗口干活？",
+    "should_trigger": false
+  }
+]

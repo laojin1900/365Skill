@@ -5,7 +5,8 @@
     "discover-project-skills",
     "shopify-theme-delivery",
     "gws-workspace",
-    "gws-weekly-digest"
+    "gws-weekly-digest",
+    "parallel-sessions-protocol"
   ],
   "shared_paths": [
     ".github/workflows/validate-public-export.yml",
