@@ -2,31 +2,17 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-<div align="center">
-
-**由 [老金出海](https://www.laojinchuhai.com/zh) 维护**
-
-*跨境出海 × AI 落地实战派 — 每个 Skill 都先在我们自己的业务里跑通，再开源给大家。*
-
-</div>
-
 一个用于跨项目、跨 AI 客户端发现、验证和共享可复用 Agent Skills 的实验仓库。
 
 本仓库使用开放的 `SKILL.md` 目录格式。每个技能保持独立、可审查、可测试，并把流程说明、确定性脚本和按需加载的参考资料放在同一个可移植目录中。
-
-## 为什么有 365Skill
-
-我们每天都在生产环境里跑 AI 技能——跨境销售、内容运营、SEO、Agent 工作流（见 [laojinchuhai.com](https://www.laojinchuhai.com/zh)）。365Skill 是那些经受住真实使用考验的技能的公开展示（默认拒绝发布）：
-
-- **生产验证**：这里的技能驱动真实日常工作，不是 Demo。
-- **中英双语**：文档和触发用例都是中英文。
-- **自包含**：每个技能自带说明、脚本、测试和评测。
-- **默认安全**：发现和审计只读，写入必须显式批准。
 
 ## 当前技能
 
 | Skill | 状态 | 作用 |
 |---|---|---|
+| [`365-chatgpt-pro-delivery`](skills/365-chatgpt-pro-delivery/SKILL.md) | 实验中 | 通过隐私闸门、证据标签、单次发送和 Codex 独立验收，完成一次边界清晰的 ChatGPT Pro 协作 |
+| [`365-five-step-dev`](skills/365-five-step-dev/SKILL.md) | 实验中 | 帮助业务用户确定范围与风险、保护工作区归属、用证据验收并完成闭环，无需用户掌握开发流程 |
+| [`365-session-rotation-maintainer`](skills/365-session-rotation-maintainer/SKILL.md) | 实验中 | 通过持久检查点、唯一且已验证的继任任务、工作区归属保护和最后归档机制，安全轮换长期任务 |
 | [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | Experimental | 盘点项目现有技能，发现可复用候选，并在明确授权后把成熟实践提炼成标准技能包 |
 | [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | 实验中 | Shopify Online Store 2.0 主题草稿优先交付：覆盖架构、内容保留、远程回读、浏览器验收和动态 DOM 稳定性验证 |
 | [`gws-workspace`](skills/gws-workspace/SKILL.md) | 实验中 | 通过 gws CLI 操作 Gmail、日历、Drive、Sheets、Docs、Slides、Chat、Tasks：默认只读的安全边界、辅助命令速查、从零 OAuth 配置指南 |
@@ -52,6 +38,20 @@ ln -s "$PWD/skills/discover-project-skills" ~/.codex/skills/discover-project-ski
 
 ```text
 使用 $discover-project-skills 扫描当前仓库，输出项目技能地图。
+```
+
+三个 365 核心技能也可以用同样方式安装和调用：
+
+```bash
+./install.sh 365-five-step-dev codex
+./install.sh 365-session-rotation-maintainer codex
+./install.sh 365-chatgpt-pro-delivery codex
+```
+
+```text
+使用 $365-five-step-dev 按五步法完整交付这个业务需求。
+使用 $365-session-rotation-maintainer 把这个长期任务安全交给一个已验证的继任任务。
+使用 $365-chatgpt-pro-delivery 获取一次 Pro 审查，并由 Codex 独立验收。
 ```
 
 进行 Shopify 主题工作时，可链接并调用主题交付技能：
@@ -101,6 +101,9 @@ Discovery 和 Audit 默认只读。只有用户明确要求提炼技能并提供
 
 ```bash
 python3 -m unittest discover -s tests -v
+python3 -m json.tool evals/365-chatgpt-pro-delivery/trigger-cases.json >/dev/null
+python3 -m json.tool evals/365-five-step-dev/trigger-cases.json >/dev/null
+python3 -m json.tool evals/365-session-rotation-maintainer/trigger-cases.json >/dev/null
 python3 -m json.tool evals/discover-project-skills/trigger-cases.json >/dev/null
 python3 -m json.tool evals/shopify-theme-delivery/trigger-cases.json >/dev/null
 python3 -m json.tool evals/gws-workspace/trigger-cases.json >/dev/null
@@ -121,7 +124,3 @@ node --test scripts/publication/*.test.mjs
 - [Agent Skills specification](https://github.com/agentskills/agentskills)
 - [Anthropic skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator)
 - [Superpowers writing-skills](https://github.com/obra/superpowers-skills/tree/main/skills/meta/writing-skills)
-
-## 关于老金出海
-
-[老金出海](https://www.laojinchuhai.com/zh) 是「AI 落地实战」品牌：为跨境团队构建并运营 AI 销售副驾驶、Agent 平台和 API 网关——并把真正能用的技能、工具和访谈分享出来。访问我们：[laojinchuhai.com](https://www.laojinchuhai.com/zh)。

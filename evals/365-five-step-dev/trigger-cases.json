@@ -1,0 +1,82 @@
+[
+  {
+    "query": "用365五步法帮我把会员积分过期规则做成一个可以上线的功能，我懂业务但不懂代码。",
+    "should_trigger": true
+  },
+  {
+    "query": "Use $365-five-step-dev to deliver a customer refund approval workflow with business acceptance evidence.",
+    "should_trigger": true
+  },
+  {
+    "query": "这个需求会改 Supabase 权限和历史数据，请按业务风险分级、实施并让我最后能看懂怎么验收。",
+    "should_trigger": true
+  },
+  {
+    "query": "We need to bulk update Shopify prices in production. Frame the business scope, approval boundary, rollback, and verification before execution.",
+    "should_trigger": true
+  },
+  {
+    "query": "用365五步法开发一个销售只能看到自己客户的新页面。",
+    "should_trigger": true
+  },
+  {
+    "query": "Turn this business idea into a controlled Codex delivery: add an order cancellation window without breaking fulfilled orders.",
+    "should_trigger": true
+  },
+  {
+    "query": "我要改支付回调和订单状态流转，不会看代码，请帮我管住影响范围和验收证据。",
+    "should_trigger": true
+  },
+  {
+    "query": "Apply the 365 five-step method to a shared customer identity capability used by three projects.",
+    "should_trigger": true
+  },
+  {
+    "query": "请重新设计我们跨项目的发布授权流程，解决重复审批、责任不清和未闭环交付。",
+    "should_trigger": true
+  },
+  {
+    "query": "PR 已合并，请部署准确的合并版本；canonical 工作区里还有不属于本次任务的未提交文件。",
+    "should_trigger": true
+  },
+  {
+    "query": "Explain what this TypeScript function does. Do not change anything.",
+    "should_trigger": false
+  },
+  {
+    "query": "把按钮文案从提交改成保存。",
+    "should_trigger": false
+  },
+  {
+    "query": "Summarize the latest pull request for me.",
+    "should_trigger": false
+  },
+  {
+    "query": "完成这个普通本地功能，但仓库里可能还有另一个会话留下的未提交文件。",
+    "should_trigger": false
+  },
+  {
+    "query": "Run the existing unit tests and report the failures; do not fix them.",
+    "should_trigger": false
+  },
+  {
+    "query": "把这个普通修复提交、推送并创建 PR。",
+    "should_trigger": false
+  },
+  {
+    "query": "Translate this README into English.",
+    "should_trigger": false
+  },
+  {
+    "query": "Review this completed diff for correctness, but do not implement or plan a feature.",
+    "should_trigger": false
+  },
+  {
+    "query": "为已经确定的字段改动编写迁移文件，但不要应用到任何数据库。",
+    "should_trigger": false
+  },
+  {
+    "query": "Create a small local fixture with three sample users. Keep it local and do not commit.",
+    "should_trigger": false
+  }
+]

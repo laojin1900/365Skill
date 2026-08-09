@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Use $365-session-rotation-maintainer to rotate this long-running Codex task and verify one successor.",
+    "should_trigger": true
+  },
+  {
+    "query": "用 365轮换把这个会话交接给一个新任务。",
+    "should_trigger": true
+  },
+  {
+    "query": "替换这个长期开发任务，保留当前工作状态并归档旧任务。",
+    "should_trigger": true
+  },
+  {
+    "query": "Audit whether this task is safe to rotate, but do not create a successor yet.",
+    "should_trigger": true
+  },
+  {
+    "query": "继续恢复上次没有完成的任务轮换，不要再创建新会话。",
+    "should_trigger": true
+  },
+  {
+    "query": "Hand off this Codex conversation to one verified successor and preserve the Git checkpoint.",
+    "should_trigger": true
+  },
+  {
+    "query": "这个会话太长了，请做一次安全轮换。",
+    "should_trigger": true
+  },
+  {
+    "query": "创建继任任务并确认它已经展示完整交接后再归档旧任务。",
+    "should_trigger": true
+  },
+  {
+    "query": "Rotate the active module task without losing open work or decisions.",
+    "should_trigger": true
+  },
+  {
+    "query": "检查并修复刚才任务轮换中的 ACK 不匹配。",
+    "should_trigger": true
+  },
+  {
+    "query": "列出我最近的 Codex 任务。",
+    "should_trigger": false
+  },
+  {
+    "query": "这个任务已经两周了，帮我看看现在做到哪里。",
+    "should_trigger": false
+  },
+  {
+    "query": "清理项目里的临时文件和缓存。",
+    "should_trigger": false
+  },
+  {
+    "query": "检查当前 worktree 是否干净。",
+    "should_trigger": false
+  },
+  {
+    "query": "Create a new Codex task for an unrelated feature.",
+    "should_trigger": false
+  },
+  {
+    "query": "把当前任务重命名为首页开发。",
+    "should_trigger": false
+  },
+  {
+    "query": "总结当前会话，不要创建或归档任务。",
+    "should_trigger": false
+  },
+  {
+    "query": "部署这个已经合并的版本到生产。",
+    "should_trigger": false
+  },
+  {
+    "query": "Archive this completed Codex task; do not create a successor or handoff.",
+    "should_trigger": false
+  },
+  {
+    "query": "帮我检查项目健康状况和未提交文件。",
+    "should_trigger": false
+  }
+]

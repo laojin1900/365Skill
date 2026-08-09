@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Use $365-chatgpt-pro-delivery to ask ChatGPT Pro for an independent review of this launch plan, then verify the useful parts yourself.",
+    "should_trigger": true
+  },
+  {
+    "query": "用 365 Pro协作，让 ChatGPT Pro 先做品牌图片方案，再由 Codex 验收。",
+    "should_trigger": true
+  },
+  {
+    "query": "请让 ChatGPT Pro 调研最新的三个竞品，并由你复核关键来源。",
+    "should_trigger": true
+  },
+  {
+    "query": "Coordinate Codex and ChatGPT Pro on this engineering design; Pro should review and Codex should validate against the repository.",
+    "should_trigger": true
+  },
+  {
+    "query": "让 Pro 帮忙写英文发布稿，你负责检查事实和最终交付。",
+    "should_trigger": true
+  },
+  {
+    "query": "Use ChatGPT Pro to review this local diff, but keep implementation and verification in Codex and do not push it.",
+    "should_trigger": true
+  },
+  {
+    "query": "我想让 Codex 和 ChatGPT Pro 分工完成这份商业研究。",
+    "should_trigger": true
+  },
+  {
+    "query": "让 Pro 评审这个 PR 的思路，但最终代码和测试由你负责。",
+    "should_trigger": true
+  },
+  {
+    "query": "Use 365 ChatGPT collaboration to create one image batch and independently check the outputs.",
+    "should_trigger": true
+  },
+  {
+    "query": "继续刚才那个 ChatGPT Pro 协作任务，修正它没有证据支持的结论。",
+    "should_trigger": true
+  },
+  {
+    "query": "Explain the difference between ChatGPT Free and Pro.",
+    "should_trigger": false
+  },
+  {
+    "query": "修改这个本地 TypeScript 函数，不需要任何外部协作。",
+    "should_trigger": false
+  },
+  {
+    "query": "Search the web for the latest React documentation.",
+    "should_trigger": false
+  },
+  {
+    "query": "请帮我总结这段文字，不要把内容发送到任何外部服务。",
+    "should_trigger": false
+  },
+  {
+    "query": "Open ChatGPT settings and tell me what options are available.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run the local unit tests and fix the failures.",
+    "should_trigger": false
+  },
+  {
+    "query": "用当前模型直接生成一张插画，不要调用 ChatGPT Pro。",
+    "should_trigger": false
+  },
+  {
+    "query": "Review the diff yourself and do not consult external systems.",
+    "should_trigger": false
+  },
+  {
+    "query": "What is a ChatGPT conversation URL?",
+    "should_trigger": false
+  },
+  {
+    "query": "把 README 翻译成中文。",
+    "should_trigger": false
+  }
+]

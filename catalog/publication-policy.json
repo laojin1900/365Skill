@@ -2,11 +2,14 @@
   "schema_version": 1,
   "default_visibility": "private",
   "public_skill_ids": [
+    "365-chatgpt-pro-delivery",
+    "365-five-step-dev",
+    "365-session-rotation-maintainer",
     "discover-project-skills",
-    "shopify-theme-delivery",
     "gws-workspace",
     "gws-weekly-digest",
-    "parallel-sessions-protocol"
+    "parallel-sessions-protocol",
+    "shopify-theme-delivery"
   ],
   "shared_paths": [
     ".github/workflows/validate-public-export.yml",

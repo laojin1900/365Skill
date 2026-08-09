@@ -1,0 +1,4 @@
+interface:
+  display_name: "365 Session Rotation / 365任务轮换"
+  short_description: "Safe Codex task rotation with verified handoff"
+  default_prompt: "Use $365-session-rotation-maintainer to rotate this Codex task with one verified successor and a durable work handoff."

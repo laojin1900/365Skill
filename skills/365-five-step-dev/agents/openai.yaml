@@ -1,0 +1,4 @@
+interface:
+  display_name: "365五步法 / 365 Five-Step Dev"
+  short_description: "Business delivery with closure and risk control"
+  default_prompt: "Use $365-five-step-dev to deliver this request with controlled scope, explicit closure status, clear next ownership, and acceptance evidence."

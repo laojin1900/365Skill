@@ -1,0 +1,4 @@
+interface:
+  display_name: "365 ChatGPT Pro Delivery / 365 ChatGPT Pro 协作"
+  short_description: "Bounded ChatGPT Pro collaboration with Codex verification"
+  default_prompt: "Use $365-chatgpt-pro-delivery to obtain one bounded ChatGPT Pro contribution and independently verify it in Codex."

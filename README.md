@@ -2,31 +2,17 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-<div align="center">
-
-**由 [老金出海](https://www.laojinchuhai.com) 维护 · Maintained by [Laojin Chuhai](https://www.laojinchuhai.com)**
-
-*跨境出海 × AI 落地实战派 — 每个 Skill 都先在我们自己的业务里跑通，再开源给大家。*
-
-</div>
-
 An experimental repository for discovering, validating, and sharing reusable Agent Skills across projects and AI clients.
 
 The repository follows the open `SKILL.md` directory format. Each skill is self-contained, reviewable, testable, and can bundle procedural instructions, deterministic scripts, and references that are loaded only when needed.
-
-## Why 365Skill
-
-We run AI skills in production every day — cross-border sales, content operations, SEO, and agent workflows (see [laojinchuhai.com](https://www.laojinchuhai.com)). 365Skill is the public, deny-by-default mirror of the skills that survived real use:
-
-- **Production-tested**: skills here power real daily workflows, not demos.
-- **Bilingual**: docs and trigger cases in English and Chinese.
-- **Self-contained**: each skill bundles instructions, scripts, tests and evals.
-- **Safe by default**: discovery and audit are read-only; writes require explicit approval.
 
 ## Available Skills
 
 | Skill | Status | Purpose |
 |---|---|---|
+| [`365-chatgpt-pro-delivery`](skills/365-chatgpt-pro-delivery/SKILL.md) | Experimental | Coordinate one bounded ChatGPT Pro contribution with privacy gates, evidence labels, single dispatch, and independent Codex verification |
+| [`365-five-step-dev`](skills/365-five-step-dev/SKILL.md) | Experimental | Help business-led users frame scope and risk, protect workspace ownership, verify evidence, and close Codex delivery without requiring development-process expertise |
+| [`365-session-rotation-maintainer`](skills/365-session-rotation-maintainer/SKILL.md) | Experimental | Rotate one long-running Codex task through a durable checkpoint, one verified successor, preserved worktree ownership, and archive-last recovery |
 | [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | Experimental | Inventory existing project skills, discover reusable candidates, and extract approved practices into portable skill packages |
 | [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | Experimental | Draft-first Shopify Online Store 2.0 theme delivery with architecture, preservation, remote readback, browser acceptance, and dynamic DOM settling checks |
 | [`gws-workspace`](skills/gws-workspace/SKILL.md) | Experimental | Operate Gmail, Calendar, Drive, Sheets, Docs, Slides, Chat, and Tasks through the gws CLI: read-by-default safety gates, helper-command patterns, and a from-zero OAuth setup guide |
@@ -52,6 +38,20 @@ Invoke it from a new task in any project:
 
 ```text
 Use $discover-project-skills to scan the current repository and produce a project skill map.
+```
+
+Install and invoke any of the three core 365 skills in the same way:
+
+```bash
+./install.sh 365-five-step-dev codex
+./install.sh 365-session-rotation-maintainer codex
+./install.sh 365-chatgpt-pro-delivery codex
+```
+
+```text
+Use $365-five-step-dev to deliver this business requirement through the five-step method.
+Use $365-session-rotation-maintainer to hand this long-running task to one verified successor.
+Use $365-chatgpt-pro-delivery to obtain one Pro review and verify it independently in Codex.
 ```
 
 For Shopify theme work, link and invoke the delivery skill:
@@ -101,6 +101,9 @@ Scan reports can still contain repository paths, filenames, commands, dependency
 
 ```bash
 python3 -m unittest discover -s tests -v
+python3 -m json.tool evals/365-chatgpt-pro-delivery/trigger-cases.json >/dev/null
+python3 -m json.tool evals/365-five-step-dev/trigger-cases.json >/dev/null
+python3 -m json.tool evals/365-session-rotation-maintainer/trigger-cases.json >/dev/null
 python3 -m json.tool evals/discover-project-skills/trigger-cases.json >/dev/null
 python3 -m json.tool evals/shopify-theme-delivery/trigger-cases.json >/dev/null
 python3 -m json.tool evals/gws-workspace/trigger-cases.json >/dev/null
@@ -121,7 +124,3 @@ This repository is licensed under the [Apache License 2.0](LICENSE).
 - [Agent Skills specification](https://github.com/agentskills/agentskills)
 - [Anthropic skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator)
 - [Superpowers writing-skills](https://github.com/obra/superpowers-skills/tree/main/skills/meta/writing-skills)
-
-## About Laojin Chuhai
-
-[老金出海 (Laojin Chuhai)](https://www.laojinchuhai.com) is a practical-AI brand: we build and run AI sales copilots, agent platforms and API gateways for cross-border teams — and we share the skills, tools and interviews that actually work. Visit us at [laojinchuhai.com](https://www.laojinchuhai.com).

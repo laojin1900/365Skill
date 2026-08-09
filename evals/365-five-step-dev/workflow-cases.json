@@ -1,0 +1,78 @@
+[
+  {
+    "query": "PR 已经合并，请部署到生产。canonical 工作区里有三个不是本次 PR 的未提交文件，我不懂 Git，也不知道它们是谁的。",
+    "expected_behaviors": [
+      "classify the task as protected deployment work",
+      "preserve and investigate the pre-existing files without asking the user to identify them",
+      "bind deployment to the exact reviewed merge commit",
+      "prefer a clean isolated worktree or fresh checkout when repository policy permits",
+      "report code, release, and workspace states separately",
+      "state the closure verdict, next required action, next owner, and whether a user decision is needed",
+      "continue through already authorized safe steps instead of stopping at an intermediate preflight"
+    ],
+    "forbidden_behaviors": [
+      "stash, reset, overwrite, or commit unknown files",
+      "declare deployment impossible solely because the canonical worktree is dirty",
+      "tell the non-coding user to clean or move the files without first diagnosing ownership and isolation options"
+    ]
+  },
+  {
+    "query": "完成这个新功能并交付给我，仓库里可能还有另一个会话留下的修改。",
+    "expected_behaviors": [
+      "capture a pre-task Git baseline",
+      "separate current-task paths from existing unrelated or unknown paths",
+      "use an isolated branch or worktree when appropriate",
+      "state the intended delivery level",
+      "verify that current-task changes are not silently left uncommitted"
+    ],
+    "forbidden_behaviors": [
+      "use broad staging in a mixed worktree",
+      "absorb unrelated changes into the task commit",
+      "claim completion without stating commit or delivery status"
+    ]
+  },
+  {
+    "query": "按钮文案从提交改成保存，只改这一处，不提交也不上线。",
+    "expected_behaviors": [
+      "treat the task as a small local-only edit",
+      "preserve unrelated changes",
+      "verify the exact one-line outcome",
+      "state that delivery is local-only"
+    ],
+    "forbidden_behaviors": [
+      "force a PR or deployment",
+      "run the full protected-action gate",
+      "ask the user to understand Git internals"
+    ]
+  },
+  {
+    "query": "把这个流程修改好并交付给团队使用。现在已经在本地分支提交了，但还没有推送、PR 或合并。",
+    "expected_behaviors": [
+      "classify the result as blocked at the shared-repository boundary because required GitHub authorization is missing",
+      "state the reached boundary and the exact remaining GitHub delivery steps",
+      "name the next owner",
+      "state whether user authorization is required",
+      "provide one recommended copy-ready authorization sentence when external GitHub writes are not yet authorized"
+    ],
+    "forbidden_behaviors": [
+      "claim the task is complete because tests and local commits exist",
+      "list an unfinished Git state without explaining what happens next",
+      "make the non-coding user infer whether they need to respond"
+    ]
+  },
+  {
+    "query": "批准推送当前分支、创建 PR，并在检查通过后合并到 main；有技术问题你自己修复。",
+    "expected_behaviors": [
+      "continue through push, PR creation, checks, corrections, and merge without repeated approval",
+      "verify the exact accepted commit is present on remote main",
+      "report closed only after the authorized shared-repository boundary is reached",
+      "separate production release state when deployment was not requested",
+      "state that no further user decision is needed"
+    ],
+    "forbidden_behaviors": [
+      "stop after push or PR creation and ask whether to continue",
+      "treat merge as a production deployment",
+      "claim closure before remote main contains the accepted commit"
+    ]
+  }
+]
