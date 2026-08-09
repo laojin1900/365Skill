@@ -2,9 +2,26 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
+<div align="center">
+
+**由 [老金出海](https://www.laojinchuhai.com) 维护 · Maintained by [Laojin Chuhai](https://www.laojinchuhai.com)**
+
+*跨境出海 × AI 落地实战派 — 每个 Skill 都先在我们自己的业务里跑通，再开源给大家。*
+
+</div>
+
 An experimental repository for discovering, validating, and sharing reusable Agent Skills across projects and AI clients.
 
 The repository follows the open `SKILL.md` directory format. Each skill is self-contained, reviewable, testable, and can bundle procedural instructions, deterministic scripts, and references that are loaded only when needed.
+
+## Why 365Skill
+
+We run AI skills in production every day — cross-border sales, content operations, SEO, and agent workflows (see [laojinchuhai.com](https://www.laojinchuhai.com)). 365Skill is the public, deny-by-default mirror of the skills that survived real use:
+
+- **Production-tested**: skills here power real daily workflows, not demos.
+- **Bilingual**: docs and trigger cases in English and Chinese.
+- **Self-contained**: each skill bundles instructions, scripts, tests and evals.
+- **Safe by default**: discovery and audit are read-only; writes require explicit approval.
 
 ## Available Skills
 
@@ -104,3 +121,7 @@ This repository is licensed under the [Apache License 2.0](LICENSE).
 - [Agent Skills specification](https://github.com/agentskills/agentskills)
 - [Anthropic skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator)
 - [Superpowers writing-skills](https://github.com/obra/superpowers-skills/tree/main/skills/meta/writing-skills)
+
+## About Laojin Chuhai
+
+[老金出海 (Laojin Chuhai)](https://www.laojinchuhai.com) is a practical-AI brand: we build and run AI sales copilots, agent platforms and API gateways for cross-border teams — and we share the skills, tools and interviews that actually work. Visit us at [laojinchuhai.com](https://www.laojinchuhai.com).

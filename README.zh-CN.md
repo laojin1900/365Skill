@@ -2,9 +2,26 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
+<div align="center">
+
+**由 [老金出海](https://www.laojinchuhai.com/zh) 维护**
+
+*跨境出海 × AI 落地实战派 — 每个 Skill 都先在我们自己的业务里跑通，再开源给大家。*
+
+</div>
+
 一个用于跨项目、跨 AI 客户端发现、验证和共享可复用 Agent Skills 的实验仓库。
 
 本仓库使用开放的 `SKILL.md` 目录格式。每个技能保持独立、可审查、可测试，并把流程说明、确定性脚本和按需加载的参考资料放在同一个可移植目录中。
+
+## 为什么有 365Skill
+
+我们每天都在生产环境里跑 AI 技能——跨境销售、内容运营、SEO、Agent 工作流（见 [laojinchuhai.com](https://www.laojinchuhai.com/zh)）。365Skill 是那些经受住真实使用考验的技能的公开展示（默认拒绝发布）：
+
+- **生产验证**：这里的技能驱动真实日常工作，不是 Demo。
+- **中英双语**：文档和触发用例都是中英文。
+- **自包含**：每个技能自带说明、脚本、测试和评测。
+- **默认安全**：发现和审计只读，写入必须显式批准。
 
 ## 当前技能
 
@@ -104,3 +121,7 @@ node --test scripts/publication/*.test.mjs
 - [Agent Skills specification](https://github.com/agentskills/agentskills)
 - [Anthropic skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator)
 - [Superpowers writing-skills](https://github.com/obra/superpowers-skills/tree/main/skills/meta/writing-skills)
+
+## 关于老金出海
+
+[老金出海](https://www.laojinchuhai.com/zh) 是「AI 落地实战」品牌：为跨境团队构建并运营 AI 销售副驾驶、Agent 平台和 API 网关——并把真正能用的技能、工具和访谈分享出来。访问我们：[laojinchuhai.com](https://www.laojinchuhai.com/zh)。
