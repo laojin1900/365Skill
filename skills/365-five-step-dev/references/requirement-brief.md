@@ -4,7 +4,7 @@ Use the smallest format that preserves the decisions Codex and the business owne
 
 使用足以保留关键决策的最小格式，不为写文档而写文档。
 
-## B-grade quick brief / B 级快速简报
+## Quick brief for unresolved scope / 范围未决时的快速简报
 
 Keep this in the conversation unless the project already requires a decision document.
 
@@ -31,11 +31,15 @@ Ask no more than three consolidated questions. Ask only questions whose answers 
 
 最多集中询问三个会改变方案的问题。每个问题必须包含推荐答案、推荐理由，以及选择不同答案会发生什么变化。
 
-## C-grade durable brief / C 级持久简报
+## Durable brief for material long-running decisions / 重大长任务决策简报
 
-Write this into the repository's established decision-doc location. If none exists, use `docs/decisions/<task-slug>.md`.
+Use this only when a long-running or multi-session task has material decisions that are not
+already durable. Write into the repository's established decision-doc location. If none
+exists, use `docs/decisions/<task-slug>.md`. Do not create it merely because a task is
+protected or C-grade.
 
-写入项目既有决策文档目录；没有约定时使用 `docs/decisions/<任务名>.md`。
+只有长任务或跨会话任务存在尚未持久记录的重大决策时才使用。写入项目既有决策文档目录；
+没有约定时使用 `docs/decisions/<任务名>.md`。不要仅因任务是受保护或 C 级就创建。
 
 ```markdown
 # <Outcome> / <业务结果>

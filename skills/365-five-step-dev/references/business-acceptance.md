@@ -65,16 +65,21 @@ Ask the user to perform a final check only when the check depends on their accou
 
 ## Final handoff / 最终交付
 
-Use this order:
+Keep ordinary handoff proportional: delivered outcome, strongest evidence, actual
+code/release state, and one real remaining action when present. Do not emit a fixed
+certificate for a small completed task.
 
-1. **Closure / 闭环状态** — closed, not closed, or blocked, with one reason tied to the requested delivery level.
-2. **Delivered / 已交付** — the business outcome and boundary actually reached.
-3. **Evidence / 证据** — the most important observed checks.
-4. **Impact / 影响** — who or what changes.
-5. **Open risk / 剩余风险** — failed or unverified items only.
-6. **Next action and owner / 下一步及责任人** — write `none—closed` when closed; otherwise name Codex, User, or the external owner.
-7. **User decision / 是否需要用户决定** — `not needed`, or one exact decision with a recommended answer and consequence.
+When the requested delivery level is incomplete, blocked, or reaches a protected action,
+make these items explicit:
 
-Avoid long implementation diaries. Link to durable project files when the user may need details later.
+1. closure state and reached boundary;
+2. failed or unverified evidence and consequence;
+3. next action and owner;
+4. whether the user must make one exact decision, with a recommendation.
 
-避免提交冗长的实施流水；需要长期保留的细节应链接到项目文件。
+普通交付只说明结果、最强证据、真实代码/发布状态和确实存在的下一步，不输出固定证书。
+交付未完成、被阻塞或触及受保护操作时，再明确闭环边界、失败或未验证证据、下一责任人，
+以及用户是否需要做一个带推荐答案的准确决定。
+
+Avoid implementation diaries. Link durable project evidence only when it will be useful
+later.

@@ -50,9 +50,12 @@ Ask for confirmation only after Codex has inspected enough context to make a rec
 
 ## Existing authorization / 已有授权
 
-A user request is sufficient authorization when it clearly names the action, target, and intended scope. Restate the boundary before acting, but do not ask the same question again.
+A current user request is sufficient authorization when it clearly names the action, exact
+target, intended business outcome, and scope. Bind that boundary before acting, but do not
+ask the same question again.
 
-当用户请求已明确操作、目标和范围时，即构成有效授权。执行前可以重述边界，但不要重复询问。
+当用户当前请求已明确操作、准确目标、业务结果和范围时，即构成有效授权。执行前绑定该边界，
+但不要重复询问。
 
 Request fresh confirmation when:
 
@@ -66,6 +69,10 @@ Request fresh confirmation when:
 - 可逆操作变为不可逆；
 - the rollback plan becomes unavailable;
 - 回滚办法失效；
+- the permission or credential boundary changes materially;
+- 权限或凭据边界发生实质变化；
+- the user's intent changes or the user pauses or cancels the goal;
+- 用户意图变化，或用户暂停、取消目标；
 - the observed data conflicts with the approved assumptions.
 - 实际数据与获批前提冲突。
 

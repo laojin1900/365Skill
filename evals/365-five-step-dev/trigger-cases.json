@@ -24,7 +24,7 @@
     "should_trigger": true
   },
   {
-    "query": "我要改支付回调和订单状态流转，不会看代码，请帮我管住影响范围和验收证据。",
+    "query": "我要在生产环境切换支付回调并迁移现有订单状态，不会看代码，请帮我管住目标、回滚和验收证据。",
     "should_trigger": true
   },
   {
@@ -64,7 +64,7 @@
     "should_trigger": false
   },
   {
-    "query": "Translate this README into English.",
+    "query": "Implement the already-approved permission check in this local API, but do not apply or deploy it.",
     "should_trigger": false
   },
   {

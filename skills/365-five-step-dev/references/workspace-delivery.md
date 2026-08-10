@@ -1,8 +1,13 @@
 # Workspace and Delivery Hygiene / 工作区与交付卫生
 
-Use this reference whenever a task may edit files, create commits, open or merge a PR, or deploy. The goal is to make Codex—not the non-coding user—responsible for change ownership and delivery completeness.
+Use this reference only when the worktree is mixed or dirty, change ownership is unclear,
+safe isolation is needed, or delivery has special Git/release handling. Routine clean
+work requires one status inspection, not this full reference. The goal is to make
+Codex—not the non-coding user—responsible for change ownership and delivery completeness.
 
-任何可能编辑文件、创建提交、开设或合并 PR、执行部署的任务都使用本参考。目标是让 Codex，而不是不懂代码的用户，负责改动归属和交付完整性。
+只有工作区混合或脏、改动归属不清、需要安全隔离，或者交付存在特殊 Git/发布处理时才读取。
+普通干净任务只需检查一次状态，不必加载整份参考。目标是让 Codex，而不是不懂代码的用户，
+负责改动归属和交付完整性。
 
 ## Contents / 目录
 
@@ -61,13 +66,14 @@ canonical 目录不干净，不等于无法部署；它只说明不能直接使�
 
 ## 4. Maintain a deliverable change set / 保持改动集可交付
 
-- Commit coherent current-task changes locally unless the user requested local-only output or repository rules prohibit commits.
+- Commit only when the requested delivery level includes a commit or shared Git delivery;
+  do not infer commit authority from a request for local file changes.
 - In a mixed worktree, never use broad staging that can absorb unrelated paths.
 - Before push or PR creation, compare the committed diff with the approved scope.
 - After merge, record the exact merged commit and verify that no current-task paths remain only in a local worktree.
 - Do not label the coding task complete when intended task changes remain uncommitted, unpushed, or outside the reviewed PR, unless that delivery level was explicitly agreed.
 
-- 除非用户明确只要本地产物或项目规则禁止提交，否则把完整的本任务改动形成连贯本地提交。
+- 只有用户要求的交付层级包含提交或共享 Git 交付时才创建提交；不要从本地文件修改推断提交授权。
 - 混合工作区中不得使用会吸收无关路径的宽泛暂存。
 - 推送或创建 PR 前，用获批范围核对已提交 diff。
 - 合并后记录准确合并提交，并确认没有本任务文件只留在本地工作区。

@@ -16,6 +16,8 @@ FORBIDDEN_PUBLIC_TEXT = (
     "365nails",
     "ops-center",
     "Project Controller",
+    "MODULE_CONTEXT_V1",
+    "Registry/Binding",
     "chatgpt-pro-delivery/SKILL.md",
     "session-rotation-maintainer/SKILL.md",
 )
@@ -26,6 +28,8 @@ REQUIRED_TRIGGER_BOUNDARIES = {
         ("完成这个普通本地功能", False),
         ("普通修复提交", False),
         ("编写迁移文件", False),
+        ("already-approved permission check", False),
+        ("生产环境切换支付回调", True),
     ),
     "365-chatgpt-pro-delivery": (
         ("review this local diff", True),
@@ -56,6 +60,11 @@ class PublicCoreSkillTests(unittest.TestCase):
                 self.assertIn(f"name: {skill_id}", skill.read_text(encoding="utf-8"))
                 self.assertIn(f"${skill_id}", agent.read_text(encoding="utf-8"))
                 self.assertLessEqual(len(skill.read_text(encoding="utf-8").splitlines()), 500)
+                if skill_id == "365-five-step-dev":
+                    self.assertLessEqual(
+                        len(skill.read_text(encoding="utf-8").splitlines()), 220
+                    )
+                    self.assertIn("allow_implicit_invocation: true", agent.read_text(encoding="utf-8"))
                 for forbidden in FORBIDDEN_PUBLIC_TEXT:
                     self.assertNotIn(forbidden, text)
                 self.assertIsNone(THREAD_ID.search(text))
@@ -83,6 +92,29 @@ class PublicCoreSkillTests(unittest.TestCase):
                     matches = [case for case in cases if needle in case["query"]]
                     self.assertEqual(len(matches), 1)
                     self.assertIs(matches[0]["should_trigger"], expected)
+
+    def test_five_step_regression_metrics_are_bounded(self):
+        path = REPOSITORY / "evals" / "365-five-step-dev" / "regression-cases.json"
+        cases = json.loads(path.read_text(encoding="utf-8"))
+        metrics = [case["metric"] for case in cases]
+        self.assertEqual(len(metrics), 6)
+        self.assertEqual(len(metrics), len(set(metrics)))
+        self.assertTrue(all(case["target"] == 0 for case in cases))
+
+    def test_five_step_catalog_version_is_v04(self):
+        catalog = (REPOSITORY / "catalog" / "skills.yaml").read_text(encoding="utf-8")
+        entry = catalog.split("  - id: 365-five-step-dev", 1)[1].split("\n  - id:", 1)[0]
+        self.assertIn("version: 0.4.0", entry)
+        self.assertIn("default_behavior: proportional-business-governance", entry)
+
+    def test_five_step_conditional_references_are_direct_and_present(self):
+        root = REPOSITORY / "skills" / "365-five-step-dev"
+        text = (root / "SKILL.md").read_text(encoding="utf-8")
+        links = set(re.findall(r"\]\((references/[^)]+)\)", text))
+        self.assertEqual(len(links), 6)
+        for link in links:
+            with self.subTest(reference=link):
+                self.assertTrue((root / link).is_file())
 
 
 if __name__ == "__main__":

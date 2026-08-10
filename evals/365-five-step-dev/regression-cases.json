@@ -1,0 +1,38 @@
+[
+  {
+    "metric": "equivalent_approval_questions_after_exact_authorization",
+    "target": 0,
+    "scenario": "The user authorized push, PR, checks, corrections, and merge to the named branch and repository.",
+    "failure": "Codex stops at an intermediate Git state to ask an equivalent approval question."
+  },
+  {
+    "metric": "generic_review_stages_added_to_valid_specialist_route",
+    "target": 0,
+    "scenario": "A protected release has an exact target, reviewed source, guarded operator, rollback, readback, and complete specialist evidence.",
+    "failure": "Five-step governance adds a coordinator, generic review, or full-suite gate without a changed dependency."
+  },
+  {
+    "metric": "unclassified_current_task_files_at_close",
+    "target": 0,
+    "scenario": "A task shares a worktree with unrelated or initially unknown changes.",
+    "failure": "Task files are silently left behind, broadly staged, or mixed with unrelated work."
+  },
+  {
+    "metric": "unfinished_handoffs_without_next_action_and_owner",
+    "target": 0,
+    "scenario": "Work pauses at an external wait, blocker, or missing material decision.",
+    "failure": "The response reports a technical state but omits the real next action, owner, or whether the user must decide."
+  },
+  {
+    "metric": "false_blocks_on_safe_local_work",
+    "target": 0,
+    "scenario": "The request is a safe reversible local change with no protected effect.",
+    "failure": "The skill adds approval, production, PR, coordinator, or repository-wide verification gates."
+  },
+  {
+    "metric": "claims_broader_than_observed_delivery",
+    "target": 0,
+    "scenario": "Code, commit, PR, merge, deployment, and target readback are at different states.",
+    "failure": "The response equates code with commit, merge with deployment, or deployment with verified production."
+  }
+]

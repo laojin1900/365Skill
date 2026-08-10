@@ -27,10 +27,10 @@ skills:
   - id: 365-five-step-dev
     title: 365 Five-Step Development
     title_zh_cn: 365五步法
-    summary: Guide business-minded, non-coding users through scoped, risk-aware, evidence-verified Codex delivery with automatic workspace ownership, explicit closure verdicts, and next-owner accountability.
-    summary_zh_cn: 帮助懂业务但不熟悉代码和开发流程的用户，通过范围控制、风险闸门、工作区归属、明确闭环判定和下一步责任人指挥 Codex 完整交付。
+    summary: A thin business-governance layer that gives non-coding users proportional risk control, goal-scoped authorization, evidence-based acceptance, and clear delivery closure without duplicating native Codex workflows.
+    summary_zh_cn: 面向非技术业务用户的轻量治理层，以比例化风险控制、目标级授权、证据验收和明确闭环补充 Codex，而不重复原生开发流程。
     path: skills/365-five-step-dev
-    version: 0.3.0
+    version: 0.4.0
     status: experimental
     languages:
       - en
@@ -39,15 +39,19 @@ skills:
       - business-requirement-framing
       - risk-grading
       - protected-action-gating
+      - goal-scoped-authorization
       - evidence-based-acceptance
       - workspace-change-ownership
       - delivery-state-accounting
       - closure-accountability
+      - proportional-progress-checkpoints
+      - governance-execution-routing
+      - evidence-driven-process-adaptation
     risk: low-by-default
-    default_behavior: business-governance
+    default_behavior: proportional-business-governance
     tested_clients:
       - codex
-    last_verified: 2026-08-09
+    last_verified: 2026-08-10
 
   - id: 365-session-rotation-maintainer
     title: 365 Session Rotation Maintainer

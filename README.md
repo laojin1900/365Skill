@@ -11,7 +11,7 @@ The repository follows the open `SKILL.md` directory format. Each skill is self-
 | Skill | Status | Purpose |
 |---|---|---|
 | [`365-chatgpt-pro-delivery`](skills/365-chatgpt-pro-delivery/SKILL.md) | Experimental | Coordinate one bounded ChatGPT Pro contribution with privacy gates, evidence labels, single dispatch, and independent Codex verification |
-| [`365-five-step-dev`](skills/365-five-step-dev/SKILL.md) | Experimental | Help business-led users frame scope and risk, protect workspace ownership, verify evidence, and close Codex delivery without requiring development-process expertise |
+| [`365-five-step-dev`](skills/365-five-step-dev/SKILL.md) | Experimental | Thin, proportional business governance for goal-scoped authorization, risk, evidence, worktree ownership, progress, and closure without duplicating native Codex workflows |
 | [`365-session-rotation-maintainer`](skills/365-session-rotation-maintainer/SKILL.md) | Experimental | Rotate one long-running Codex task through a durable checkpoint, one verified successor, preserved worktree ownership, and archive-last recovery |
 | [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | Experimental | Inventory existing project skills, discover reusable candidates, and extract approved practices into portable skill packages |
 | [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | Experimental | Draft-first Shopify Online Store 2.0 theme delivery with architecture, preservation, remote readback, browser acceptance, and dynamic DOM settling checks |
@@ -104,6 +104,9 @@ Install and invoke any of the three core 365 skills in the same way:
 ./install.sh 365-chatgpt-pro-delivery codex
 ```
 
+The installer links Codex to this repository checkout. Update the canonical repository
+instead of editing the installed copy so the global skill and published source cannot drift.
+
 ```text
 Use $365-five-step-dev to deliver this business requirement through the five-step method.
 Use $365-session-rotation-maintainer to hand this long-running task to one verified successor.
@@ -159,6 +162,8 @@ Scan reports can still contain repository paths, filenames, commands, dependency
 python3 -m unittest discover -s tests -v
 python3 -m json.tool evals/365-chatgpt-pro-delivery/trigger-cases.json >/dev/null
 python3 -m json.tool evals/365-five-step-dev/trigger-cases.json >/dev/null
+python3 -m json.tool evals/365-five-step-dev/workflow-cases.json >/dev/null
+python3 -m json.tool evals/365-five-step-dev/regression-cases.json >/dev/null
 python3 -m json.tool evals/365-session-rotation-maintainer/trigger-cases.json >/dev/null
 python3 -m json.tool evals/discover-project-skills/trigger-cases.json >/dev/null
 python3 -m json.tool evals/shopify-theme-delivery/trigger-cases.json >/dev/null
