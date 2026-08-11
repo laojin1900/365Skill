@@ -1,10 +1,10 @@
 [
   {
-    "query": "用365五步法帮我把会员积分过期规则做成一个可以上线的功能，我懂业务但不懂代码。",
+    "query": "用365五步法（Codex版）帮我把会员积分过期规则做成一个可以上线的功能，我懂业务但不懂代码。",
     "should_trigger": true
   },
   {
-    "query": "Use $365-five-step-dev to deliver a customer refund approval workflow with business acceptance evidence.",
+    "query": "Use $365-five-step-dev-codex to deliver a customer refund approval workflow with business acceptance evidence.",
     "should_trigger": true
   },
   {
@@ -40,7 +40,7 @@
     "should_trigger": true
   },
   {
-    "query": "Explain what this TypeScript function does. Do not change anything.",
+    "query": "请使用365五步法（Claude版）完成这个开发任务，不要切换成 Codex 版。",
     "should_trigger": false
   },
   {

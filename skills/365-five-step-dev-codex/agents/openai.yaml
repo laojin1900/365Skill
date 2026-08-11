@@ -1,0 +1,7 @@
+interface:
+  display_name: "365五步法（Codex版） / 365 Five-Step Dev (Codex Edition)"
+  short_description: "Codex business governance with evidence and closure"
+  default_prompt: "Use $365-five-step-dev-codex to govern this Codex delivery with proportional risk control, evidence, and clear closure."
+
+policy:
+  allow_implicit_invocation: true

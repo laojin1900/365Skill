@@ -11,7 +11,7 @@
 | Skill | 状态 | 作用 |
 |---|---|---|
 | [`365-chatgpt-pro-delivery`](skills/365-chatgpt-pro-delivery/SKILL.md) | 实验中 | 通过隐私闸门、证据标签、单次发送和 Codex 独立验收，完成一次边界清晰的 ChatGPT Pro 协作 |
-| [`365-five-step-dev`](skills/365-five-step-dev/SKILL.md) | 实验中 | 以轻量、比例化的业务治理管理目标级授权、风险、证据、工作区归属、进度和闭环，不重复 Codex 原生开发流程 |
+| [`365-five-step-dev-codex`](skills/365-five-step-dev-codex/SKILL.md) | 实验中 | 365五步法（Codex版）：以轻量、比例化的业务治理管理目标级授权、风险、证据、工作区归属、进度和闭环，不重复 Codex 原生开发流程 |
 | [`365-session-rotation-maintainer`](skills/365-session-rotation-maintainer/SKILL.md) | 实验中 | 通过持久检查点、唯一且已验证的继任任务、工作区归属保护和最后归档机制，安全轮换长期任务 |
 | [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | Experimental | 盘点项目现有技能，发现可复用候选，并在明确授权后把成熟实践提炼成标准技能包 |
 | [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | 实验中 | Shopify Online Store 2.0 主题草稿优先交付：覆盖架构、内容保留、远程回读、浏览器验收和动态 DOM 稳定性验证 |
@@ -99,7 +99,7 @@ ln -s "$PWD/skills/discover-project-skills" ~/.codex/skills/discover-project-ski
 三个 365 核心技能也可以用同样方式安装和调用：
 
 ```bash
-./install.sh 365-five-step-dev codex
+./install.sh 365-five-step-dev-codex codex
 ./install.sh 365-session-rotation-maintainer codex
 ./install.sh 365-chatgpt-pro-delivery codex
 ```
@@ -108,7 +108,7 @@ ln -s "$PWD/skills/discover-project-skills" ~/.codex/skills/discover-project-ski
 避免本机运行版与公开版再次漂移。
 
 ```text
-使用 $365-five-step-dev 按五步法完整交付这个业务需求。
+使用 $365-five-step-dev-codex 按 365五步法（Codex版）完整交付这个业务需求。
 使用 $365-session-rotation-maintainer 把这个长期任务安全交给一个已验证的继任任务。
 使用 $365-chatgpt-pro-delivery 获取一次 Pro 审查，并由 Codex 独立验收。
 ```
@@ -122,6 +122,9 @@ ln -s "$PWD/skills/shopify-theme-delivery" ~/.codex/skills/shopify-theme-deliver
 ```text
 使用 $shopify-theme-delivery 先规划并验证这次主题草稿修改，不要直接写入 Shopify。
 ```
+
+不同客户端版本使用独立技能 ID。当前技能是 Codex 版；未来 Claude 版可使用
+`365-five-step-dev-claude`，避免两个版本发生触发冲突。
 
 只运行结构扫描器：
 
@@ -161,9 +164,9 @@ Discovery 和 Audit 默认只读。只有用户明确要求提炼技能并提供
 ```bash
 python3 -m unittest discover -s tests -v
 python3 -m json.tool evals/365-chatgpt-pro-delivery/trigger-cases.json >/dev/null
-python3 -m json.tool evals/365-five-step-dev/trigger-cases.json >/dev/null
-python3 -m json.tool evals/365-five-step-dev/workflow-cases.json >/dev/null
-python3 -m json.tool evals/365-five-step-dev/regression-cases.json >/dev/null
+python3 -m json.tool evals/365-five-step-dev-codex/trigger-cases.json >/dev/null
+python3 -m json.tool evals/365-five-step-dev-codex/workflow-cases.json >/dev/null
+python3 -m json.tool evals/365-five-step-dev-codex/regression-cases.json >/dev/null
 python3 -m json.tool evals/365-session-rotation-maintainer/trigger-cases.json >/dev/null
 python3 -m json.tool evals/discover-project-skills/trigger-cases.json >/dev/null
 python3 -m json.tool evals/shopify-theme-delivery/trigger-cases.json >/dev/null

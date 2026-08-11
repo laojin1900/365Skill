@@ -7,7 +7,7 @@ from pathlib import Path
 REPOSITORY = Path(__file__).resolve().parents[1]
 PUBLIC_CORE_SKILLS = (
     "365-chatgpt-pro-delivery",
-    "365-five-step-dev",
+    "365-five-step-dev-codex",
     "365-session-rotation-maintainer",
 )
 FORBIDDEN_PUBLIC_TEXT = (
@@ -23,7 +23,10 @@ FORBIDDEN_PUBLIC_TEXT = (
 )
 THREAD_ID = re.compile(r"\b019f[0-9a-f-]{20,}\b", re.IGNORECASE)
 REQUIRED_TRIGGER_BOUNDARIES = {
-    "365-five-step-dev": (
+    "365-five-step-dev-codex": (
+        ("365五步法（Codex版）", True),
+        ("$365-five-step-dev-codex", True),
+        ("365五步法（Claude版）", False),
         ("发布授权流程", True),
         ("完成这个普通本地功能", False),
         ("普通修复提交", False),
@@ -60,7 +63,7 @@ class PublicCoreSkillTests(unittest.TestCase):
                 self.assertIn(f"name: {skill_id}", skill.read_text(encoding="utf-8"))
                 self.assertIn(f"${skill_id}", agent.read_text(encoding="utf-8"))
                 self.assertLessEqual(len(skill.read_text(encoding="utf-8").splitlines()), 500)
-                if skill_id == "365-five-step-dev":
+                if skill_id == "365-five-step-dev-codex":
                     self.assertLessEqual(
                         len(skill.read_text(encoding="utf-8").splitlines()), 220
                     )
@@ -94,21 +97,22 @@ class PublicCoreSkillTests(unittest.TestCase):
                     self.assertIs(matches[0]["should_trigger"], expected)
 
     def test_five_step_regression_metrics_are_bounded(self):
-        path = REPOSITORY / "evals" / "365-five-step-dev" / "regression-cases.json"
+        path = REPOSITORY / "evals" / "365-five-step-dev-codex" / "regression-cases.json"
         cases = json.loads(path.read_text(encoding="utf-8"))
         metrics = [case["metric"] for case in cases]
         self.assertEqual(len(metrics), 6)
         self.assertEqual(len(metrics), len(set(metrics)))
         self.assertTrue(all(case["target"] == 0 for case in cases))
 
-    def test_five_step_catalog_version_is_v04(self):
+    def test_five_step_catalog_version_is_v05(self):
         catalog = (REPOSITORY / "catalog" / "skills.yaml").read_text(encoding="utf-8")
-        entry = catalog.split("  - id: 365-five-step-dev", 1)[1].split("\n  - id:", 1)[0]
-        self.assertIn("version: 0.4.0", entry)
+        entry = catalog.split("  - id: 365-five-step-dev-codex", 1)[1].split("\n  - id:", 1)[0]
+        self.assertIn("version: 0.5.0", entry)
+        self.assertIn("title_zh_cn: 365五步法（Codex版）", entry)
         self.assertIn("default_behavior: proportional-business-governance", entry)
 
     def test_five_step_conditional_references_are_direct_and_present(self):
-        root = REPOSITORY / "skills" / "365-five-step-dev"
+        root = REPOSITORY / "skills" / "365-five-step-dev-codex"
         text = (root / "SKILL.md").read_text(encoding="utf-8")
         links = set(re.findall(r"\]\((references/[^)]+)\)", text))
         self.assertEqual(len(links), 6)

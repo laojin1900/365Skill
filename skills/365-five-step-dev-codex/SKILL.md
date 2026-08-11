@@ -1,9 +1,9 @@
 ---
-name: 365-five-step-dev
-description: "Business-led five-step governance for scoped, risk-aware, evidence-verified Codex delivery. Invoke explicitly when the user says 五步法 or 365五步法, uses $365-five-step-dev, or directly requests this governance method. Invoke automatically only for an actual production or infrastructure change, a bulk or destructive live-data operation, an unresolved business permission or compliance decision, or a process-governance redesign. Do not invoke implicitly for ordinary features, database or migration-file authoring, permission implementation, commits, PRs, merges, local previews, deployment preparation, a dirty worktree by itself, general questions, or read-only analysis."
+name: 365-five-step-dev-codex
+description: "The Codex edition of business-led five-step governance for scoped, risk-aware, evidence-verified delivery. Invoke explicitly when the user says 五步法, 365五步法, or 365五步法 Codex版, uses $365-five-step-dev-codex, or directly requests this Codex governance method. Invoke automatically only for an actual production or infrastructure change, a bulk or destructive live-data operation, an unresolved business permission or compliance decision, or a process-governance redesign. Do not invoke for requests that explicitly name the Claude edition. Do not invoke implicitly for ordinary features, database or migration-file authoring, permission implementation, commits, PRs, merges, local previews, deployment preparation, a dirty worktree by itself, general questions, or read-only analysis."
 ---
 
-# 365 Five-Step Development / 365五步法
+# 365 Five-Step Development (Codex Edition) / 365五步法（Codex版）
 
 Use this skill as a thin business-governance layer around Codex. Do not duplicate Codex's
 native planning, implementation, debugging, review, testing, Git delivery, repository

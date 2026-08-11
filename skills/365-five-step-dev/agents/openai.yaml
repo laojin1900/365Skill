@@ -1,7 +1,0 @@
-interface:
-  display_name: "365五步法 / 365 Five-Step Dev"
-  short_description: "Lean business governance with evidence and closure"
-  default_prompt: "Use $365-five-step-dev to govern this business outcome with proportional risk control, evidence, and clear closure."
-
-policy:
-  allow_implicit_invocation: true
