@@ -16,3 +16,5 @@ secrets/
 build/
 dist/
 tmp/
+skills/*/logbook.md
+skills/*/archive/
