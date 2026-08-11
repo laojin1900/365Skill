@@ -53,6 +53,51 @@ skills:
       - codex
     last_verified: 2026-08-11
 
+  - id: 365-five-step-dev-claude
+    title: 365 Five-Step Development (Claude Code Edition)
+    title_zh_cn: 365五步法（Claude Code 版）
+    summary: The Claude Code edition of a thin business-governance layer that gives non-coding users graded risk control (A/B/C), requirement-collision before work starts, and evidence-based delivery closure — refined over ten real-world retrospective cycles.
+    summary_zh_cn: 面向非技术业务用户的 365五步法 Claude Code 版，通过 A/B/C 三级风险分级、动手前的需求碰撞和证据验收闭环提供轻量业务治理层；经过十轮真实运行复盘打磨。
+    path: skills/365-five-step-dev-claude
+    version: 0.1.0
+    status: experimental
+    languages:
+      - en
+      - zh-CN
+    capabilities:
+      - business-requirement-framing
+      - risk-grading
+      - requirement-collision
+      - evidence-based-acceptance
+      - workspace-change-ownership
+      - delivery-state-accounting
+    risk: low-by-default
+    default_behavior: proportional-business-governance
+    tested_clients:
+      - claude-code
+    last_verified: 2026-08-11
+
+  - id: 365-five-step-retro-claude
+    title: 365 Five-Step Retro (Claude Code Edition)
+    title_zh_cn: 365五步法复盘（Claude Code 版）
+    summary: Self-metabolism companion for 365-five-step-dev-claude — analyzes real run logs across six fixed dimensions, cross-checks against git history for silent gaps, and upgrades the governance skill only through an explicit, per-proposal approval gate.
+    summary_zh_cn: 365五步法（Claude Code 版）的自我迭代复盘技能——按六个固定维度分析真实运行日志、用 git 记录交叉核对漏记，且只在逐条获得用户批准后才升级流程本身。
+    path: skills/365-five-step-retro-claude
+    version: 0.1.0
+    status: experimental
+    languages:
+      - en
+      - zh-CN
+    capabilities:
+      - process-retrospective
+      - evidence-cross-validation
+      - governed-self-upgrade
+    risk: low-by-default
+    default_behavior: advisory-and-validation
+    tested_clients:
+      - claude-code
+    last_verified: 2026-08-11
+
   - id: 365-session-rotation-maintainer
     title: 365 Session Rotation Maintainer
     title_zh_cn: 365任务轮换
@@ -169,10 +214,10 @@ skills:
   - id: parallel-sessions-protocol
     title: Parallel Sessions Protocol
     title_zh_cn: 多会话并行开发协议
-    summary: Coordinate any number of AI or human sessions developing one git repository in parallel — draft-PR board registration, resource claiming, ledger writes only at merge time, merge discipline, and a three-checkpoint awareness refresh.
-    summary_zh_cn: 协调任意数量的 AI 或人类会话并行开发同一个 git 仓库：Draft PR 公告板登记、资源认领、记账只在合并前写、合并纪律、三时点全局刷新。
+    summary: Coordinate any number of AI or human sessions developing one git repository in parallel — draft-PR board registration, resource claiming, ledger writes only at merge time, merge discipline, end-of-work teardown registration, and a three-checkpoint awareness refresh.
+    summary_zh_cn: 协调任意数量的 AI 或人类会话并行开发同一个 git 仓库：Draft PR 公告板登记、资源认领、记账只在合并前写、合并纪律、收工登记（会话中断/暂停时的对称收尾）、三时点全局刷新。
     path: skills/parallel-sessions-protocol
-    version: 0.1.0
+    version: 0.2.0
     status: experimental
     languages:
       - en
@@ -182,11 +227,34 @@ skills:
       - work-claim-registration
       - sequential-resource-allocation
       - merge-discipline
+      - end-of-work-teardown
     risk: low-by-default
     default_behavior: guarded-mutation
     tested_clients:
       - claude-code
-    last_verified: 2026-08-05
+    last_verified: 2026-08-11
+
+  - id: project-health-check
+    title: Project Health Check
+    title_zh_cn: 项目健康巡检
+    summary: Read-only cross-project health sweep — CI red streaks, stale PRs, unpushed work, orphan worktrees, and open five-step-dev ledger items, rolled up into one judgeable report with false-positive guards. Findings become separate follow-up tasks, never in-place fixes.
+    summary_zh_cn: 跨项目只读健康巡检——CI 连红、stale PR、未推工作、孤儿 worktree、五步法账本开口事项，汇总成一页带防误报判读规则的报告；发现的问题一律另立任务，绝不当场修复。
+    path: skills/project-health-check
+    version: 0.1.0
+    status: experimental
+    languages:
+      - en
+      - zh-CN
+    capabilities:
+      - read-only-repo-sweep
+      - false-positive-guarded-judgment
+      - orphan-worktree-detection
+      - ci-red-streak-detection
+    risk: low-by-default
+    default_behavior: read-only-report
+    tested_clients:
+      - claude-code
+    last_verified: 2026-08-11
 
   - id: ask-matt
     title: Ask Matt

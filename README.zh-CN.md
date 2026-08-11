@@ -12,18 +12,16 @@
 |---|---|---|
 | [`365-chatgpt-pro-delivery`](skills/365-chatgpt-pro-delivery/SKILL.md) | 实验中 | 通过隐私闸门、证据标签、单次发送和 Codex 独立验收，完成一次边界清晰的 ChatGPT Pro 协作 |
 | [`365-five-step-dev-codex`](skills/365-five-step-dev-codex/SKILL.md) | 实验中 | 365五步法（Codex版）：以轻量、比例化的业务治理管理目标级授权、风险、证据、工作区归属、进度和闭环，不重复 Codex 原生开发流程 |
+| [`365-five-step-dev-claude`](skills/365-five-step-dev-claude/SKILL.md) | 实验中 | 365五步法（Claude Code 版）：同一套治理理念，用 A/B/C 三级风险分级、动手前需求碰撞、证据验收闭环，经十轮真实运行复盘打磨 |
+| [`365-five-step-retro-claude`](skills/365-five-step-retro-claude/SKILL.md) | 实验中 | Claude Code 版五步法的自我迭代复盘技能——六维度分析真实日志、用 git 记录交叉核对漏记，只在逐条获批后才升级流程本身 |
 | [`365-session-rotation-maintainer`](skills/365-session-rotation-maintainer/SKILL.md) | 实验中 | 通过持久检查点、唯一且已验证的继任任务、工作区归属保护和最后归档机制，安全轮换长期任务 |
-| [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | Experimental | 盘点项目现有技能，发现可复用候选，并在明确授权后把成熟实践提炼成标准技能包 |
+| [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | 实验中 | 盘点项目现有技能，发现可复用候选，并在明确授权后把成熟实践提炼成标准技能包 |
 | [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | 实验中 | Shopify Online Store 2.0 主题草稿优先交付：覆盖架构、内容保留、远程回读、浏览器验收和动态 DOM 稳定性验证 |
 | [`gws-workspace`](skills/gws-workspace/SKILL.md) | 实验中 | 通过 gws CLI 操作 Gmail、日历、Drive、Sheets、Docs、Slides、Chat、Tasks：默认只读的安全边界、辅助命令速查、从零 OAuth 配置指南 |
 | [`gws-weekly-digest`](skills/gws-weekly-digest/SKILL.md) | 实验中 | 用邮件和日历生成每周晨报：上周邮件统计、本周日程按天分组、markdown 晨报加会话摘要，严格只读 |
-| [`parallel-sessions-protocol`](skills/parallel-sessions-protocol/SKILL.md) | 实验中 | 协调任意数量的会话并行开发同一仓库：Draft PR 公告板登记、资源认领、记账只在合并前写、合并纪律、三时点刷新 |
+| [`parallel-sessions-protocol`](skills/parallel-sessions-protocol/SKILL.md) | 实验中 | 协调任意数量的会话并行开发同一仓库：Draft PR 公告板登记、资源认领、记账只在合并前写、合并纪律、收工登记（会话中断/暂停时的对称收尾）、三时点刷新 |
+| [`project-health-check`](skills/project-health-check/SKILL.md) | 实验中（早期） | 跨项目只读健康巡检——CI 连红、stale PR、未推工作、孤儿 worktree，汇总成一页带防误报判读规则的报告；发现的问题一律另立任务，绝不当场修复 |
 
-| [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | Experimental | 盘点项目现有技能，发现可复用候选，并在明确授权后把成熟实践提炼成标准技能包 |
-| [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | 实验中 | Shopify Online Store 2.0 主题草稿优先交付：覆盖架构、内容保留、远程回读、浏览器验收和动态 DOM 稳定性验证 |
-| [`gws-workspace`](skills/gws-workspace/SKILL.md) | 实验中 | 通过 gws CLI 操作 Gmail、日历、Drive、Sheets、Docs、Slides、Chat、Tasks：默认只读的安全边界、辅助命令速查、从零 OAuth 配置指南 |
-| [`gws-weekly-digest`](skills/gws-weekly-digest/SKILL.md) | 实验中 | 用邮件和日历生成每周晨报：上周邮件统计、本周日程按天分组、markdown 晨报加会话摘要，严格只读 |
-| [`parallel-sessions-protocol`](skills/parallel-sessions-protocol/SKILL.md) | 实验中 | 协调任意数量的会话并行开发同一仓库：Draft PR 公告板登记、资源认领、记账只在合并前写、合并纪律、三时点刷新 |
 ### 从 [mattpocock/skills](https://github.com/mattpocock/skills) 同步（MIT 协议）
 
 Matt Pocock 生产环境技能的逐字同步——来源与版权见各技能目录内 `THIRD-PARTY.md`。
@@ -123,8 +121,10 @@ ln -s "$PWD/skills/shopify-theme-delivery" ~/.codex/skills/shopify-theme-deliver
 使用 $shopify-theme-delivery 先规划并验证这次主题草稿修改，不要直接写入 Shopify。
 ```
 
-不同客户端版本使用独立技能 ID。当前技能是 Codex 版；未来 Claude 版可使用
-`365-five-step-dev-claude`，避免两个版本发生触发冲突。
+不同客户端版本使用独立技能 ID。本包是 Codex 版；Claude Code 版已发布为
+[`365-five-step-dev-claude`](skills/365-five-step-dev-claude/SKILL.md)
+（配套复盘技能 [`365-five-step-retro-claude`](skills/365-five-step-retro-claude/SKILL.md)）——
+同一套治理理念，在 Claude Code 侧独立打磨了十轮真实运行复盘，两个版本互不触发冲突。
 
 只运行结构扫描器：
 
@@ -173,6 +173,9 @@ python3 -m json.tool evals/shopify-theme-delivery/trigger-cases.json >/dev/null
 python3 -m json.tool evals/gws-workspace/trigger-cases.json >/dev/null
 python3 -m json.tool evals/gws-weekly-digest/trigger-cases.json >/dev/null
 python3 -m json.tool evals/parallel-sessions-protocol/trigger-cases.json >/dev/null
+python3 -m json.tool evals/project-health-check/trigger-cases.json >/dev/null
+python3 -m json.tool evals/365-five-step-dev-claude/trigger-cases.json >/dev/null
+python3 -m json.tool evals/365-five-step-retro-claude/trigger-cases.json >/dev/null
 node --test skills/shopify-theme-delivery/scripts/*.test.mjs
 node --test scripts/publication/*.test.mjs
 ```

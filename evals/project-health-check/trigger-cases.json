@@ -1,0 +1,26 @@
+[
+  {
+    "query": "巡检",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我扫一下最近这些项目的健康状况",
+    "should_trigger": true
+  },
+  {
+    "query": "有没有哪个仓库的分支或 worktree 烂尾了",
+    "should_trigger": true
+  },
+  {
+    "query": "CI 一直是红的，帮我看看是哪个仓",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我修一下这个 CI 配置",
+    "should_trigger": false
+  },
+  {
+    "query": "这个 bug 具体是什么原因导致的",
+    "should_trigger": false
+  }
+]

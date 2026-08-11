@@ -1,6 +1,6 @@
 ---
 name: parallel-sessions-protocol
-description: Coordinate any number of AI or human dev sessions working the same git repository in parallel — start-of-work registration (a draft PR is the shared board, with claim declarations), resource claiming (sequential numbers, file ownership), ledger-writes-only-at-merge-time, merge discipline (local merge preview, exclusive working directories, no `git add -A`), and a three-checkpoint awareness refresh. Use when multiple sessions / agents / worktrees develop one repo at the same time; when the user says 多会话并行, 并行轨道, 开工登记, 公告板, 会话撞车, 多个会话同时开发, coordinate parallel sessions, multiple Claude sessions on one repo, sessions keep colliding, track claims; when sequential resources (migration or decision numbers) or shared changelog/ledger docs keep colliding between branches; or when a session needs to know what other sessions are doing before acting. NOT for release/QA pipeline coordination through a dedicated controller lane, not for plain merge-conflict fixing, not for in-session subagent orchestration, not for CI test parallelism.
+description: Coordinate any number of AI or human dev sessions working the same git repository in parallel — start-of-work registration (a draft PR is the shared board, with claim declarations), resource claiming (sequential numbers, file ownership), ledger-writes-only-at-merge-time, merge discipline (local merge preview, exclusive working directories, no `git add -A`), end-of-work registration (push-or-declare WIP, worktree cleanup, triggered write-backs), and a three-checkpoint awareness refresh. Use when multiple sessions / agents / worktrees develop one repo at the same time; when the user says 多会话并行, 并行轨道, 开工登记, 收工登记, 公告板, 会话撞车, 多个会话同时开发, coordinate parallel sessions, multiple Claude sessions on one repo, sessions keep colliding, track claims; when sequential resources (migration or decision numbers) or shared changelog/ledger docs keep colliding between branches; or when a session needs to know what other sessions are doing before acting. NOT for release/QA pipeline coordination through a dedicated controller lane, not for plain merge-conflict fixing, not for in-session subagent orchestration, not for CI test parallelism.
 ---
 
 # Parallel Sessions Protocol
@@ -102,6 +102,29 @@ failures over four days because every session assumed someone else was
 watching. The glance multiplies detection odds by the number of sessions; it
 is still probabilistic, so recommend a dedicated automated watchdog for
 guarantees (out of scope here).
+
+## Mechanism 6 — Register at end of work (teardown)
+
+Mechanism 1 point 4 covers a **track** that ends (merged or abandoned). This
+mechanism covers the more common case: the **session** stops — done for now,
+paused, or interrupted — while the track lives on. Before ending or pausing:
+
+1. **Push or declare.** Push unmerged work to the track's own branch. If you
+   cannot push, write a WIP declaration into the draft PR body: current
+   state, and where the next session should pick up (one wip commit had to
+   be rescued from an interrupted session by another track).
+2. **Worktree hygiene.** Remove your worktree when done; if you must leave
+   it, log why in the PR body. Orphan worktrees accumulate silently (a
+   routine audit found two in one repo) and later block merges.
+3. **Refresh the board.** Update the draft PR's "Current status" line.
+4. **Write back triggered items.** Any pending-verification / ledger entry
+   whose trigger condition has already fired gets closed now, not "later" —
+   one audit found five merged PRs whose log entries still said "awaiting
+   merge".
+
+Leftovers from interrupted sessions are inventoried and claimed by the next
+session entering the repo, via the board — never assume the original session
+will come back.
 
 ## The human owner's interface
 

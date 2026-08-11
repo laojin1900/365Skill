@@ -12,18 +12,16 @@ The repository follows the open `SKILL.md` directory format. Each skill is self-
 |---|---|---|
 | [`365-chatgpt-pro-delivery`](skills/365-chatgpt-pro-delivery/SKILL.md) | Experimental | Coordinate one bounded ChatGPT Pro contribution with privacy gates, evidence labels, single dispatch, and independent Codex verification |
 | [`365-five-step-dev-codex`](skills/365-five-step-dev-codex/SKILL.md) | Experimental | Codex edition of thin, proportional business governance for goal-scoped authorization, risk, evidence, worktree ownership, progress, and closure without duplicating native Codex workflows |
+| [`365-five-step-dev-claude`](skills/365-five-step-dev-claude/SKILL.md) | Experimental | Claude Code edition of the same governance layer — graded risk (A/B/C), requirement-collision before work starts, evidence-based closure — refined over ten real-world retrospective cycles |
+| [`365-five-step-retro-claude`](skills/365-five-step-retro-claude/SKILL.md) | Experimental | Self-metabolism companion for the Claude Code edition — six-dimension log analysis, git-history cross-checks for silent gaps, upgrades gated on explicit per-proposal approval |
 | [`365-session-rotation-maintainer`](skills/365-session-rotation-maintainer/SKILL.md) | Experimental | Rotate one long-running Codex task through a durable checkpoint, one verified successor, preserved worktree ownership, and archive-last recovery |
 | [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | Experimental | Inventory existing project skills, discover reusable candidates, and extract approved practices into portable skill packages |
 | [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | Experimental | Draft-first Shopify Online Store 2.0 theme delivery with architecture, preservation, remote readback, browser acceptance, and dynamic DOM settling checks |
 | [`gws-workspace`](skills/gws-workspace/SKILL.md) | Experimental | Operate Gmail, Calendar, Drive, Sheets, Docs, Slides, Chat, and Tasks through the gws CLI: read-by-default safety gates, helper-command patterns, and a from-zero OAuth setup guide |
 | [`gws-weekly-digest`](skills/gws-weekly-digest/SKILL.md) | Experimental | Recurring weekly briefing from mailbox and calendar: last week's mail stats, next seven days of events, markdown digest plus chat summary, strictly read-only |
-| [`parallel-sessions-protocol`](skills/parallel-sessions-protocol/SKILL.md) | Experimental | Coordinate any number of parallel sessions on one repository: draft-PR board registration, resource claiming, ledger writes only at merge time, merge discipline, three-checkpoint refresh |
+| [`parallel-sessions-protocol`](skills/parallel-sessions-protocol/SKILL.md) | Experimental | Coordinate any number of parallel sessions on one repository: draft-PR board registration, resource claiming, ledger writes only at merge time, merge discipline, end-of-work teardown registration, three-checkpoint refresh |
+| [`project-health-check`](skills/project-health-check/SKILL.md) | Experimental (early) | Read-only cross-project health sweep — CI red streaks, stale PRs, unpushed work, orphan worktrees — rolled into one judgeable report with false-positive guards; findings become follow-up tasks, never in-place fixes |
 
-| [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | Experimental | Inventory existing project skills, discover reusable candidates, and extract approved practices into portable skill packages |
-| [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | Experimental | Draft-first Shopify Online Store 2.0 theme delivery with architecture, preservation, remote readback, browser acceptance, and dynamic DOM settling checks |
-| [`gws-workspace`](skills/gws-workspace/SKILL.md) | Experimental | Operate Gmail, Calendar, Drive, Sheets, Docs, Slides, Chat, and Tasks through the gws CLI: read-by-default safety gates, helper-command patterns, and a from-zero OAuth setup guide |
-| [`gws-weekly-digest`](skills/gws-weekly-digest/SKILL.md) | Experimental | Recurring weekly briefing from mailbox and calendar: last week's mail stats, next seven days of events, markdown digest plus chat summary, strictly read-only |
-| [`parallel-sessions-protocol`](skills/parallel-sessions-protocol/SKILL.md) | Experimental | Coordinate any number of parallel sessions on one repository: draft-PR board registration, resource claiming, ledger writes only at merge time, merge discipline, three-checkpoint refresh |
 ### Synced from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT)
 
 Verbatim sync of Matt Pocock's production skills — see each skill's `THIRD-PARTY.md` for attribution.
@@ -123,8 +121,11 @@ ln -s "$PWD/skills/shopify-theme-delivery" ~/.codex/skills/shopify-theme-deliver
 Use $shopify-theme-delivery to plan and validate this draft-theme change before any Shopify write.
 ```
 
-Client editions use separate skill IDs. The current package is the Codex edition; a future
-Claude edition can use `365-five-step-dev-claude` without creating an invocation collision.
+Client editions use separate skill IDs. This package is the Codex edition; the Claude Code
+edition is published as [`365-five-step-dev-claude`](skills/365-five-step-dev-claude/SKILL.md)
+(with its companion retro skill, [`365-five-step-retro-claude`](skills/365-five-step-retro-claude/SKILL.md)) —
+same governance philosophy, refined independently over ten real-world retrospective cycles on
+the Claude Code side, with no invocation collision between the two editions.
 
 Run only the structural scanner:
 
@@ -173,6 +174,9 @@ python3 -m json.tool evals/shopify-theme-delivery/trigger-cases.json >/dev/null
 python3 -m json.tool evals/gws-workspace/trigger-cases.json >/dev/null
 python3 -m json.tool evals/gws-weekly-digest/trigger-cases.json >/dev/null
 python3 -m json.tool evals/parallel-sessions-protocol/trigger-cases.json >/dev/null
+python3 -m json.tool evals/project-health-check/trigger-cases.json >/dev/null
+python3 -m json.tool evals/365-five-step-dev-claude/trigger-cases.json >/dev/null
+python3 -m json.tool evals/365-five-step-retro-claude/trigger-cases.json >/dev/null
 node --test skills/shopify-theme-delivery/scripts/*.test.mjs
 node --test scripts/publication/*.test.mjs
 ```

@@ -1,0 +1,22 @@
+[
+  {
+    "query": "五步复盘",
+    "should_trigger": true
+  },
+  {
+    "query": "运行一次五步法的复盘",
+    "should_trigger": true
+  },
+  {
+    "query": "我们这套开发流程用了一段时间了，效果怎么样，有没有该调整的地方",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我加个导出按钮",
+    "should_trigger": false
+  },
+  {
+    "query": "复盘一下这次产品发布会",
+    "should_trigger": false
+  }
+]

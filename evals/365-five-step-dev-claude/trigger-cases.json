@@ -1,0 +1,30 @@
+[
+  {
+    "query": "五步法",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我加一个导出订单的按钮",
+    "should_trigger": true
+  },
+  {
+    "query": "这个数据库表要加三个字段，权限也要跟着调",
+    "should_trigger": true
+  },
+  {
+    "query": "修一下这个页面的样式错位",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我解释一下这段代码在做什么",
+    "should_trigger": false
+  },
+  {
+    "query": "今天天气怎么样",
+    "should_trigger": false
+  },
+  {
+    "query": "帮我总结一下这份文档",
+    "should_trigger": false
+  }
+]

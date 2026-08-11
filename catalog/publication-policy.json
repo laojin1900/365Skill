@@ -3,7 +3,9 @@
   "default_visibility": "private",
   "public_skill_ids": [
     "365-chatgpt-pro-delivery",
+    "365-five-step-dev-claude",
     "365-five-step-dev-codex",
+    "365-five-step-retro-claude",
     "365-session-rotation-maintainer",
     "ask-matt",
     "claude-handoff",
@@ -24,6 +26,7 @@
     "loop-me",
     "migrate-to-shoehorn",
     "parallel-sessions-protocol",
+    "project-health-check",
     "prototype",
     "research",
     "resolving-merge-conflicts",
