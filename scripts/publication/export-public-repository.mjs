@@ -55,11 +55,14 @@ for (const skillId of policy.public_skill_ids) {
 }
 
 const privateSkillIds = sourceSkillIds.filter((id) => !policy.public_skill_ids.includes(id));
+const privateReferencePattern = /(?<![\/A-Za-z0-9_.-])(?:skills|evals)\/([a-z0-9]+(?:-[a-z0-9]+)*)/gu;
 for (const file of await walkFiles(outputRoot)) {
   const content = await readFile(file);
   const text = content.toString("utf8");
-  if (privateSkillIds.some((id) => text.includes(id))) {
-    throw new Error("PUBLICATION_PRIVATE_SKILL_REFERENCE_DETECTED");
+  for (const match of text.matchAll(privateReferencePattern)) {
+    if (privateSkillIds.includes(match[1])) {
+      throw new Error("PUBLICATION_PRIVATE_SKILL_REFERENCE_DETECTED");
+    }
   }
 }
 

@@ -22,57 +22,6 @@
 | [`parallel-sessions-protocol`](skills/parallel-sessions-protocol/SKILL.md) | 实验中 | 协调任意数量的会话并行开发同一仓库：Draft PR 公告板登记、资源认领、记账只在合并前写、合并纪律、收工登记（会话中断/暂停时的对称收尾）、三时点刷新 |
 | [`project-health-check`](skills/project-health-check/SKILL.md) | 实验中（早期） | 跨项目只读健康巡检——CI 连红、stale PR、未推工作、孤儿 worktree，汇总成一页带防误报判读规则的报告；发现的问题一律另立任务，绝不当场修复 |
 
-### 从 [mattpocock/skills](https://github.com/mattpocock/skills) 同步（MIT 协议）
-
-Matt Pocock 生产环境技能的逐字同步——来源与版权见各技能目录内 `THIRD-PARTY.md`。
-
-**工程**
-
-| [`ask-matt`](skills/ask-matt/SKILL.md) | 稳定 | 本仓库用户主动调用技能的路由器：问哪个技能或流程适合当前场景 |
-| [`code-review`](skills/code-review/SKILL.md) | 稳定 | 双轴评审（标准轴 vs 规格轴）自固定基准点以来的改动，并行子代理评审并排展示 |
-| [`codebase-design`](skills/codebase-design/SKILL.md) | 稳定 | 设计深度模块的共享词汇：接口、接缝、可测试性、AI 可导航性 |
-| [`diagnosing-bugs`](skills/diagnosing-bugs/SKILL.md) | 稳定 | 疑难 bug 与性能回退的诊断循环 |
-| [`domain-modeling`](skills/domain-modeling/SKILL.md) | 稳定 | 构建并打磨项目领域模型：统一语言与 ADR 架构决策记录 |
-| [`grill-with-docs`](skills/grill-with-docs/SKILL.md) | 稳定 | 连环拷问的同时产出文档（ADR 与术语表） |
-| [`implement`](skills/implement/SKILL.md) | 稳定 | 基于规格或一组 ticket 实现一项工作 |
-| [`improve-codebase-architecture`](skills/improve-codebase-architecture/SKILL.md) | 稳定 | 扫描「深化」机会、生成可视化 HTML 报告，再针对选中的一项连环拷问 |
-| [`prototype`](skills/prototype/SKILL.md) | 稳定 | 构建一次性原型回答设计问题 |
-| [`research`](skills/research/SKILL.md) | 稳定 | 对照高可信一手资料调研，结论沉淀为仓库内 Markdown |
-| [`resolving-merge-conflicts`](skills/resolving-merge-conflicts/SKILL.md) | 稳定 | 解决进行中的 git merge/rebase 冲突 |
-| [`setup-matt-pocock-skills`](skills/setup-matt-pocock-skills/SKILL.md) | 稳定 | 工程技能的一次性仓库配置：issue 追踪器、分流标签、领域文档 |
-| [`tdd`](skills/tdd/SKILL.md) | 稳定 | 测试驱动开发：红绿重构、集成测试 |
-| [`to-spec`](skills/to-spec/SKILL.md) | 稳定 | 把当前会话整理成规格并发布到 issue 追踪器 |
-| [`to-tickets`](skills/to-tickets/SKILL.md) | 稳定 | 把计划或规格拆解为带阻塞边界的曳光弹 ticket |
-| [`triage`](skills/triage/SKILL.md) | 稳定 | 让 issue/PR 走完分流状态机并撰写 agent 可直接执行的简报 |
-| [`wayfinder`](skills/wayfinder/SKILL.md) | 稳定 | 把大型工作规划为决策 ticket 地图，逐个解决 |
-| [`wizard`](skills/wizard/SKILL.md) | 稳定 | 生成交互式 bash 向导，引导人类完成只有他们能做的步骤 |
-
-**效率**
-
-| [`grill-me`](skills/grill-me/SKILL.md) | 稳定 | 对计划或设计不留情面的连环拷问 |
-| [`grilling`](skills/grilling/SKILL.md) | 稳定 | 对计划、决策或想法连环拷问——压力测试思考 |
-| [`handoff`](skills/handoff/SKILL.md) | 稳定 | 把当前会话压缩成交接文档交给另一个 agent |
-| [`teach`](skills/teach/SKILL.md) | 稳定 | 在工作区内教用户新技能或概念 |
-| [`to-questionnaire`](skills/to-questionnaire/SKILL.md) | 稳定 | 把无法自行回答的决策转成问卷请他人填写 |
-| [`wait-what`](skills/wait-what/SKILL.md) | 稳定 | 停下——刚才那条信息没传达清楚，重新讲 |
-| [`writing-for-agents`](skills/writing-for-agents/SKILL.md) | 稳定 | 为 agent 写作：技能文件、AGENTS.md、CLAUDE.md |
-
-**杂项**
-
-| [`git-guardrails-claude-code`](skills/git-guardrails-claude-code/SKILL.md) | 稳定 | Claude Code hooks：在执行前拦截危险 git 命令 |
-| [`migrate-to-shoehorn`](skills/migrate-to-shoehorn/SKILL.md) | 稳定 | 把测试从 `as` 断言迁移到 @total-typescript/shoehorn |
-| [`scaffold-exercises`](skills/scaffold-exercises/SKILL.md) | 稳定 | 搭建练习目录：小节、题目、解答、讲解 |
-| [`setup-pre-commit`](skills/setup-pre-commit/SKILL.md) | 稳定 | Husky pre-commit 钩子：lint-staged、类型检查与测试 |
-
-**进行中（Beta）**
-
-| [`claude-handoff`](skills/claude-handoff/SKILL.md) | Beta | 把会话交给全新后台 agent 立即接续 |
-| [`loop-me`](skills/loop-me/SKILL.md) | Beta | 多会话循环拷问，把工作流规格打磨到可落地 |
-| [`setup-ts-deep-modules`](skills/setup-ts-deep-modules/SKILL.md) | Beta | 把 dependency-cruiser 接入 TypeScript 仓库实现深度模块 |
-| [`writing-beats`](skills/writing-beats/SKILL.md) | Beta | 把素材组装成「节拍」之旅，术语先落地定义 |
-| [`writing-fragments`](skills/writing-fragments/SKILL.md) | Beta | 挖掘写作碎片——尚无结构 |
-| [`writing-shape`](skills/writing-shape/SKILL.md) | Beta | 把素材逐段塑造成文章，逐步论证格式选择 |
-
 ## 发布模型
 
 公共仓库由私有源仓库确定性导出。发布策略默认私有：只有 `catalog/publication-policy.json` 白名单中的技能 ID 才会复制到公共镜像。CI 会拒绝任何未列入白名单的技能目录、评测、目录条目和文本引用。

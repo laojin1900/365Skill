@@ -22,57 +22,6 @@ The repository follows the open `SKILL.md` directory format. Each skill is self-
 | [`parallel-sessions-protocol`](skills/parallel-sessions-protocol/SKILL.md) | Experimental | Coordinate any number of parallel sessions on one repository: draft-PR board registration, resource claiming, ledger writes only at merge time, merge discipline, end-of-work teardown registration, three-checkpoint refresh |
 | [`project-health-check`](skills/project-health-check/SKILL.md) | Experimental (early) | Read-only cross-project health sweep — CI red streaks, stale PRs, unpushed work, orphan worktrees — rolled into one judgeable report with false-positive guards; findings become follow-up tasks, never in-place fixes |
 
-### Synced from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT)
-
-Verbatim sync of Matt Pocock's production skills — see each skill's `THIRD-PARTY.md` for attribution.
-
-**Engineering**
-
-| [`ask-matt`](skills/ask-matt/SKILL.md) | Stable | Router over the user-invoked skills in this repo — ask which skill or flow fits your situation |
-| [`code-review`](skills/code-review/SKILL.md) | Stable | Two-axis review (Standards vs Spec) of changes since a fixed point, in parallel sub-agents |
-| [`codebase-design`](skills/codebase-design/SKILL.md) | Stable | Shared vocabulary for designing deep modules: interfaces, seams, testability, AI-navigability |
-| [`diagnosing-bugs`](skills/diagnosing-bugs/SKILL.md) | Stable | Diagnosis loop for hard bugs and performance regressions |
-| [`domain-modeling`](skills/domain-modeling/SKILL.md) | Stable | Build and sharpen a project's domain model: ubiquitous language and ADRs |
-| [`grill-with-docs`](skills/grill-with-docs/SKILL.md) | Stable | Relentless interview that also creates docs (ADRs and glossary) as you go |
-| [`implement`](skills/implement/SKILL.md) | Stable | Implement a piece of work based on a spec or set of tickets |
-| [`improve-codebase-architecture`](skills/improve-codebase-architecture/SKILL.md) | Stable | Scan for deepening opportunities, visual HTML report, then grill through the one you pick |
-| [`prototype`](skills/prototype/SKILL.md) | Stable | Build a throwaway prototype to answer a design question |
-| [`research`](skills/research/SKILL.md) | Stable | Investigate against high-trust primary sources, capture findings as Markdown |
-| [`resolving-merge-conflicts`](skills/resolving-merge-conflicts/SKILL.md) | Stable | Resolve an in-progress git merge/rebase conflict |
-| [`setup-matt-pocock-skills`](skills/setup-matt-pocock-skills/SKILL.md) | Stable | One-time repo setup for the engineering skills: issue tracker, triage labels, domain docs |
-| [`tdd`](skills/tdd/SKILL.md) | Stable | Test-driven development: red-green-refactor, integration tests |
-| [`to-spec`](skills/to-spec/SKILL.md) | Stable | Turn the current conversation into a spec and publish it to the issue tracker |
-| [`to-tickets`](skills/to-tickets/SKILL.md) | Stable | Break a plan or spec into tracer-bullet tickets with declared blocking edges |
-| [`triage`](skills/triage/SKILL.md) | Stable | Move issues/PRs through a triage state machine and write agent-ready briefs |
-| [`wayfinder`](skills/wayfinder/SKILL.md) | Stable | Plan huge work as a shared map of decision tickets, resolved one at a time |
-| [`wizard`](skills/wizard/SKILL.md) | Stable | Generate an interactive bash wizard for steps only a human can perform |
-
-**Productivity**
-
-| [`grill-me`](skills/grill-me/SKILL.md) | Stable | A relentless interview to sharpen a plan or design |
-| [`grilling`](skills/grilling/SKILL.md) | Stable | Grill the user relentlessly about a plan, decision, or idea — stress-test thinking |
-| [`handoff`](skills/handoff/SKILL.md) | Stable | Compact the current conversation into a handoff document for another agent |
-| [`teach`](skills/teach/SKILL.md) | Stable | Teach the user a new skill or concept within the workspace |
-| [`to-questionnaire`](skills/to-questionnaire/SKILL.md) | Stable | Turn an unanswered decision into a questionnaire for someone else |
-| [`wait-what`](skills/wait-what/SKILL.md) | Stable | Stop — that last message did not land, re-pitch it |
-| [`writing-for-agents`](skills/writing-for-agents/SKILL.md) | Stable | Writing documents for agents: skills, AGENTS.md, CLAUDE.md |
-
-**Misc**
-
-| [`git-guardrails-claude-code`](skills/git-guardrails-claude-code/SKILL.md) | Stable | Claude Code hooks that block dangerous git commands before they execute |
-| [`migrate-to-shoehorn`](skills/migrate-to-shoehorn/SKILL.md) | Stable | Migrate tests from `as` assertions to @total-typescript/shoehorn |
-| [`scaffold-exercises`](skills/scaffold-exercises/SKILL.md) | Stable | Scaffold exercise directories with sections, problems, solutions, explainers |
-| [`setup-pre-commit`](skills/setup-pre-commit/SKILL.md) | Stable | Husky pre-commit hooks with lint-staged, type checking and tests |
-
-**In progress (beta)**
-
-| [`claude-handoff`](skills/claude-handoff/SKILL.md) | Beta | Hand the conversation to a fresh background agent that picks up immediately |
-| [`loop-me`](skills/loop-me/SKILL.md) | Beta | Grill yourself into implementable workflow specs over multiple sessions |
-| [`setup-ts-deep-modules`](skills/setup-ts-deep-modules/SKILL.md) | Beta | Wire dependency-cruiser into a TypeScript repo for deep modules |
-| [`writing-beats`](skills/writing-beats/SKILL.md) | Beta | Shape raw material into a journey of beats, grounding terms first |
-| [`writing-fragments`](skills/writing-fragments/SKILL.md) | Beta | Mine raw writing fragments — no structure yet |
-| [`writing-shape`](skills/writing-shape/SKILL.md) | Beta | Shape raw material into an article paragraph by paragraph |
-
 ## Publication Model
 
 The public repository is a deterministic export from a private source repository. Publication is deny-by-default: only skill IDs listed in `catalog/publication-policy.json` are copied to the public mirror. CI rejects unlisted skill directories, evals, catalog entries, and references.

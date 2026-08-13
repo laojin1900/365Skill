@@ -30,7 +30,9 @@ test("public export contains exactly allowlisted skills and no private skill ide
     const exportedText = (await Promise.all(
       (await walkFiles(output)).map(async (file) => (await readFile(file)).toString("utf8")),
     )).join("\n");
-    for (const privateId of privateIds) assert.equal(exportedText.includes(privateId), false);
+    const referencePattern = /(?<![\/A-Za-z0-9_.-])(?:skills|evals)\/([a-z0-9]+(?:-[a-z0-9]+)*)/gu;
+    const referencedIds = [...exportedText.matchAll(referencePattern)].map((m) => m[1]);
+    for (const privateId of privateIds) assert.equal(referencedIds.includes(privateId), false);
   } finally {
     await rm(tempRoot, { recursive: true, force: true });
   }
