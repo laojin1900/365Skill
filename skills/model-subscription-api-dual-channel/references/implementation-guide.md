@@ -256,17 +256,32 @@ for (const opt of sortedOptions) {
 
 ## 7. 额度/使用量可视化（订阅 vs API 的差异化）
 
-前端在模型选择器上显示每个 provider 的额度状态（会变成绿色/琥珀色/红色的状态点）：
+前端在模型选择器上显示每个 provider 的额度状态（会变成绿色/琥珀色/红色的状态点）。
 
-| Provider 类型 | 数据来源 | unavailable 提示文案 |
+### 7.0 各平台额度接口速查表（真实实现，来自 Pi Web `app/api/model-usage/route.ts`）
+
+每个 provider 走一个**独立的只读 GET 接口**，带 `Bearer` 令牌，单请求超时 12s，服务器端带内存缓存：live 60s / 错误 15s / 静态 5min。
+
+| Provider | 数据源 | scope | reliability | 接口 & 关键字段 | 展示仪表盘 |
+|---|---|---|---|---|---|
+| `openai-codex` (订阅) | `chatgpt.com/backend-api/wham/usage` | subscription | provider_reported_private | header `Bearer <OAuth>` + `chatgpt-account-id`（从 JWT payload `https://api.openai.com/auth.chatgpt_account_id` 解出）；字段 `rate_limit.primary_window/secondary_window` (`used_percent`→剩余%)、`additional_rate_limits[]`、`credits.balance` | chatgpt.com/codex/settings/usage |
+| `kimi-coding` (订阅) | `api.kimi.com/coding/v1/usages` | subscription | official | header `Bearer <OAuth>`；字段 `usage`(每周窗口) + `limits[]`(各周期 limit/used/remaining/resetTime) | kimi.com/code/console |
+| `deepseek` (API) | `api.deepseek.com/user/balance` | api_balance | official | header `Bearer <key>`；字段 `balance_infos[]`(currency,total_balance)、`is_available`；is_available=false ⇒ message “余额不足” | platform.deepseek.com/usage |
+| `openrouter` (API) | `openrouter.ai/api/v1/key` | api_key_limit | official | header `Bearer <key>`；字段 `data.usage/limit/limit_remaining/limit_reset`；无额度则退化成 spend | openrouter.ai/activity |
+| `google-vip`/`kimi-vip`/`omniroute` (网关订阅) | `PI_OMNIROUTE_USAGE_URL` (env) + `?provider=` | gateway_subscription | gateway | GET，可选 `Bearer PI_OMNIROUTE_USAGE_TOKEN`；字段 `metrics[]`(normalize→window/balance/spend)、`plan`、`source` | (env 未配则 unavailable) |
+
+**无公开额度接口的 provider → `unavailable`**（如实文案，绝不编造数字）：
+
+| Provider | message | 跳转 |
 |---|---|---|
-| OpenAI Codex (订阅) | 官方 `/wham` quota | 实时余量 |
-| Kimi Coding (订阅) | Kimi quota 接口 | 实时余量 |
-| DeepSeek / OpenRouter (API) | 各自 balance 接口 | 实时余额 |
-| **google-vip / kimi-vip (网关订阅)** | **网关只读 quota** | `unavailable`（如实说"网关未提供上游只读 quota；不会用网关 token 余额冒充订阅余量"） |
-| 原生 Google API | 无公开余额接口 | 引导去 AI Studio 看配额 |
+| `google` (API) | “没有可直接查询剩余额度的接口；请在.Google Cloud / AI Studio 查看项目配额。” | aistudio.google.com/usage |
+| `qwen-token-plan-cn` (订阅) | “仅在 Token Plan 控制台展示订阅余量，推理 Key 不能直接查询。” | — |
+| `qwen-dashscope-cn` (API) | “没有统一的余额查询端点；可显示调用 token，不能冒充账户余额。” | — |
+| `xai` (订阅) | OAuth 无公开订阅余量接口 | console.x.ai |
+| `xai-api` (API) | 余额需独立 Management Key，推理 Key 不能查 | console.x.ai |
 
-**设计要点**：不要用"网关总 token 余额"冒充"固定订阅余量"——那是两个不同概念，会误导用户。没有真接口就诚实标 unavailable，并给出跳转。
+
+**设计要点**：不要用“网关总 token 余额”冒充“固定订阅余量”——那是两个不同概念，会误导用户。没有真接口就诚实标 unavailable，并给出跳转。
 
 ### 7.1 额度徽章（每个 Provider 组头显示一个，不逐行）
 
