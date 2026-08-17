@@ -181,7 +181,40 @@ This is why `google-vip` (Antigravity) and `kimi-vip` (Kimi) can both run on
   read-only quota endpoint: show honest `unavailable` + a link. **Never fake a gateway
   token balance as a fixed subscription quota** — they are different things.
 
-### 8. CLI / terminal variant
+Render **one quota badge per provider group header** (not per model row):
+
+```
+[● 93%        ]   ← pill: small colored dot + short text
+```
+
+- text short-hand: `93%`, `13.2M`, `余量不可查`, `额度…` (loading = gray),
+  `凭证失效` (auth error = red).
+- colored green / amber / red by thresholds (the `modelUsageText` / `modelUsageColor` /
+  `modelUsageTooltip` helpers in Pi Web's ChatInput).
+- title-tooltip shows `source · plan`, per-metric remaining / used / percent, a message,
+  and reliability.
+- never show a number when a provider is `unavailable` — show `余量不可查` + link; and
+  don't show the badge at all while the whole provider is still loading.
+
+### 8. Collapse long model groups
+
+When the picker is **not searching**, if a provider has more than **4** models, show
+only the first 4 plus a header hint `前 4/N`, and render a full-width toggle:
+
+```
+[Google(订阅)      ● 93%            前 4/9]
+  Gemini 3.5 Flash (High) (✓ 当前选择)   [Google(订阅)]
+  Gemini 3.5 Flash (Low)                [Google(订阅)]
+  Gemini 3.1 Flash Lite                 [Google(订阅)]
+  Gemini 2.5 Pro                        [Google(订阅)]
+[▼ 展开更多 (还有 5 个模型)]
+```
+
+Tapping expands to `▲ 折叠收起`; the per-provider expansion state resets to collapsed
+when the dropdown reopens. When a search query is active, bypass collapsing — show all
+matches (the filtered set already shrinks).
+
+### 9. CLI / terminal variant
 
 Pin the current model first, then `provider localeCompare`, then `model id`. Same
 models.json, different render context.
@@ -200,6 +233,12 @@ models.json, different render context.
   text-only.
 - When a model is missing from the catalog, test a real completion before assuming; a
   `model_not_found` / 404 is authoritative (catalog may be a stale cache).
+- Do not render a quota badge on every model row — show one badge per provider group
+  header; per-row badges clutter a large catalog.
+- Never fabricate a number when a provider is `unavailable` — show `余量不可查` + a
+  link; and skip the badge entirely while the whole provider is still loading.
+- Keep the collapse limit and the quota badge as **UI concerns**, decoupled from the
+  sort weights and the quota data-layer, so either can change independently.
 
 ## Verification
 

@@ -268,6 +268,37 @@ for (const opt of sortedOptions) {
 
 **设计要点**：不要用"网关总 token 余额"冒充"固定订阅余量"——那是两个不同概念，会误导用户。没有真接口就诚实标 unavailable，并给出跳转。
 
+### 7.1 额度徽章（每个 Provider 组头显示一个，不逐行）
+
+在**每个 Provider 分组头部**渲染一个胶囊徽章：小圆点 + 简短文字。
+
+```
+[Google(订阅)      ● 93%            前 4/9]
+```
+
+- **文字**：`93%`、`13.2M`、`余量不可查`；加载中灰色 `额度…`；auth 失效红色 `凭证失效`。
+- **颜色**：按阈值绿/琥珀/红（对应 Pi Web 的 `modelUsageText` / `modelUsageColor` / `modelUsageTooltip`）。
+- **title-tooltip**：`source · plan` + 每条指标 remaining/used/percent + message + reliability。
+- **规则**：provider 未加载时根本不显示徽章；unavailable 只显示 `余量不可查`+链接，绝不造假数字。
+- **不要逐行打额度徽章**——大型目录会刷屏；额度属于 Provider 维度。
+
+### 7.2 长模型组折叠（前 4 + 展开）
+
+**未搜索时**，某个 provider 模型数 > 4，则只显示前 4 个，组头给 `前 4/N` 提示，底部给通栏切换按钮：
+
+```
+[Google(订阅)      ● 93%            前 4/9]
+  Gemini 3.5 Flash (High) (✓ 当前选择)   [Google(订阅)]
+  Gemini 3.5 Flash (Low)                [Google(订阅)]
+  Gemini 3.1 Flash Lite                 [Google(订阅)]
+  Gemini 2.5 Pro                        [Google(订阅)]
+[▼ 展开更多 (还有 5 个模型)]
+```
+
+点击展开后变 `▲ 折叠收起`；**每次重新打开选择器时把各 Provider 的展开态重置为折叠**。搜索时旁路折叠（直接显示全部匹配项，匹配集本身已变小）。
+
+> 折叠上限和额度徽章都是**前端 UI 关注点**，与排序权重、额度数据层解耦，任一方可独立调整。
+
 ---
 
 ## 8. 落地方案：给"其它 agent"的最小实现清单
