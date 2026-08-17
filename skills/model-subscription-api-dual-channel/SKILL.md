@@ -236,6 +236,20 @@ not want, and the **last selected provider+model** as the default. Hard rule: th
 only surface models that `ModelRuntime.getAvailable()` can actually resolve — never inject a
 UI-only model the runtime cannot `getModel()`, or selection will fail at send time.
 
+### 11. UI contract notes (already in Pi Web — replicate, don't rebuild)
+
+Two UIs already ship in Pi Web; copy the contracts rather than re-inventing:
+- **Thinking-level selector**: level list `auto/off/minimal/low/medium/high/xhigh/max`; availability
+  comes from `getSupportedThinkingLevels(model)` (non-reasoning → `["off"]`; `xhigh/max` only when
+  `thinkingLevelMap` maps them). The dropdown shows the mapped vendor string when
+  `thinkingLevelMap[lvl]` differs, and request-building maps `level → thinkingLevelMap[level]`
+  (or the raw level when `auto`/no map).
+- **Cost & usage display**: `cost.input/output/cacheRead/cacheWrite` per-1M-token (+ `tiers[]`)
+  feeds `calculateCost()` for the session `$` cost; per-message `formatUsage` prints
+  `"N in · M out · K cache · $X.XXXX"`; `formatUsageValue` handles `USD/CNY/requests/credits`.
+
+Both are described in detail in `references/implementation-guide.md` §9.
+
 ## Pitfalls
 
 - Do not put gweb / browser-automation channels in the main catalog: no tool calling,

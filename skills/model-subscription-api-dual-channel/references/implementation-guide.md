@@ -348,9 +348,42 @@ for (const opt of sortedOptions) {
 
 > 折叠上限和额度徽章都是**前端 UI 关注点**，与排序权重、额度数据层解耦，任一方可独立调整。
 
+## 8. 落地 UI：思考级别选择器 + 成本/额度显示（已存在于 Pi Web，直接复用契约）
+
+这两套 UI 在 Pi Web **已经实现**。做“其它 agent 版本”时按下列契约复刻即可（对齐现有实现，不要重复造）。
+
+### 9.1 思考级别选择器
+
+- 级别列表：`["auto","off","minimal","low","medium","high","xhigh","max"]`（Pi Web 用 `THINKING_LEVELS` 常量）。
+- 每个级别的展示文案（`THINKING_LEVEL_DESC`）：`auto:"Use pi default"`、`off:"Reasoning off"`、`minimal:"Minimal reasoning"`、`low:"Low reasoning"`、`medium:"Medium reasoning"`、`high:"High reasoning"`、`xhigh:"Extra-high reasoning"`、`max:"Max reasoning"`。
+- **级别可用性**完全由模型驱动（`getSupportedThinkingLevels(model)`）：
+  - 非 `reasoning` 模型 → 只有 `["off"]`；
+  - 推理模型 → 在 `off..high` 选区上，只要 `thinkingLevelMap[level] !== null`；
+  - `xhigh/max` 仅在 `thinkingLevelMap` 里**显式映射**时才可用。
+- **下拉 UI**（Pi Web）：按钮显示当前 `thinkingDisplayLabel`；打开后列出 `THINKING_LEVELS`，按 `availableThinkingLevels` 过滤（`auto` 总是保留）；每个选项若 `thinkingLevelMap[lvl]` 映射到了厂商特定值，则显示**映射后的值**并保留原值于 title。
+- **实际请求构造**（`ChatInput`）：`const lvl = thinkingLevel ?? "auto"; if (lvl === "auto" || !thinkingLevelMap) return lvl; return thinkingLevelMap[lvl] ?? lvl;`——映射到厂商字符串；`auto` 交给 provider 默认。
+
+### 9.2 成本显示
+
+- models.json 的 `cost` 字段（每百万 token：`input/output/cacheRead/cacheWrite`，可选 `tiers[]`）由 `calculateCost(model, usage)` 求出会话成本（`tiers` 按 `inputTokens > tier.inputTokensAbove` 选档）。
+- 会话统计（`AppShell`）显示 `Cost: $X.XXXX`（仅当 `sessionStats.cost > 0`）。
+- 每条消息的 usage 格式化（`MessageView` 的 `formatUsage`）：
+  ```
+  "1,234 in · 567 out · 89 cache · $0.0123"
+  input → `${input.toLocaleString()} in`; output → `${output.toLocaleString()} out`;
+  cacheRead → `${cacheRead.toLocaleString()} cache`; cost?.total → `$${total.toFixed(4)}`
+  ```
+
+### 9.3 额度文案/格式化（额度徽章用）
+
+- `formatTokenCount`：≥1M → `1.2M`；≥1k → `123k`；否则 `1,234`。
+- `formatUsageValue(value, unit?)`：`USD`→`$…`，`CNY`→`¥…`，`requests`→`N 次`，`credits`→`N credits`；小数位按绝对值（≥100→0 位，≥1→2 位，否则 4 位）。
+- 徽章精简标签：`5 小时`→`5h`、`每周`→`周`、`Spark…`→`Spark`，超 9 字符截断加 `…`。
+- `modelUsageText`：加载中→`额度…`，`auth_error`→`凭证失效`，`error`→`获取失败`，`unavailable`→`余量不可查`，否则取百分比/余额的缩略文案。
+
 ---
 
-## 8. 落地方案：给"其它 agent"的最小实现清单
+## 10. 落地方案：给“其它 agent”的最小实现清单
 
 要在别的 agent/系统里复刻这套，你需要：
 
@@ -385,7 +418,7 @@ def sort_models(models, usage_counts):
 
 ---
 
-## 9. 常见坑
+## 11. 常见坑
 
 - **不要把 gweb/网页模拟塞进主力通道**：网页端无 Tool Calling、长上下文崩溃（你已踩过）。
 - **订阅 catalog 没更新的模型别硬造**：`antigravity/gemini-3.7-flash` 现在 404（Google 开发者端未开放），直接从网关列表里拿真实的，才能测出 `model_not_found`。
