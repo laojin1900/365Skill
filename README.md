@@ -21,6 +21,7 @@ The repository follows the open `SKILL.md` directory format. Each skill is self-
 | [`gws-weekly-digest`](skills/gws-weekly-digest/SKILL.md) | Experimental | Recurring weekly briefing from mailbox and calendar: last week's mail stats, next seven days of events, markdown digest plus chat summary, strictly read-only |
 | [`parallel-sessions-protocol`](skills/parallel-sessions-protocol/SKILL.md) | Experimental | Coordinate any number of parallel sessions on one repository: draft-PR board registration, resource claiming, ledger writes only at merge time, merge discipline, end-of-work teardown registration, three-checkpoint refresh |
 | [`project-health-check`](skills/project-health-check/SKILL.md) | Experimental (early) | Read-only cross-project health sweep — CI red streaks, stale PRs, unpushed work, orphan worktrees — rolled into one judgeable report with false-positive guards; findings become follow-up tasks, never in-place fixes |
+| [`model-subscription-api-dual-channel`](skills/model-subscription-api-dual-channel/SKILL.md) | Experimental | Design a model registry + picker where subscription-quota providers and pay-per-use API providers stay strictly separated, unified on OpenAI-compatible endpoints, ordered by flag-vendor weight + local usage frequency + natural collation, and grouped by provider with short badges |
 
 ## Publication Model
 

@@ -255,3 +255,27 @@ skills:
     tested_clients:
       - claude-code
     last_verified: 2026-08-11
+
+  - id: model-subscription-api-dual-channel
+    title: Model Subscription / API Dual-Channel Design
+    title_zh_cn: 模型订阅/API双通道设计与智能排序
+    summary: Design and implement a model registry and picker where subscription-quota providers and pay-per-use API providers stay strictly separated, unified on OpenAI-compatible endpoints, ordered by flag-vendor weight plus local usage frequency plus natural collation, and grouped by provider with short badges.
+    summary_zh_cn: 设计并实现同时承载“订阅额度”与“按量API”两类模型、且严格分开的模型注册表与选择器：统一到 OpenAI 兼容端点，按“旗舰权重 + 本机使用频率 + 自然排序”三层排序，并按 Provider 分组打徽章展示。
+    path: skills/model-subscription-api-dual-channel
+    version: 1.0.0
+    status: experimental
+    languages:
+      - en
+      - zh-CN
+    capabilities:
+      - model-catalog-design
+      - provider-naming-contract
+      - subs-v-api-separation
+      - usage-driven-sorting
+      - compat-based-request-adapter
+      - quota-visualization
+    risk: low-by-default
+    default_behavior: advisory-and-validation
+    tested_clients:
+      - pi-agent
+    last_verified: 2026-08-17

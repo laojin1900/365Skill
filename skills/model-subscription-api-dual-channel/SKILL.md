@@ -1,0 +1,214 @@
+---
+name: model-subscription-api-dual-channel
+description: Design and implement a multi-channel model registry + smart sorting for any AI coding agent. Use when setting up a model catalog/model selector in a new agent, gateway, or frontend, or when the user wants to replicate Pi Web's "subscription vs pay-per-use API" dual-channel design and its usage-driven top-of-list sorting. Separates subscription-quota providers (google-vip / kimi-vip / xai-subscription) from pay-as-you-go API providers (google / deepseek / openrouter), unifies everything onto OpenAI-compatible endpoints, builds requests from per-vendor compat flags, and orders models by flag-vendor weight + local usage frequency + natural collation, grouped by provider with short badges. Skip for web-scraping/web-automation model channels (gweb) — those lack tool calling and collapse on long contexts.
+version: 1
+created: "2026-08-17"
+updated: "2026-08-17"
+---
+
+# Model Subscription / API Dual-Channel Design & Smart Sorting
+
+Reusable recipe for building a model registry and picker where **subscription-quota
+models and pay-per-use API models live side by side but stay strictly separated**, and
+where the model list is ordered by what the user actually runs.
+
+This is the pattern used by Pi Web's model picker (ChatInput + models.json +
+discover route + model-usage). The same contract can be re-implemented in any
+agent, gateway, or frontend.
+
+## When to Use
+
+Use when you are:
+
+1. Building a model catalog / model selector for any agent, gateway, or frontend,
+2. asked to replicate Pi Web's "subscription vs API" dual-channel model design or its
+   smart ordering,
+3. integrating with a subscription gateway (OmniRoute / new-api / allmodelsapi.com)
+   that exposes OpenAI-compatible endpoints,
+4. deciding how to order models and show provider badges / quota.
+
+Do **not** use this for web-scraping or browser-automation model channels (`gweb`,
+Playwright-driven gemini.google.com): those have no tool-calling and collapse on long
+context (repeated/degenerate output, 150w-token inputs). They are not a real API.
+
+## Procedure
+
+### 1. Define channels — one Provider per channel kind
+
+One Provider instance per channel. **Never mix subscription and API models in the
+same provider.**
+
+- Subscription-quota providers get a `-vip` / `-subscription` suffix:
+  `google-vip`, `kimi-vip`, `xai-subscription`.
+- Pay-per-use API providers use a bare or `-api` name:
+  `google`, `deepseek`, `openrouter`, `xai-api`.
+- `openai-codex` (OAuth subscription), `omniroute` (smart gateway) are special.
+
+Keep the IDs as the contract. The display name is resolved separately (see step 5).
+
+### 2. Author models.json (credential-free)
+
+```jsonc
+{
+  "providers": {
+    "google-vip": {
+      "baseUrl": "https://allmodelsapi.com/v1",
+      "api": "openai-completions",
+      "authHeader": true,
+      "models": [
+        {
+          "id": "antigravity/gemini-3.5-flash-high",
+          "name": "Gemini 3.5 Flash (High) (Google AI Pro订阅)",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "compat": { "supportsDeveloperRole": false, "supportsReasoningEffort": false }
+        }
+      ]
+    },
+    "kimi-vip": {
+      "baseUrl": "https://allmodelsapi.com/v1",
+      "api": "openai-completions",
+      "authHeader": true,
+      "models": [
+        {
+          "id": "kimi-coding/k3",
+          "name": "Kimi K3 (Kimi Coding订阅)",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "compat": {
+            "supportsDeveloperRole": false,
+            "supportsReasoningEffort": true,
+            "requiresReasoningContentOnAssistantMessages": true
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+Contract notes:
+
+- `providers.<id>` — the channel identity; globally unique.
+- `models[].id` **must include the gateway prefix** (`antigravity/`, `kimi-coding/`).
+  This is what routes to the right upstream in OmniRoute/new-api.
+- `reasoning`, `input`, `contextWindow`, `maxTokens` drive the picker (badges, filters,
+  token budget).
+- `compat` drives request construction (see step 6).
+- Keep the file **credential-free**; store keys separately in `auth.json`.
+
+### 3. Model discovery — never fabricate prefixed IDs
+
+For subscription channels, fetch the model list from the gateway catalog and filter by
+the **exact prefix** of that provider. From `app/api/models-config/discover/route.ts`:
+
+```
+google-vip:  prefix = "antigravity/"   accept id starts "antigravity/gemini-"
+                                       exclude "image", "agent", type image/embedding
+kimi-vip:    prefix = "kimi-coding/"   accept id starts "kimi-coding/"
+```
+
+**Hard rule:** NEVER manufacture `antigravity/*` or `kimi-coding/*` IDs from a broad
+`auto/*` gateway catalog or a general vendor list. Only accept prefixed IDs that came
+from that provider's own catalog; otherwise the ID may route to the wrong vendor or
+404 at runtime.
+
+Newly-announced models appear only after they show up in the gateway's synced catalog
+(OmniRoute `syncedAvailableModels` → `/v1/models`). Test a real completion
+(`model_not_found`) rather than trusting marketing (e.g. `antigravity/gemini-3.7-flash`
+is still 404 on Google's Antigravity developer endpoint even though the consumer API
+has 3.7).
+
+### 4. Build the smart sort (three-tier, usage-driven)
+
+```
+weight(modelId, provider) = baseWeight(flag-vendor weight table, take max)
+                            + min(100, usageCount * 10)
+
+sort desc by weight; tie-break with Intl.Collator(undefined,
+    { numeric: true, sensitivity: "base" }) on name → provider → id.
+```
+
+`usageCount` = persisted per-`${provider}:${modelId}` count (e.g. `localStorage`
+`pi-model-usage-counts`), incremented on every send, so the models you actually run
+float to the top.
+
+### 5. Group by provider + show badges
+
+After sorting, group preserving insertion order, and attach a short provider label via
+**one central map**:
+
+```
+google-vip       → "Google(订阅)"
+google           → "Google(API)"
+kimi-vip         → "Kimi(订阅)"
+kimi-coding      → "Kimi(Coding)"
+deepseek         → "DeepSeek"
+openrouter       → "OpenRouter"
+qwen-token-plan-cn → "Qwen(包月)"
+qwen-dashscope-cn  → "Qwen(按量)"
+openai-codex     → "ChatGPT"
+```
+
+Never scatter these labels across components — keep one `getProviderShortBadge()` /
+`getProviderDisplayName()`.
+
+### 6. Handle per-vendor compat in a request-adapter layer
+
+Party `compat` differences in one adapter, not at every call site:
+
+```
+supportsDeveloperRole                    → use "developer" role else "system"
+supportsReasoningEffort                  → send reasoning_effort or not
+requiresReasoningContentOnAssistantMessages → Kimi: echo reasoning back
+supportsThinkingAsText / thinkingFormat  → how thinking appears (deepseek/openai/qwen…)
+supportsUsageInStreaming                 → parse usage from stream
+maxTokensField                           → max_completion_tokens vs max_tokens
+```
+
+This is why `google-vip` (Antigravity) and `kimi-vip` (Kimi) can both run on
+`openai-completions` while behaving differently.
+
+### 7. Quota / usage visualization — differentiate by channel kind
+
+- **Real balance** where a real endpoint exists: OpenAI Codex, Kimi, DeepSeek,
+  OpenRouter.
+- **Gateway subscription providers** (`google-vip`, `kimi-vip`, `omniroute`) with no
+  read-only quota endpoint: show honest `unavailable` + a link. **Never fake a gateway
+  token balance as a fixed subscription quota** — they are different things.
+
+### 8. CLI / terminal variant
+
+Pin the current model first, then `provider localeCompare`, then `model id`. Same
+models.json, different render context.
+
+## Pitfalls
+
+- Do not put gweb / browser-automation channels in the main catalog: no tool calling,
+  long contexts collapse and repeat, and Google developer-side models may 404.
+- Never fabricate prefixed IDs from a broad `auto/*` catalog; only accept IDs from the
+  provider's own catalog.
+- Do not make one provider both subscription and API — it pollutes sort weights and
+  quota display.
+- Do not hardcode the flag-vendor weight table immutably; make it configurable since
+  each agent's flagship models differ.
+- `input: ["text","image"]` satisfies both text and image; use `["text"]` for
+  text-only.
+- When a model is missing from the catalog, test a real completion before assuming; a
+  `model_not_found` / 404 is authoritative (catalog may be a stale cache).
+
+## Verification
+
+1. `models.json` passes the schema (non-empty `id`, valid `compat` fields).
+2. A real chat completion returns 200 for a registered prefixed ID
+   (e.g. `antigravity/gemini-3.5-flash-high`) and `model_not_found` for an unregistered one
+   — proves prefix routing.
+3. Picker renders subscription providers as `Google(订阅)`/`Kimi(订阅)` and API
+   providers as `Google(API)`/others, grouped by provider.
+4. Frequent models + high-weight flagships surface above low-weight ones; ties fall
+   back to natural collation.
+5. Sends increment `pi-model-usage-counts`; the used provider/model climbs the list.
