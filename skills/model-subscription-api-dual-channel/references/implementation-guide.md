@@ -252,6 +252,27 @@ for (const opt of sortedOptions) {
 
 > 这样 `google-vip`（Antigravity）与 `kimi-vip`（Kimi）虽然都走 `openai-completions`，但对话构造细节靠 `compat` 自动适配。
 
+## 6.1 高级模型字段（可选的性能/成本/思维控制）
+
+除 compat 外的可选字段，模型目录 schema 也支持，且会影响选择器/成本展示/推理力度：
+
+| 字段 | 类型 | 含义 | 影响 |
+|---|---|---|---|
+| `reasoning` | boolean | 是否推理模型 | 决定思考级别可选范围、是否推导 token |
+| `thinkingLevelMap` | `Record<"off\|minimal\|low\|medium\|high\|xhigh\|max", string\|null>` | 把七个思考级别映射到厂商字符串；`null`=该级别不可用 | `getSupportedThinkingLevels()`：非推理模型只有 `["off"]`；按 `thinkingLevelMap[level]===null` 过滤；xhigh/max 仅在显式映射时可用 |
+| `cost` | `{ input, output, cacheRead, cacheWrite, tiers? }` | 每百万 token 单价（input/output/cacheRead/cacheWrite）+ 可选按用量分档 `tiers[]`（每个 `{ inputTokensAbove, ...rates }`） | `calculateCost()` 按 `inputTokens > tier.inputTokensAbove` 选档，算出会话 `$` 成本；前端 MessageView 显示 `$0.1234` |
+| `headers` | `Record<string,string>` | 模型级覆写请求头 | `getAuth()` 里 `mergeHeaders(providerHeaders, model.headers)`——单个模型可走不同端点/鉴权头 |
+| `api`（模型级） | `openai-completions`\|… | 覆盖 provider 级协议 | 同一 provider 内可混不同 API 的实现分发 |
+| 每模型 `baseUrl` / `apiKey` | string | 模型级端点/凭据覆写 | 部分模型走专用网关 |
+
+**思考级别落地**：选择器里给推理模型提供思考级别切换；非推理模型固定 `off`。
+
+## 6.2 可见模型过滤 + 默认模型持久化
+
+- **可见白名单**：单独的 `pi-web-model-preferences.json`（`{ visibleModels: ["provider/model", ...] }`）存用户主动勾选可见的模型引用。`visibleModels` 为空 = 全部显示。`/api/models` 用 `filterByVisibleModels()` 按 `provider/model` 精确引用过滤。
+- **默认模型持久化**：`settings.getDefaultProvider()/getDefaultModel()`——上次选中的 provider+模型作为默认；前端用 `settingsManager.setDefaultModelAndProvider()` 写入。
+- **硬约束**：UI 能显示/选择的**只有 runtime `getAvailable()` 能解析的模型**——绝不能从 UI 文件凭空注入 runtime 不认的模型，否则运行时 `getModel()` 拿不到。
+
 ---
 
 ## 7. 额度/使用量可视化（订阅 vs API 的差异化）
@@ -279,6 +300,19 @@ for (const opt of sortedOptions) {
 | `qwen-dashscope-cn` (API) | “没有统一的余额查询端点；可显示调用 token，不能冒充账户余额。” | — |
 | `xai` (订阅) | OAuth 无公开订阅余量接口 | console.x.ai |
 | `xai-api` (API) | 余额需独立 Management Key，推理 Key 不能查 | console.x.ai |
+
+**额度可信度分级（reliability）**——额度数据的可靠性要随数据一起传进类型系统并展示：
+
+| 等级 | 含义 | 例子 |
+|---|---|---|
+| `official` | 官方公开稳定 API | Kimi / DeepSeek / OpenRouter |
+| `provider_reported_private` | 是厂商返回、但非公开稳定接口，可能变 | OpenAI Codex `/wham/usage` |
+| `gateway` | 来自网关（上游聚合） | google-vip/kimi-vip/omniroute |
+| `none` | 无数据（unavailable） | google/qwen/xai |
+
+> 前端据此在 tooltip 标注“实时厂商数据；接口不是公开稳定 API”，不把它当作铁定的公开配额。
+
+**通用额度数据契约**（`ProviderModelUsage`）：`status(live/unavailable/auth_error/error)` + `scope(subscription/api_balance/api_key_limit/gateway_subscription/unknown)` + `reliability` + `source` + `plan?` + `metrics[]`（每条 `kind: window/balance/spend`、`used/limit/remaining/remainingPercent/unit/resetsAt`）+ `message?` + `dashboardUrl?`。
 
 
 **设计要点**：不要用“网关总 token 余额”冒充“固定订阅余量”——那是两个不同概念，会误导用户。没有真接口就诚实标 unavailable，并给出跳转。

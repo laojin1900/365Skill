@@ -98,6 +98,11 @@ Contract notes:
   This is what routes to the right upstream in OmniRoute/new-api.
 - `reasoning`, `input`, `contextWindow`, `maxTokens` drive the picker (badges, filters,
   token budget).
+- optional advanced fields: `thinkingLevelMap` (map `off/max` levels to vendor strings or
+  `null`; drives reasoning depth — non-reasoning models are `["off"]` only, `xhigh/max` only if
+  explicitly mapped), `cost` (per-1M-token `input/output/cacheRead/cacheWrite` + optional
+  `tiers[]` for usage-based rate tiers; `calculateCost` picks the tier by input tokens and gives
+  the session `$` cost), model-level `headers`/`api`/`baseUrl`/`apiKey` overrides.
 - `compat` drives request construction (see step 6).
 - Keep the file **credential-free**; store keys separately in `auth.json`.
 
@@ -181,6 +186,10 @@ This is why `google-vip` (Antigravity) and `kimi-vip` (Kimi) can both run on
   read-only quota endpoint: show honest `unavailable` + a link. **Never fake a gateway
   token balance as a fixed subscription quota** — they are different things.
 
+Tag every quota payload with an explicit **reliability** grade
+(`official` / `provider_reported_private` / `gateway` / `none`) and carry it into the UI
+so a tooltip can warn when an endpoint is provider-reported but not a stable public API.
+
 Render **one quota badge per provider group header** (not per model row):
 
 ```
@@ -219,6 +228,14 @@ matches (the filtered set already shrinks).
 Pin the current model first, then `provider localeCompare`, then `model id`. Same
 models.json, different render context.
 
+### 10. Visibility filter + default-model memory
+
+Persist two user-level bits outside the catalog: a **visible-models whitelist**
+(`visibleModels: ["provider/model", ...]`, empty = show all) so users can hide models they do
+not want, and the **last selected provider+model** as the default. Hard rule: the picker may
+only surface models that `ModelRuntime.getAvailable()` can actually resolve — never inject a
+UI-only model the runtime cannot `getModel()`, or selection will fail at send time.
+
 ## Pitfalls
 
 - Do not put gweb / browser-automation channels in the main catalog: no tool calling,
@@ -239,6 +256,7 @@ models.json, different render context.
   link; and skip the badge entirely while the whole provider is still loading.
 - Keep the collapse limit and the quota badge as **UI concerns**, decoupled from the
   sort weights and the quota data-layer, so either can change independently.
+- Never let the UI inject a model the runtime cannot resolve (`ModelRuntime.getAvailable()` / `getModel()` is the single source of truth); otherwise selecting it fails at send.
 
 ## Verification
 
