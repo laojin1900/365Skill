@@ -383,7 +383,7 @@ for (const opt of sortedOptions) {
 
 ---
 
-## 10. 落地方案：给“其它 agent”的最小实现清单
+## 9. 落地方案：给“其它 agent”的最小实现清单
 
 要在别的 agent/系统里复刻这套，你需要：
 
@@ -418,7 +418,7 @@ def sort_models(models, usage_counts):
 
 ---
 
-## 11. 常见坑
+## 10. 常见坑
 
 - **不要把 gweb/网页模拟塞进主力通道**：网页端无 Tool Calling、长上下文崩溃（你已踩过）。
 - **订阅 catalog 没更新的模型别硬造**：`antigravity/gemini-3.7-flash` 现在 404（Google 开发者端未开放），直接从网关列表里拿真实的，才能测出 `model_not_found`。
