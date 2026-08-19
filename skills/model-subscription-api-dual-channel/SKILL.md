@@ -226,14 +226,22 @@ matches (the filtered set already shrinks).
 ### 8.5 Vendor secondary-fold (extra-long providers)
 
 When one provider carries **>= 24 models** (e.g. `openrouter` 271, `B-ai` 39), the simple
-`前 4/N` fold is not enough — even expanded it dumps hundreds of rows. Add a second fold
-that groups by **vendor**:
+`前 4/N` fold is not enough — even expanded it dumps hundreds of rows. Add a **progressive
+three-level** fold instead of dumping the vendor view immediately:
 
-- Provider header shows `N 个 · M 厂商` instead of `前 4/N`.
-- Models group by vendor; each vendor collapses to 3 rows with a per-vendor
-  `▼ 展开 N 个` / `▲ 折叠` toggle.
-- Only the first 6 vendor groups render; the rest hide behind
-  `▼ 展开更多厂商 (还有 N 个)`.
+1. **Collapsed (default)**: the top **4 most-used models** directly — identical to the
+   small-provider fold, nothing vendor-related visible. (`前 4/N` header, `▼ 展开更多
+   (还有 N 个模型)` button.)
+2. **Tap 展开更多** → switches to the vendor-grouped view: provider header becomes
+   `N 个 · M 厂商`; each vendor renders as a **collapsed header row `▶ vendor N 个`**
+   (name + count only, **no models**); only the first 6 vendors show, the rest behind
+   `▼ 展开更多厂商 (还有 N 个)`.
+3. **Tap a vendor header** → only then that vendor's models expand (`▶` rotates 90°,
+   all its models render). Tapping the header again collapses it.
+
+A `▲ 折叠收起 (回到常用 4 个)` button at the bottom of the vendor view collapses back to
+level 1.
+
 - Vendor derivation: first path segment of the model id
   (`ai21/jamba-*` → `ai21`, `antigravity/gemini-*` → `antigravity`, `kimi-coding/k3` →
   `kimi-coding`). For unprefixed ids fall back to the display-name family prefix
@@ -243,8 +251,10 @@ that groups by **vendor**:
 - **Group with a Map keyed by vendor** — never merge only *consecutive* same-vendor rows:
   the usage-driven smart sort interleaves same-vendor models, so consecutive-only merging
   creates duplicate vendor groups (observed: `deepseek` appearing twice).
-- Providers under the threshold keep the plain `前 4/N` fold; a search query bypasses both
-  folds.
+- Providers under the threshold keep the plain `前 4/N` fold — its expand shows ALL models
+  flat with **no** vendor grouping; a search query bypasses both folds.
+- State split: `expandedProviders[provider]` gates level 2 vs 1,
+  `expandedVendors['provider/vendor']` gates level 3.
 
 ### 9. CLI / terminal variant
 
