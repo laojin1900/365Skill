@@ -256,6 +256,55 @@ level 1.
 - State split: `expandedProviders[provider]` gates level 2 vs 1,
   `expandedVendors['provider/vendor']` gates level 3.
 
+### 8.6 Design-evolution record (how this fold was iterated)
+
+> Distilled from Pi Web's real iteration. Do not jump straight to the 3-level design —
+> ship the simple version first, then converge per user feedback.
+
+**v1 (initial): vendor groups shown immediately.** Extra-long providers (>= 24 models)
+rendered the vendor-grouped view on open: each vendor header had a 3-model preview +
+per-vendor "展开 N 个" button, header showed `N 个 · M 厂商`.
+
+**Feedback 1**: don't show vendor groups on open. *"For OpenRouter, showing 4 models by
+default is enough — the 4 most-used ones. Clicking 展开更多 shows the vendor-grouped
+list. Clicking a vendor's list shows its common models."*
+
+→ **v2 (current): progressive three levels.**
+
+1. **Collapsed = top 4 most-used models** (identical `前 4/N` to small providers, no
+   vendor traces);
+2. **Tap 展开更多** → vendor-grouped view: header `N 个 · M 厂商`, each vendor a
+   **collapsed header row `▶ vendor N 个`** (name + count only, models hidden), only the
+   first 6 vendors + `▼ 展开更多厂商`;
+3. **Tap a vendor header** → only then its models expand (▶ rotates 90°); tap again to
+   collapse.
+
+Bottom `▲ 折叠收起 (回到常用 4 个)` returns to level 1.
+
+**UX principles distilled from this iteration:**
+
+- **Information density follows usage frequency**: users switch among a few frequent
+  models daily — the default view is always the *top-4 most-used*, never a structural
+  view. Grouping/vendor/full list are only *drill-down paths*.
+- **Each expand reveals exactly one layer**: fold → top 4; more → vendor list; tap a
+  vendor → its models. Never dump everything at once (271 rows flat = failure).
+- **The vendor header itself is the toggle**: no "header + per-vendor expand button"
+  two-control pattern; one clickable header row (▶/▼ affordance) is enough.
+- **Every layer must be escapable**: the vendor view needs a bottom
+  "折叠收起 (回到常用 4 个)" or the user is trapped deep in the tree.
+- **Delete dead code on iteration**: v1's 3-model preview, per-vendor "展开 N 个"
+  buttons and the `MODEL_VENDOR_SHOW_LIMIT` constant were all removed in v2 (the vendor
+  header is the toggle). Clean up unused constants/controls as you iterate.
+
+**Verification (Playwright assertions):**
+
+- Collapsed: `前 4/39` present, `▶vendor N 个` absent.
+- After expand: `39 个 · 8 厂商` present; vendor list is
+  `▶deepseek2 个 / ▶kimi3 个 / ▶gemini5 个 / ▶claude10 个 / ▶glm3 个 / ▶gpt12 个`;
+  model-row count = 0.
+- After tapping `▶gemini`: gemini model rows = 5.
+- After tapping "折叠收起": back to `前 4/39`, vendor view gone.
+
 ### 9. CLI / terminal variant
 
 Pin the current model first, then `provider localeCompare`, then `model id`. Same
