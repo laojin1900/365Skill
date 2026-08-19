@@ -223,6 +223,29 @@ Tapping expands to `▲ 折叠收起`; the per-provider expansion state resets t
 when the dropdown reopens. When a search query is active, bypass collapsing — show all
 matches (the filtered set already shrinks).
 
+### 8.5 Vendor secondary-fold (extra-long providers)
+
+When one provider carries **>= 24 models** (e.g. `openrouter` 271, `B-ai` 39), the simple
+`前 4/N` fold is not enough — even expanded it dumps hundreds of rows. Add a second fold
+that groups by **vendor**:
+
+- Provider header shows `N 个 · M 厂商` instead of `前 4/N`.
+- Models group by vendor; each vendor collapses to 3 rows with a per-vendor
+  `▼ 展开 N 个` / `▲ 折叠` toggle.
+- Only the first 6 vendor groups render; the rest hide behind
+  `▼ 展开更多厂商 (还有 N 个)`.
+- Vendor derivation: first path segment of the model id
+  (`ai21/jamba-*` → `ai21`, `antigravity/gemini-*` → `antigravity`, `kimi-coding/k3` →
+  `kimi-coding`). For unprefixed ids fall back to the display-name family prefix
+  (`claude-opus-5` → `claude`, `gpt-5.6-sol` → `gpt`, `gemini-3.1-pro` → `gemini`) so a
+  mixed-vendor provider like `B-ai` (39 models across claude/gpt/gemini/kimi/glm/deepseek)
+  splits into clean families.
+- **Group with a Map keyed by vendor** — never merge only *consecutive* same-vendor rows:
+  the usage-driven smart sort interleaves same-vendor models, so consecutive-only merging
+  creates duplicate vendor groups (observed: `deepseek` appearing twice).
+- Providers under the threshold keep the plain `前 4/N` fold; a search query bypasses both
+  folds.
+
 ### 9. CLI / terminal variant
 
 Pin the current model first, then `provider localeCompare`, then `model id`. Same

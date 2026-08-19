@@ -348,11 +348,11 @@ for (const opt of sortedOptions) {
 
 > 折叠上限和额度徽章都是**前端 UI 关注点**，与排序权重、额度数据层解耦，任一方可独立调整。
 
-## 8. 落地 UI：思考级别选择器 + 成本/额度显示（已存在于 Pi Web，直接复用契约）
+## 8. 落地 UI：思考级别选择器 + 成本/额度显示 + 超长列表厂商折叠（已存在于 Pi Web，直接复用契约）
 
-这两套 UI 在 Pi Web **已经实现**。做“其它 agent 版本”时按下列契约复刻即可（对齐现有实现，不要重复造）。
+这三套 UI 在 Pi Web **已经实现**。做“其它 agent 版本”时按下列契约复刻即可（对齐现有实现，不要重复造）。
 
-### 9.1 思考级别选择器
+### 8.1 思考级别选择器
 
 - 级别列表：`["auto","off","minimal","low","medium","high","xhigh","max"]`（Pi Web 用 `THINKING_LEVELS` 常量）。
 - 每个级别的展示文案（`THINKING_LEVEL_DESC`）：`auto:"Use pi default"`、`off:"Reasoning off"`、`minimal:"Minimal reasoning"`、`low:"Low reasoning"`、`medium:"Medium reasoning"`、`high:"High reasoning"`、`xhigh:"Extra-high reasoning"`、`max:"Max reasoning"`。
@@ -363,7 +363,7 @@ for (const opt of sortedOptions) {
 - **下拉 UI**（Pi Web）：按钮显示当前 `thinkingDisplayLabel`；打开后列出 `THINKING_LEVELS`，按 `availableThinkingLevels` 过滤（`auto` 总是保留）；每个选项若 `thinkingLevelMap[lvl]` 映射到了厂商特定值，则显示**映射后的值**并保留原值于 title。
 - **实际请求构造**（`ChatInput`）：`const lvl = thinkingLevel ?? "auto"; if (lvl === "auto" || !thinkingLevelMap) return lvl; return thinkingLevelMap[lvl] ?? lvl;`——映射到厂商字符串；`auto` 交给 provider 默认。
 
-### 9.2 成本显示
+### 8.2 成本显示
 
 - models.json 的 `cost` 字段（每百万 token：`input/output/cacheRead/cacheWrite`，可选 `tiers[]`）由 `calculateCost(model, usage)` 求出会话成本（`tiers` 按 `inputTokens > tier.inputTokensAbove` 选档）。
 - 会话统计（`AppShell`）显示 `Cost: $X.XXXX`（仅当 `sessionStats.cost > 0`）。
@@ -374,12 +374,23 @@ for (const opt of sortedOptions) {
   cacheRead → `${cacheRead.toLocaleString()} cache`; cost?.total → `$${total.toFixed(4)}`
   ```
 
-### 9.3 额度文案/格式化（额度徽章用）
+### 8.3 额度文案/格式化（额度徽章用）
 
 - `formatTokenCount`：≥1M → `1.2M`；≥1k → `123k`；否则 `1,234`。
 - `formatUsageValue(value, unit?)`：`USD`→`$…`，`CNY`→`¥…`，`requests`→`N 次`，`credits`→`N credits`；小数位按绝对值（≥100→0 位，≥1→2 位，否则 4 位）。
 - 徽章精简标签：`5 小时`→`5h`、`每周`→`周`、`Spark…`→`Spark`，超 9 字符截断加 `…`。
 - `modelUsageText`：加载中→`额度…`，`auth_error`→`凭证失效`，`error`→`获取失败`，`unavailable`→`余量不可查`，否则取百分比/余额的缩略文案。
+
+### 8.4 超长列表的厂商二次折叠（vendor secondary-fold）
+
+适用：某个 provider 有 **≥ 24 个模型**（如 `openrouter` 271 个、`B-ai` 39 个）时，简单的“前 4/N”折叠不够——展开后一次几百行。加一层**按厂商分组**的二级折叠：
+
+- Provider 头部显示 `N 个 · M 厂商`（替代 `前 4/N`）。
+- 模型按厂商分组，每个厂商默认显示 3 行 + 各自的 `▼ 展开 N 个` / `▲ 折叠`。
+- 只渲染前 6 个厂商，其余藏在 `▼ 展开更多厂商 (还有 N 个)` 按钮后面。
+- **厂商推导**：取模型 ID 的第一个路径段（`ai21/jamba-*`→`ai21`、`antigravity/gemini-*`→`antigravity`、`kimi-coding/k3`→`kimi-coding`）；无前缀 ID 则回退到**展示名家族前缀**（`claude-opus-5`→`claude`、`gpt-5.6-sol`→`gpt`、`gemini-3.1-pro`→`gemini`），让 `B-ai` 这类多厂商混排的 provider（claude/gpt/gemini/kimi/glm/deepseek）也能拆成干净的家族组。
+- **分组必须用 Map 按 vendor 聚合**——不能只合并*相邻*的同厂商行：usage 驱动的智能排序会把同厂商模型打散穿插，只合并相邻行会产生重复厂商组（实测出现过 `deepseek` 出现两次）。
+- 阈值以下的 provider 保持原有“前 4/N”折叠；搜索时两级折叠都跳过。
 
 ---
 
