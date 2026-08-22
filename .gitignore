@@ -16,3 +16,6 @@ secrets/
 build/
 dist/
 tmp/
+
+# 五步法运行日志：本机产物，含项目内情，且所属技能在公开白名单内——绝不入库
+skills/*/logbook.md
