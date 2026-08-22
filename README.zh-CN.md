@@ -21,7 +21,6 @@
 | [`gws-weekly-digest`](skills/gws-weekly-digest/SKILL.md) | 实验中 | 用邮件和日历生成每周晨报：上周邮件统计、本周日程按天分组、markdown 晨报加会话摘要，严格只读 |
 | [`parallel-sessions-protocol`](skills/parallel-sessions-protocol/SKILL.md) | 实验中 | 协调任意数量的会话并行开发同一仓库：Draft PR 公告板登记、资源认领、记账只在合并前写、合并纪律、收工登记（会话中断/暂停时的对称收尾）、三时点刷新 |
 | [`project-health-check`](skills/project-health-check/SKILL.md) | 实验中（早期） | 跨项目只读健康巡检——CI 连红、stale PR、未推工作、孤儿 worktree，汇总成一页带防误报判读规则的报告；发现的问题一律另立任务，绝不当场修复 |
-| [`model-subscription-api-dual-channel`](skills/model-subscription-api-dual-channel/SKILL.md) | 实验中 | 设计并实现同时承载“订阅额度”与“按量API”两类模型、且严格分开的模型注册表与选择器：统一到 OpenAI 兼容端点，按“旗舰权重 + 本机使用频率 + 自然排序”三层排序，并按 Provider 分组打徽章展示 |
 
 ## 发布模型
 
