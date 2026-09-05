@@ -34,6 +34,13 @@ predecessor until one successor has received, acknowledged, and presented a veri
 
 ## Compatibility and fallback / 兼容性与降级
 
+Select one implementation before inventory. If the current project maintains an exact
+rotation entry, follow that entry and its selected contract instead of layering this
+portable workflow on top. An advertised but unreadable entry is a named blocker, not
+permission to fall back to an older contract. Use the workflow below only when no maintained
+project implementation covers the requested operation. Never switch an in-flight rotation
+to a newer contract; recover it on its bound contract until verified completion or rollback.
+
 Full `EXECUTE` mode requires task-management capabilities that can create one successor,
 send it the handoff, read back its acknowledgement and final answer, and archive the
 predecessor. Renaming is optional unless the user requires a canonical title.
@@ -41,12 +48,14 @@ predecessor. Renaming is optional unless the user requires a canonical title.
 完整 `EXECUTE` 模式需要当前 Codex 环境能够创建继任任务、发送交接、回读确认和最终答复，
 并归档原任务；只有用户要求统一标题时，重命名能力才是必要条件。
 
-When these capabilities are unavailable, remain in `AUDIT_ONLY`: prepare or update the
-durable checkpoint and one copy-ready handoff packet, state exactly which capability is
+When these capabilities are unavailable, remain in `AUDIT_ONLY`: present a checkpoint draft
+and one copy-ready handoff packet without writing files or changing tasks. Persist a
+checkpoint only when the requested boundary separately includes that local write. State which capability is
 missing, keep the predecessor active, and name the user or equipped environment as the next
 owner. Do not claim that rotation completed and do not simulate task identifiers or readback.
 
-工具不可用时保持 `AUDIT_ONLY`：准备或更新持久检查点和一份可复制的交接包，明确缺少哪项
+工具不可用时保持 `AUDIT_ONLY`：在答复中给出检查点草稿和交接包，不改文件或任务；只有当前
+请求也明确包含本地持久化时才写检查点。明确缺少哪项
 能力，保持原任务活动，并把用户或具备工具的环境列为下一责任人。不得宣称轮换完成，也不得
 伪造任务标识或回读结果。
 
@@ -64,6 +73,9 @@ Stop ordinary implementation long enough to capture current truth from durable e
 - ranked next actions and which require fresh authorization.
 
 Do not accept `idle`, “waiting”, or a vague chat summary as a complete inventory.
+
+Reuse the current bounded checkpoint and unchanged verified evidence. Search only for
+missing facts; do not rebuild the inventory from full transcripts or audit unrelated modules.
 
 ## 2. Create a durable checkpoint / 创建持久检查点
 
@@ -163,7 +175,10 @@ Do not create a replacement successor.
 - Unavailable predecessor: reconstruct a checkpoint from durable Git/project evidence and
   mark every uncertain item; never present memory as fact.
 
-Use long waits for task setup or acknowledgement and report only state changes.
+Use the available event-wait mechanism for task setup or acknowledgement, preserving its
+cursor. Inspect the same successor when setup is ambiguous; do not poll full histories or
+repeat unchanged validation. Revalidate changed identity, source, checkpoint, or contract
+dependencies, and report only meaningful state changes.
 
 ## Closeout / 收尾
 

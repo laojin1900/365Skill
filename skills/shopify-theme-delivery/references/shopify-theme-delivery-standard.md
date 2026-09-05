@@ -5,19 +5,23 @@
 - **MUST** is required for reliable delivery.
 - **SHOULD** is the default unless the project documents a reason otherwise.
 - **MAY** is optional.
-- Project governance, platform limits, and explicit Owner instructions override
-  this standard when stricter.
+- Current user scope, platform limits, and maintained project classifiers,
+  guarded operators, and runbooks take precedence over this portable fallback,
+  including a narrower valid project route. Apply only the sections needed for
+  the requested local, preview, preparation, or live delivery boundary.
 
 ## Scope and target identity
 
-Before edits, record:
+For local source work, record affected source and scope. For remote reads,
+resolve exact identity and read scope without requiring write authorization.
+Before remote mutation, establish applicable fields from current evidence:
 
 - store domain or registry key;
 - environment and credential source name, never secret values;
 - base/source theme name and ID;
-- exact target draft theme name and ID;
+- exact target theme name, ID, role, and selected write mode;
 - current live theme name and ID;
-- rollback candidate;
+- rollback receipt/preimages or candidate, as selected by the operator;
 - source repository and revision;
 - allowed files and surfaces;
 - prohibited writes;
@@ -25,8 +29,13 @@ Before edits, record:
 
 Do not use “the open theme,” “the latest theme,” or a remembered ID as a target.
 Read theme identity immediately before a write and again during readback.
+Missing remote fields do not block local implementation or local verification.
 
 ## Desired-state package
+
+Use existing user requirements and design decisions. A broad redesign needs the
+promised surface matrix; a bounded change uses only affected parts of the
+following checklist. Ask only about unresolved material choices.
 
 ### Brand foundation
 
@@ -113,35 +122,58 @@ MUST NOT:
 - claim checkout coverage from theme preview alone;
 - accept observer-driven DOM code without a settling regression.
 
-If `settings_data.json` must change, record exact keys, take a backup/readback,
-exclude unrelated values, validate JSON, and obtain explicit approval.
+If `settings_data.json` must change, bind authority to exact keys, exclude
+unrelated values, and validate JSON. For a remote write, also preserve preimages
+and verify readback. Do not repeat an existing authorization covering those keys.
 
-## Draft write and remote readback
+## Selected write mode and remote readback
 
-One approval SHOULD cover one coherent batch and state the store, exact draft
-theme, manifest, write mechanism, readback/preview verification, and excluded
-live publish, data, app, and checkout mutations.
+A current user request naming the operation, target, and intended effect supplies
+authorization for that scope. If authority is missing, prepare a concrete target
+and manifest before asking. One authorization SHOULD cover the coherent batch;
+do not ask again per file or for a correction preserving the reviewed effect.
+Reconfirm material changes to target, scope, effect, credential boundary, or
+rollback method. A read request does not authorize mutation.
 
-Prefer project guard scripts. Otherwise use supported Shopify CLI/API with the
-explicit theme ID. Use browser automation for inspection and acceptance, not as
+Risk sets verification depth; the project's supported mode sets the remote
+effect. Exact live files, a stable draft slot, and a theme-role transition are
+distinct effects. A dynamic change does not require a new candidate solely
+because its checks are broader. Preserve the selected project route; do not
+layer a heavier draft workflow over it.
+
+Use the project's guarded writer, binding the reviewed source revision, exact
+target, changed-file manifest, preimages, rollback, and readback. Revalidate
+changed dependencies; unrelated mainline changes do not invalidate otherwise
+current evidence. Never replace an unsupported guarded path with a raw writer.
+Without a project route, resolve a supported exact write mechanism and target
+before mutation. Use browser automation for inspection and acceptance, not as
 the primary carrier for a multi-file source package. Never publish as a side
-effect of a draft write.
+effect of a draft write; a live-file patch has no draft or promotion step.
 
 After writing, prove:
 
-- remote theme ID equals the approved draft;
+- remote theme ID and role match the selected authorized target;
 - remote changed-file set equals the manifest;
 - every remote file exists;
 - local and remote checksums match;
 - the release marker is in the intended section/asset;
-- the live theme identity did not change.
+- the live identity is unchanged for a file patch or draft write, or matches
+  the authorized role transition after promotion.
 
 File-count success without content comparison is insufficient.
 
 ## Browser acceptance
 
-Use the exact preview URL for the target draft. At minimum check desktop and
-mobile; add tablet for layout-sensitive work. For each promised route verify:
+Local source work closes with relevant local checks. Isolated copy/styling
+does not require full browser acceptance; material interaction, navigation,
+checkout, or responsive behavior does. Keep dynamic settling proof even for a
+small change that introduces an observer.
+
+For remote delivery, use the exact draft preview or public URL for the selected
+live theme. Match coverage to affected behavior and the project risk route.
+Broad redesigns cover all promised routes on desktop/mobile; bounded changes
+use the required target viewports and checks. Add tablet when layout impact
+warrants it. For the affected routes verify:
 
 - correct resource and template assignment;
 - target release marker in preview HTML;
@@ -154,13 +186,14 @@ mobile; add tablet for layout-sensitive work. For each promised route verify:
 - dynamic enhancements settle and do not duplicate.
 
 Screenshots alone do not prove interactions, settling, or remote source identity.
+Use target readiness rather than whole-page network idleness for bounded checks.
 
 ## Cache diagnosis
 
 Check in order:
 
 1. store and live/draft identity;
-2. preview URL theme parameter;
+2. preview URL theme parameter or public live identity, according to the mode;
 3. resource handle/ID and visibility;
 4. assigned template or `template_suffix`;
 5. JSON section wiring;
@@ -172,13 +205,25 @@ Check in order:
 11. browser cache, outer CDN, or proxy.
 
 Do not call a mismatch “cache-only” until steps 1–8 pass.
+When exact remote readback matches but public delivery shows prior bytes during
+bounded propagation, continue with read-only observation. Delay alone does not
+authorize another write, candidate, publication, or automatic rollback. On an
+uncertain write, reconcile the receipt and target state before any continuation.
 
 ## Publication and rollback
 
-Draft acceptance is not publication. Publish only after separate explicit
-approval identifying the target theme and accepted source revision. After
-publication, verify live identity, representative public routes, interactions,
-and the public release marker; record the prior live theme as rollback target.
+Draft acceptance does not authorize publication. Publish only when the selected
+mode and user authorization cover the exact target and reviewed source; an
+existing explicit publish request suffices without another confirmation.
+Stable drafts remain unpublished; live-file patches have no promotion step.
+After publication, verify live identity, representative public routes,
+interactions, and the public release marker. Retain the rollback evidence
+required by the selected operator: prior live identity for a role transition,
+or exact preimages and receipt for a file patch.
+
+Use the operator's conflict-safe rollback only for a verified failure under its
+contract. Preserve concurrent third-party changes; propagation delay alone is
+not a rollback trigger.
 
 ## Evidence hygiene
 

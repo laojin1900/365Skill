@@ -16,11 +16,11 @@ The repository follows the open `SKILL.md` directory format. Each skill is self-
 | [`365-five-step-retro-claude`](skills/365-five-step-retro-claude/SKILL.md) | Experimental | Self-metabolism companion for the Claude Code edition — six-dimension log analysis, git-history cross-checks for silent gaps, upgrades gated on explicit per-proposal approval |
 | [`365-session-rotation-maintainer`](skills/365-session-rotation-maintainer/SKILL.md) | Experimental | Rotate one long-running Codex task through a durable checkpoint, one verified successor, preserved worktree ownership, and archive-last recovery |
 | [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | Experimental | Inventory existing project skills, discover reusable candidates, and extract approved practices into portable skill packages |
-| [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | Experimental | Draft-first Shopify Online Store 2.0 theme delivery with architecture, preservation, remote readback, browser acceptance, and dynamic DOM settling checks |
+| [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | Experimental | Scoped Shopify Online Store 2.0 theme delivery: local work closes locally; authorized releases use the maintained project route, readback, browser acceptance, and dynamic DOM settling checks |
 | [`gws-workspace`](skills/gws-workspace/SKILL.md) | Experimental | Operate Gmail, Calendar, Drive, Sheets, Docs, Slides, Chat, and Tasks through the gws CLI: read-by-default safety gates, helper-command patterns, and a from-zero OAuth setup guide |
 | [`gws-weekly-digest`](skills/gws-weekly-digest/SKILL.md) | Experimental | Recurring weekly briefing from mailbox and calendar: last week's mail stats, next seven days of events, markdown digest plus chat summary, strictly read-only |
 | [`parallel-sessions-protocol`](skills/parallel-sessions-protocol/SKILL.md) | Experimental | Coordinate any number of parallel sessions on one repository: draft-PR board registration, resource claiming, ledger writes only at merge time, merge discipline, end-of-work teardown registration, three-checkpoint refresh |
-| [`project-health-check`](skills/project-health-check/SKILL.md) | Experimental (early) | Read-only cross-project health sweep — CI red streaks, stale PRs, unpushed work, orphan worktrees — rolled into one judgeable report with false-positive guards; findings become follow-up tasks, never in-place fixes |
+| [`project-health-check`](skills/project-health-check/SKILL.md) | Experimental (early) | Bounded read-only project/worktree checks with project-first routing and explicit coverage limits; no home-directory sweep or automatic cleanup; authorized repairs use the relevant implementation route |
 
 ## Publication Model
 

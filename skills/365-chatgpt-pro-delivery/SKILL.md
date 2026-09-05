@@ -59,9 +59,12 @@ Hard constraints:
 Acceptance criteria:
 ```
 
-Keep a complete short brief inline. When detailed context is necessary, use one sanitized
-Markdown attachment and a short instruction to read it; do not duplicate the full packet in
-the message. Record the attachment filename, visible path scope, byte size, and SHA-256.
+Choose inline or attachment by observed channel capacity and fidelity needs. Keep the complete
+brief inline when it fits safely; headings, tables, source code, or complex formatting alone
+do not mandate an attachment. Use one sanitized attachment when required fidelity or measured
+capacity demands it, with a short instruction to read it; do not duplicate the full packet.
+Record an attachment's filename, visible path scope, byte size, and SHA-256. Never truncate
+required evidence to fit a guessed size limit.
 
 Read [references/briefs-and-acceptance.md](references/briefs-and-acceptance.md) for lane
 templates and the acceptance checklist.
@@ -76,7 +79,9 @@ Prefer the narrowest surface that can send and read the selected payload:
 4. user copy-and-paste when no authorized direct channel is available.
 
 Before declaring a surface unavailable, inspect the callable capabilities actually present.
-When browser control is selected, load and follow its browser-control skill. Do not read,
+When browser control is selected, use the current callable browser API and its returned
+documentation; load a required browser-control skill only when that environment provides it.
+Do not assume an older tool name or upload capability is still available. Do not read,
 request, or automate passwords, passkeys, CAPTCHA, or MFA; ask the user to complete login.
 
 Use a new or marker-dedicated conversation for an independent first round. Reuse an existing
@@ -86,6 +91,8 @@ the same outcome.
 ## 4. Dispatch once and prove it / 单次发送并确认
 
 - Put one unique marker in the request.
+- Before sending, verify the complete payload is present and any required attachment has
+  finished uploading. A filename in the composer alone is not proof of readable content.
 - Send once through the selected surface.
 - A send receipt proves only acceptance by the transport. Confirm the marker is visible in
   the intended conversation before recording dispatch.
@@ -94,9 +101,17 @@ the same outcome.
 - Wait without repeatedly rereading the full conversation. Preserve the same marker and
   conversation for one correction round.
 
-If no result can be read safely, stop with the exact transport state and give the user the
-prepared sanitized brief for manual dispatch. Do not weaken privacy or evidence rules merely
-to avoid a blocked outcome.
+After one attachment upload failure, inspect the same tab and re-evaluate its real capability.
+If the message is confirmed unsent and the complete payload fits inline with no fidelity
+loss, that fallback is allowed. If send state is ambiguous or the marker is already present,
+read back; do not resend. Otherwise use manual handoff or report the precise blocked state.
+Do not open another conversation merely to retry an uncertain upload or send.
+
+If no result can be read safely, stop with the exact transport state. Offer the prepared
+sanitized brief for manual dispatch only when the original is confirmed unsent. For an
+unknown or already-dispatched message, provide the existing conversation and marker for
+recovery, not instructions to resend. Do not weaken privacy or evidence rules merely to
+avoid a blocked outcome.
 
 ## 5. Require evidence-labelled output / 要求证据标签
 
@@ -132,7 +147,9 @@ business checks appropriate to the actual deliverable.
 
 ## 7. Close at the authorized boundary / 按授权边界收尾
 
-Report:
+Keep closeout proportional. Report the outcome, Codex's independent checks, actual delivery
+state, and any real remaining work. Retain the following evidence for traceability, but do not
+force a seven-field report for a small accepted contribution:
 
 - requested outcome and selected lane;
 - surface and conversation identifier or URL when available;

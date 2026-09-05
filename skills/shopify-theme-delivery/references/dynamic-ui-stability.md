@@ -47,14 +47,15 @@ when the owning section is removed or reinitialized.
 
 ## Isolated executable proof
 
-Test the module on a minimal synthetic page before a live preview. This removes
-noise from carousels, apps, and theme animations.
+Test the module on a minimal synthetic page before remote acceptance. This
+removes noise from carousels, apps, and theme animations. Local source work
+uses a local fixture and does not require a remote preview or write.
 
 ```js
 import { test, expect } from "@playwright/test";
 
 test("enhancement settles and reacts once", async ({ page }) => {
-  await page.goto("https://example.com/search?q=red&type=product");
+  await page.goto("about:blank");
   await page.setContent(`
     <main class="template-search">
       <header class="template-search__header"><h1>Search</h1></header>
@@ -111,8 +112,9 @@ production solely for the test.
 4. One genuine external result mutation causes exactly one enhancement.
 5. The next 300 ms to 600 ms window is stable.
 6. Section replacement or teardown does not retain orphan observers/listeners.
-7. The real draft preview still passes interaction, console, focus, mobile,
-   reduced-motion, and horizontal-overflow checks.
+7. The local fixture passes affected interaction, console, focus, mobile,
+   reduced-motion, and horizontal-overflow checks. When remote delivery is
+   requested, repeat applicable acceptance on the exact draft or live target.
 
 ## Acceptance record
 
