@@ -38,9 +38,22 @@ Before writing any code:
 4. When the track ends (merged or abandoned), the PR closes and the board
    self-cleans. Abandoned tracks delete their branch and worktree.
 
-The board **is** `gh pr list`. Spawned/background sessions follow the same
-rule — when writing a dispatch prompt for one, include "register on the
-board first".
+The board **is** `gh pr list`.
+
+**Dispatching is where registration leaks** — in field use, three of four
+recorded collisions came from spawned sessions (task chips, subagents,
+background tasks) that never registered. So a dispatch prompt MUST carry
+these three lines; a dispatch without them is the dispatcher's protocol
+violation, not the spawnee's:
+
+1. Register on the board before writing any code: open a draft PR with
+   Claimed scope / Claimed numbers / Current status.
+2. Work in your own exclusive worktree — never the dispatcher's working
+   directory and never the main checkout.
+3. Task grade: X | suggested model tier: Y | if your inherited tier is
+   higher than Y, switch down before starting. (Grading is the
+   dispatcher's job — the spawnee inherits a tier chosen for the parent
+   task, not for this one.)
 
 ## Mechanism 2 — Claim before you use
 
@@ -89,7 +102,13 @@ construction. Structural fix:
 
 Run `git fetch` + `gh pr list` (~30 seconds) at:
 
-1. **Start of work** — prevents claiming work another session already started.
+1. **Start of work** — prevents claiming work another session already
+   started. Also glance at the client's live-session list when one is
+   available (e.g. a `list_sessions` tool): a sibling working the same
+   topic shows up there **before** its draft PR exists. Field lesson: a
+   registered claim still got collided with, inside the gap between its
+   registration and the collider's last board read — the board alone is
+   not fresh enough at dispatch-heavy hours.
 2. **Before asking the owner anything, or reporting a major conclusion** —
    prevents asking questions another session already resolved (this exact
    embarrassment happened: four questions asked from a stale worksheet that
