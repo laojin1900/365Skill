@@ -1,6 +1,6 @@
 ---
 name: parallel-sessions-protocol
-description: Coordinate any number of AI or human dev sessions working the same git repository in parallel — start-of-work registration (a draft PR is the shared board, with claim declarations), resource claiming (sequential numbers, file ownership), ledger-writes-only-at-merge-time, merge discipline (local merge preview, exclusive working directories, no `git add -A`), end-of-work registration (push-or-declare WIP, worktree cleanup, triggered write-backs), and a three-checkpoint awareness refresh. Use when multiple sessions / agents / worktrees develop one repo at the same time; when the user says 多会话并行, 并行轨道, 开工登记, 收工登记, 公告板, 会话撞车, 多个会话同时开发, coordinate parallel sessions, multiple Claude sessions on one repo, sessions keep colliding, track claims; when sequential resources (migration or decision numbers) or shared changelog/ledger docs keep colliding between branches; or when a session needs to know what other sessions are doing before acting. NOT for release/QA pipeline coordination through a dedicated controller lane, not for plain merge-conflict fixing, not for in-session subagent orchestration, not for CI test parallelism.
+description: Coordinate any number of AI or human dev sessions working the same git repository in parallel — start-of-work registration (a draft PR is the shared board, with claim declarations), resource claiming (sequential numbers, file ownership), ledger-writes-only-at-merge-time, merge discipline (local merge preview, exclusive working directories, no `git add -A`), end-of-work registration (push-or-declare WIP, worktree cleanup, triggered write-backs), and a three-checkpoint awareness refresh. Use when multiple sessions / agents / worktrees develop one repo at the same time; when the user says 多会话并行, 并行轨道, 开工登记, 收工登记, 公告板, 会话撞车, 多个会话同时开发, coordinate parallel sessions, multiple Claude sessions on one repo, sessions keep colliding, track claims; when sequential resources (migration or decision numbers) or shared changelog/ledger docs keep colliding between branches; or when a session needs to know what other sessions are doing before acting. When peer tracks come from clones on other machines, or the work releases to a deployment target that peer machines also mutate, also invoke a cross-machine shared-repo coordination skill such as 365-cross-computer-shared-repo if installed (this skill still owns the on-machine surface). NOT for release/QA pipeline coordination through a dedicated controller lane, not for plain merge-conflict fixing, not for in-session subagent orchestration, not for CI test parallelism.
 ---
 
 # Parallel Sessions Protocol
@@ -20,6 +20,18 @@ merging stays governed by each project's own authorization rules.
 directory + one claim declaration. Sharing a working directory across
 sessions is the root cause of cross-track pollution — never do it. The number
 of tracks is unbounded; the constraint is behavior, not count.
+
+**Cross-machine routing**: this protocol governs the conflict surface on ONE
+machine's filesystem. If active tracks come from clones on OTHER machines
+(the board shows PRs from peers you cannot `git -C` into), or this track will
+release to a deployment target that peer machines also mutate, additionally
+invoke a cross-machine shared-repository coordination skill if one is
+installed (in this suite: `365-cross-computer-shared-repo`, whose boundary
+section classifies the target and decides whether release-lock rules apply).
+The two skills are complementary and run at the same time; neither replaces
+the other. Without such a skill, at minimum refresh `origin/main` explicitly
+before integrating and verify a release candidate contains the currently
+deployed version.
 
 ## Mechanism 1 — Register before you code (the board)
 
