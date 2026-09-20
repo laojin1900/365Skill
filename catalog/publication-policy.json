@@ -12,7 +12,8 @@
     "gws-workspace",
     "parallel-sessions-protocol",
     "project-health-check",
-    "shopify-theme-delivery"
+    "shopify-theme-delivery",
+    "shopify-store-launch-baseline"
   ],
   "shared_paths": [
     ".github/workflows/validate-public-export.yml",

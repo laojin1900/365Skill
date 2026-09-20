@@ -143,6 +143,32 @@ skills:
       - codex
     last_verified: 2026-07-14
 
+  - id: shopify-store-launch-baseline
+    title: Shopify Store Launch Baseline
+    title_zh_cn: Shopify 店铺上线基线
+    summary: Turn a bare Shopify theme into an operational store through six staged passes — channel and backup discipline, theme fixes, brand assets with merchant-overridable fallbacks, legal and trust pages, content system, and admin handoff checks — with root-caused pitfalls and a final acceptance checklist.
+    summary_zh_cn: 把裸主题店铺整备为可运营真店的六阶段基线流程：部署通道与备份、主题修复、可被商家覆盖的品牌资产兜底、合规信任页、内容体系（轮播/合集/故事/指南/双层 FAQ）与后台交接核对，附坑位根因与验收清单。
+    path: skills/shopify-store-launch-baseline
+    version: 1.0.0
+    status: experimental
+    languages:
+      - zh-CN
+      - en
+    capabilities:
+      - store-launch-runbook
+      - theme-access-deployment
+      - push-verify-discipline
+      - theme-baseline-fixes
+      - brand-asset-fallbacks
+      - legal-trust-setup
+      - content-system-building
+      - admin-handoff-checklist
+    risk: guarded-mutation
+    default_behavior: explicit-only
+    tested_clients:
+      - deepseek-harness
+    last_verified: 2026-09-20
+
   - id: shopify-theme-delivery
     title: Shopify Theme Delivery
     title_zh_cn: Shopify 主题交付

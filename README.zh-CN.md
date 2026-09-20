@@ -17,6 +17,7 @@
 | [`365-session-rotation-maintainer`](skills/365-session-rotation-maintainer/SKILL.md) | 实验中 | 通过持久检查点、唯一且已验证的继任任务、工作区归属保护和最后归档机制，安全轮换长期任务 |
 | [`discover-project-skills`](skills/discover-project-skills/SKILL.md) | 实验中 | 盘点项目现有技能，发现可复用候选，并在明确授权后把成熟实践提炼成标准技能包 |
 | [`shopify-theme-delivery`](skills/shopify-theme-delivery/SKILL.md) | 实验中 | Shopify Online Store 2.0 主题按范围交付：本地工作本地闭环；已授权发布复用项目路由，保留回读、浏览器验收和动态 DOM 稳定性验证 |
+| [`shopify-store-launch-baseline`](skills/shopify-store-launch-baseline/SKILL.md) | 实验中 | 把裸主题店铺整备为可运营真店的六阶段基线流程：部署通道、主题修复、品牌资产、合规信任、内容体系与后台核对，附坑位根因与验收清单 |
 | [`gws-workspace`](skills/gws-workspace/SKILL.md) | 实验中 | 通过 gws CLI 操作 Gmail、日历、Drive、Sheets、Docs、Slides、Chat、Tasks：默认只读的安全边界、辅助命令速查、从零 OAuth 配置指南 |
 | [`gws-weekly-digest`](skills/gws-weekly-digest/SKILL.md) | 实验中 | 用邮件和日历生成每周晨报：上周邮件统计、本周日程按天分组、markdown 晨报加会话摘要，严格只读 |
 | [`parallel-sessions-protocol`](skills/parallel-sessions-protocol/SKILL.md) | 实验中 | 协调任意数量的会话并行开发同一仓库：Draft PR 公告板登记、资源认领、记账只在合并前写、合并纪律、收工登记（会话中断/暂停时的对称收尾）、三时点刷新 |

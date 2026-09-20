@@ -1,0 +1,22 @@
+[
+  {"query": "我们要上线一个 Shopify 新店，现在只有一套裸主题，帮我把店铺做到可以运营的基线状态。", "should_trigger": true},
+  {"query": "这个 Shopify 店看起来很不成熟：没有政策页、联系表单是空的、首页全是占位图。帮我系统整备一遍。", "should_trigger": true},
+  {"query": "评估一下这个店铺还缺什么才能上线，给我一个按优先级排的补齐清单。", "should_trigger": true},
+  {"query": "我们给客户交付了一个主题，帮我把 favicon、logo、分享图和 OG 标签按可覆盖的方式接进主题。", "should_trigger": true},
+  {"query": "推主题文件后页面没变化但 CLI 显示成功，帮我排查 Shopify themeFilesUpsert 静默失败。", "should_trigger": true},
+  {"query": "给这个店建政策页、联系表单、页脚菜单和 FAQ，全部按上线基线补齐。", "should_trigger": true},
+  {"query": "首页 Hero 轮播和新品热卖两个系列怎么配？按店铺上线基线流程做。", "should_trigger": true},
+  {"query": "帮我搭建店铺的指南体系：指南博客、首页文章卡片、PDP 常见问题。", "should_trigger": true},
+  {"query": "上线前最后验收一遍这个 Shopify 店，按清单逐项检查并截图。", "should_trigger": true},
+  {"query": "把这个店的社媒链接、品牌故事页和智能合集（新品/热卖）配好。", "should_trigger": true},
+  {"query": "帮我修复商品详情页的 Liquid 语法错误。", "should_trigger": false},
+  {"query": "给这个 Next.js 应用加一个用户登录页面。", "should_trigger": false},
+  {"query": "分析这个产品的转化率数据并出一份周报。", "should_trigger": false},
+  {"query": "把仓库里所有 Markdown 文件翻译成英文。", "should_trigger": false},
+  {"query": "帮我开发一个 Shopify 公共应用并提交 App Store 审核。", "should_trigger": false},
+  {"query": "修改主题里 header 的颜色配置，只改这一处。", "should_trigger": false},
+  {"query": "帮我写一篇关于夏季新品的中文博客文章。", "should_trigger": false},
+  {"query": "总结一下这个 issue 的讨论内容。", "should_trigger": false},
+  {"query": "列出店铺里所有产品并导出成 CSV。", "should_trigger": false},
+  {"query": "审查这个 PR 的代码质量问题。", "should_trigger": false}
+]
