@@ -21,7 +21,7 @@ whenToUse: Shopify 店铺上线、整备、验收，或需要把一套裸主题�
 
 ## 1. 通道与权限
 
-- **首选部署通道：Theme Access 密码**。Partners 设备码授权经常撞「don't have access to this dev store」（CLI 只认 Partner 组织成员）。让有后台权限的人在店铺装官方 **Theme Access** 应用 → Create password（形如 `shptka_xxx`）→ `export SHOPIFY_CLI_THEME_TOKEN=...` 后 `shopify theme push/pull --store <shop>` 即可，与账号体系无关。
+- **首选部署通道：Dev Dashboard 应用（Client ID/Secret，一套凭证覆盖主题+内容）**。新版后台已无店内 custom app；在 Dev Dashboard 建应用时把 `write_themes` 一并勾上，换得的 `shpat_` token 直接当 `SHOPIFY_CLI_THEME_TOKEN` 用（CLI 实测等效），客户就省掉再开 Theme Access 密码这一步。**仅当客户只想给主题权限时**才退而用 Theme Access 密码。Partners 设备码授权经常撞「don't have access to this dev store」（CLI 只认 Partner 组织成员）。让有后台权限的人在店铺装官方 **Theme Access** 应用 → Create password（形如 `shptka_xxx`）→ `export SHOPIFY_CLI_THEME_TOKEN=...` 后 `shopify theme push/pull --store <shop>` 即可，与账号体系无关。
 - **店铺 myshopify 域名不知道时**：`curl -s https://<域名> | grep -o 'Shopify.shop = "[^"]*"'`。
 - **推任何东西之前先备份**：`shopify theme pull --theme <id> --path /tmp/backup`，并 `diff -rq` 确认线上与本地构建产物的差异——线上有商家在主题编辑器里的改动，全量推会清掉。**永远用 `--only <file>` 精确推送**，尤其是 JSON 模板和 settings_data。
 - **CLI 设备码授权注意**：账号选择器第一项≠正确账号，必须按名字选。
@@ -99,7 +99,8 @@ whenToUse: Shopify 店铺上线、整备、验收，或需要把一套裸主题�
 ## 8.5 内容搭建自动化（新店首选）
 
 内容侧（合集/菜单/页面/博客）用脚本一键铺：`365Storedev/themes/tools/store-bootstrap/`。
-凭证走 Dev Dashboard 应用（§8 坑位两条），`export SHOP + CLIENT_ID + CLIENT_SECRET` → 先干跑再 `--apply`。
+凭证走 Dev Dashboard 应用（§8 坑位两条），`export SHOP + CLIENT_ID + CLIENT_SECRET` → 先干跑再 `--apply`；
+同一套凭证 `--print-token` 接 CLI 推主题。
 create-only 幂等：已存在即跳过，不覆盖商家编辑。政策页 API 不可写，脚本自动输出人工清单（含物流政策成稿）。
 
 ## 9. 上线验收清单（最后一遍，逐项 curl/截图）
