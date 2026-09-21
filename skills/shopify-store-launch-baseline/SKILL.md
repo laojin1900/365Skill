@@ -93,6 +93,14 @@ whenToUse: Shopify 店铺上线、整备、验收，或需要把一套裸主题�
 | 菜单 Link 校验不过 | 粘**完整 URL** 后**按 Enter** 确认（相对路径不收）；或从建议下拉选 |
 | 误点 Discard 丢改动 | 菜单编辑页顶栏 Discard/Save 相邻，点 Save 前先看一眼；删项后必须 Save 才生效 |
 | `page.contact` 模板没生效 | handle 为 contact 自动套用；其他 suffix（faq 等）要在页面侧栏 Theme template 手动选 |
+| 后台找不到"Develop apps / custom app" | 新版已迁 **Dev Dashboard**（dev.shopify.com）：应用只有 Client ID/Secret，token 用 `grant_type=client_credentials` 换（24h 有效） |
+| API 报 `Access denied for menus field` | **导航菜单是独立 scope** `write_online_store_navigation`，不是 `write_content`；合集=products、页面/博客=content、菜单=navigation 三个域别搞混 |
+
+## 8.5 内容搭建自动化（新店首选）
+
+内容侧（合集/菜单/页面/博客）用脚本一键铺：`365Storedev/themes/tools/store-bootstrap/`。
+凭证走 Dev Dashboard 应用（§8 坑位两条），`export SHOP + CLIENT_ID + CLIENT_SECRET` → 先干跑再 `--apply`。
+create-only 幂等：已存在即跳过，不覆盖商家编辑。政策页 API 不可写，脚本自动输出人工清单（含物流政策成稿）。
 
 ## 9. 上线验收清单（最后一遍，逐项 curl/截图）
 
