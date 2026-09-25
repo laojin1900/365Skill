@@ -1,113 +1,162 @@
 ---
 name: shopify-store-launch-baseline
-description: "Shopify 店铺从零到「看起来像真店、上手即可运营」的上线基线全流程，提炼自 knightlynails.com 一次完整整备（主题修复/品牌资产/合规政策/内容体系/后台核对 5 个阶段，每个坑都带根因与修法）。覆盖：Theme Access 部署通道、推送纪律、商品卡与 PDP 画廊修复、品牌图资产兜底接线、政策四件套、联系表单、页脚双菜单、Hero 轮播 split 布局、智能合集、品牌故事页、指南博客体系、双层 FAQ、后台运营核对清单。凡新店上线、老店整备、或评估「这个店还缺什么」时先加载本技能。"
-whenToUse: Shopify 店铺上线、整备、验收，或需要把一套裸主题变成可运营店铺时；也适用于给其他服务/客户的店铺做出厂交付。
+description: "Shopify 客户店铺上线、整备与交付流程，沉淀 Knightly Nails 与 ROZEN 实战。先采集品牌调性与语义配色，再核对真实商品、搭建可购物页面；覆盖原生主题配置优先、主图画廊、单一导航、社媒、政策、品牌资产、安全精确部署、主题角色变化与桌面手机验收。附可复用客户资料与交付模板，避免把上一品牌样式照搬给下一品牌。"
+whenToUse: Shopify 店铺上线、整备、验收，或为客户搭建品牌店铺、完善上线流程时。
 ---
 
-# Shopify 店铺上线基线（裸主题 → 可运营真店）
+# Shopify 品牌店铺上线基线
 
-本技能沉淀自 knightlynails.com 一次完整整备（DS Nails 主题 + Shopify 店铺，从「商品卡样式错乱、无政策页、无联系表单、首页全占位符」到基线可运营）。**总原则：每个阶段都按「修主题 → 构建 → 精确推送 → curl 验证 → 截图亲眼看」闭环，不看不算完成。**
+沉淀自 Knightly Nails 与 ROZEN。**复用流程、组件和检查，不复制品牌外观，不把页面搭建等同于可运营上线。**
 
-## 0. 阶段顺序（依赖关系决定的，不要乱）
+## 0. 执行顺序与交付定义
 
-```
-1. 通道与备份      → 没有它后面都是空谈
-2. 主题基线修复    → 商品卡/PDP 是转化主战场，先修 bug
-3. 品牌资产        → favicon/logo/分享图/OG，一次接线永久生效
-4. 合规与信任      → 政策页/联系表单/页脚，缺失直接掉转化
-5. 内容体系        → 让店"看起来像真店"：轮播/合集/故事/指南/FAQ
-6. 后台运营核对    → 非主题项，店主必须亲自确认（清单见 §7）
-```
+1. 收集客户资料、权限与发布边界 → 确定店铺、主题 ID、当前角色。
+2. 确认品牌方案 + 核对真实商品 → 没有真实商品不得宣称可购物完成。
+3. 原生主题基线 → 单一导航、商品卡、PDP、购物路径。
+4. 品牌资产与内容 → 用已确认的品牌 tokens 实现，不套上个客户配色。
+5. 政策、信任与后台运营 → 客户确认业务事实。
+6. 草稿验收 → 精确部署、回读、桌面手机截图与交互。
+7. 客户授权发布 → 核对上线状态与正式域名，交付编辑入口及待办。
 
-## 1. 通道与权限
+首次执行先读取 [客户资料与交付模板](references/client-launch-template.md)，为当前客户单独复制填写；不用重复问已知信息。未知项写“待客户确认”，不要编造。品牌视觉和业务缺项集中一次询问；付款、商品批量改价、在线主题写入与发布等授权在动作前单独确认。
 
-- **首选部署通道：Dev Dashboard 应用（Client ID/Secret，一套凭证覆盖主题+内容）**。新版后台已无店内 custom app；在 Dev Dashboard 建应用时把 `write_themes` 一并勾上，换得的 `shpat_` token 直接当 `SHOPIFY_CLI_THEME_TOKEN` 用（CLI 实测等效），客户就省掉再开 Theme Access 密码这一步。**仅当客户只想给主题权限时**才退而用 Theme Access 密码。Partners 设备码授权经常撞「don't have access to this dev store」（CLI 只认 Partner 组织成员）。让有后台权限的人在店铺装官方 **Theme Access** 应用 → Create password（形如 `shptka_xxx`）→ `export SHOPIFY_CLI_THEME_TOKEN=...` 后 `shopify theme push/pull --store <shop>` 即可，与账号体系无关。
-- **店铺 myshopify 域名不知道时**：`curl -s https://<域名> | grep -o 'Shopify.shop = "[^"]*"'`。
-- **推任何东西之前先备份**：`shopify theme pull --theme <id> --path /tmp/backup`，并 `diff -rq` 确认线上与本地构建产物的差异——线上有商家在主题编辑器里的改动，全量推会清掉。**永远用 `--only <file>` 精确推送**，尤其是 JSON 模板和 settings_data。
-- **CLI 设备码授权注意**：账号选择器第一项≠正确账号，必须按名字选。
+状态必须区分：**本地完成 / 草稿已部署 / 已验收 / 已发布 / 运营已就绪**。实际没做的不能勾选。
 
-## 2. 推送与验证纪律（每次推送都走这五步）
+## 1. 品牌先行：每个品牌一套方案
 
-1. 改源码 → 构建（`ds-theme build`，产物在 dist）。
-2. `diff` 待推文件 vs 线上备份，确认增量只有你的改动。
-3. `shopify theme push --theme <id> --allow-live --only <每个文件>`。
-4. **静默失败排查**：CLI 显示成功但页面没变时，立刻 `--verbose` 看有没有 `<file>: failure`。已知原因见 §8。
-5. `curl -s <页面> | grep` 验证 HTML/CSS 落地 + 浏览器截图亲眼看。**字符串断言看不见嵌套，看过才算数。**
+### 1.1 输入优先级
 
-## 3. 主题基线修复清单（模板级，照单检查）
+客户品牌规范与正式资产 > 客户明确确认的参考 > 从现有品牌提取的建议。缺少资料时给出 1–2 个简短方向让客户选，不能把 ROZEN 的黑金米白或 Knightly 的赤陶色当全局默认。
 
-- **商品卡**：hover 浮层按钮（quickview 等）必须相对**图片容器**定位而不是整张卡——包一层 `media-wrap { position: relative }`，否则按钮盖住标题/价格。缩略图比例用参数化（合集页 `ratio: '1/1'`）。
-- **白底产品图一律 `object-fit: contain`**（cover 会把横构图两侧内容切掉）；卡片/PDP/弹窗统一。
-- **PDP 画廊**：`<img>` 的 `width/height` 属性必须写**真实尺寸**（`media.preview_image.width/height`），硬编码错误比例会让未加载的 lazy slide 预留错误空间，主图下方出现大空档。
-- **hover 切换第二图**：用 `:has(.img--hover)` 判断存在性，否则单图商品 hover 时主图淡出成空白。
-- **商家自填的标题不要接 `t` 过滤器**（`settings.heading | default: 'key' | t` 会把商家文案当翻译键 → "Translation missing"）。先判空再翻。
-- **多行 textarea 不要继承单行输入的全圆角**（`--ds-radius-input: full` 只适配单行）。
-- **OG/Twitter Card**：`theme.liquid` 加 `og:site_name/url/title/type/description/image` + `twitter:card`，图片链 `page_image → 主题自带 share-image.png(1200×628)`。
+至少确认：品牌名与正确字标、主辅色及禁用色、字体及商用授权、目标客群、市场/语言/币种、品牌关键词、参考网站与不喜欢的元素、照片风格、语气、必要页面。参考网站只参考布局与交互，不复制其商标、文案、图片。
 
-## 4. 品牌资产（打进主题 assets，模板兜底接线）
+### 1.2 语义 tokens，而不是到处硬编码 HEX
 
-模式统一：**主题自带默认图放 `assets/`，模板里写「商家设置 > 主题资产」的兜底链**——商家后台传图自动覆盖，新装店铺开箱即有。
+记录并集中配置：background / surface / text / text-muted / primary / on-primary / accent / border / focus / error / success，以及标题/正文字体、字阶、间距、圆角、按钮、图片比例。
 
-- `favicon.png`（512²）、`logo.png`（横版字标）、`share-image.png`（1200×628）——代码生成即可（Pillow + 品牌 token 配色 + 系统字体，本店用赤陶甲片图标 + Optima）。
-- header：`settings.logo → assets/logo.png`；favicon 同理；OG image：`page_image → assets/share-image.png`。
-- **场景/配图类内容位同理**：image-with-text 未传图时用 `assets/craft-scene.jpg`（真实产品图拼贴合成，白框圆角卡片 + 柔影 + 品牌色点缀）。
-- 社媒链接：主题 settings 预留 Instagram/Facebook/TikTok/YouTube/Pinterest URL 字段，页脚按设置渲染图标；上线时先填平台首页占位，店主后续换真实账号。
+- 优先映射主题已有 color schemes 与 typography 设置；自定义 section 共用 CSS 变量，提供商家可编辑字段。
+- 强调色不是所有小字都用的颜色；浅金等色适合装饰时，不强行作为白底正文或按钮文字。
+- 普通文字对比度至少 4.5:1，大字至少 3:1；关键 UI 边界/焦点至少 3:1。价格、错误状态、表单和键盘焦点也检查。
+- 覆盖 header、菜单、首页、卡片、PDP、表单、页脚、购物车及 hover/focus/disabled 状态；结账及通知邮件属于另行核对的后台能力范围，不承诺主题 CSS 可控制。
+- 先做一版“小样”：页头 + 首屏 + 商品卡 + 按钮 + 页脚，桌面和手机确认后再铺全站。
+- 极简编辑风可用静态 Hero，丰富货架风可用轮播。**不强制三张轮播、固定四列页脚或每店一样的首页模块。**
 
-## 5. 合规与信任（A 级优先级）
+## 2. 权限、远端真相与发布安全
 
-- **政策四件套**（Settings → Policies）：refund/privacy/terms 用 Shopify「Insert from template」生成后按业务改（**注意删 `[INSERT RETURN ADDRESS]` 占位**）；shipping 无官方模板需手写（写清：生产周期、免邮门槛、时效、追踪、关税、错地址责任）。四个 `/policies/*` 都要 200，结账页底部会自动引用。
-- **联系表单**：`{% form 'contact' %}` section + `page.contact.json` 模板。Shopify 惯例：**handle 为 `contact` 的页面自动套用 page.contact 模板**；其他模板（如 faq）需在页面侧栏手动指派。
-- **页脚**：菜单拆两列（Quick links / Policies），`footer-group.json` 出厂带 menu+newsletter blocks；栅格按块数响应式（4 块时宽屏四列、≤1200px 两列）。
-- **店铺 SEO**：Online Store → Preferences 填 Home page title（≤70 字符）+ Meta description（≤320）。
+- 最小权限：仅改主题优先现有授权或 Theme Access；需要商品/内容时再按任务配置应用权限。应用类型、token 获取方式及可用 scopes 依实际 Shopify 环境确认，不能假设任意 Client ID/Secret 都能换店铺 token。
+- 凭证不进资料模板、源码、日志或交付文档。设备码授权按账号名称选择，不默认第一项。
+- 每次写入前执行 `shopify theme list --store <shop> --json`，记录**店铺、目标 ID、当前 role**；名称含 dev 不代表草稿。
+- **草稿默认禁止 `--allow-live`。** ROZEN 曾在会话间从草稿变成 live；CLI 拦截时必须停下，重新读取角色，询问是否仅对指定在线主题执行指定修改。不得为“重试成功”擅自加开关，也不能擅自改另一个草稿。
+- 在线写入需明确授权且限制文件范围；发布主题是独立动作，不因获准修改文件就自动 publish。
+- 写入前 pull 当前远端到新建的独立目录，保留带时间的不可覆盖备份；验收 pull 用另一个目录。不要用回读覆盖唯一的修改前备份。
+- 对比目标文件，以商家当前远端为真相合并变更；本地旧 JSON 不可覆盖商家设置。若变更期间远端又变化，重新合并。
+- 每次 `--only <file>` 精确推送；不为改页脚/画廊全量推主题，不顺带覆盖 `templates/index.json`、`settings_data.json`。
 
-## 6. 内容体系（"看起来像真店"的关键）
+## 3. 真商品与可购物导航（设计之前核对）
 
-- **Hero 轮播 ≥3 张**：2 产品 + 1 品牌故事。滑块支持**选产品取图**（image_picker > product.featured_image 兜底，免上传）。**白底产品图用 split 布局（左文右图 contain），不要全幅 cover**（4:3 图 cover 成宽幅会裁成局部特写）。
-- **智能合集**：New arrivals（条件 `Price > 0`，排序 Newest）+ Best sellers（同条件，排序 Best selling）。合集创建在 Products → Collections → Add condition（右侧 Products 卡，不是中间预览区）。
-- **首页系列行**：两个 featured-collection section 分别挂这两个合集，消灭 "Example product" 占位符。
-- **品牌故事页**：后台 Pages 建页（TinyMCE 填入技巧见 §8），主菜单加入口。
-- **指南体系**：建 Guides 博客 + 4 篇核心指南（佩戴教程/尺码测量/卸除复用/甲型长度，内容与店铺政策、尺码表逐值一致）。首页 `blog-posts` section 出卡片区；文章配图走 `ds-guide-image` snippet（文章 featured image > handle 映射主题资产）。
-- **双层 FAQ**：首页 6 问 + "View full FAQ →" 链到 FAQ 页；**PDP 底部加"Before you choose your set"**（能戴多久/选错尺码/破损错发/复用定制）。FAQ section 带 FAQPage JSON-LD。
-- **页脚 Quick links** 挂：Our Story / FAQ / Guides / Contact。
+- 导入 CSV ≠ 商品已正确上线。读取店铺实际商品，核对：handle、标题、品牌/vendor、所属分类、变体数量/选项、价格/compare-at、币种、图片、库存/可售、Online Store 发布状态。
+- 输出差异表：预期商品 → 实际商品 → 可用 URL → 问题 → 处理决定。ROZEN 曾出现缺少 Galaxy、多出来源品牌 Sakura、预期 34.90 实际 3.49；**不要静默改价、删除商品或替换品牌**，交给客户确认。
+- URL 以真实 product/collection 对象生成；Shop all 用 `routes.all_products_collection_url`。商品购买入口不得指向宣传 page 来冒充商品。
+- 首页分类入口链接真实合集或真实商品区；商品卡进入 PDP，展示实时图片、价格和可售状态，不硬编码库存和价格。
+- 缺商品时隐藏无效卡片或提供真实替代入口，并在交付记录缺项；不能假链接占位，也不能据此宣布商品齐全。
+- 只保留一个主导航。已有主题 header 时不要在自定义首页再造一条全局导航；分类锚点可做，但视觉与语义需明显不同。
+- 原生上传选择器无法操作时请用户完成导入，再验证结果；不要反复尝试同一种失败手段或绕过浏览器工具边界。
 
-## 7. 后台运营核对清单（非主题，必须店主确认）
+## 4. 主题基线：先配置，后写代码
 
-- [ ] 配送费率与公告栏承诺一致（如"满 $50 免邮"必须有对应 shipping 规则）
-- [ ] 退款政策删除 `[INSERT RETURN ADDRESS]` 占位
-- [ ] 隐私政策按实际业务补充（邮箱/地区法规）
-- [ ] 税务 / Markets / 币种策略
-- [ ] 订单通知邮件品牌化、发件邮箱（非 myshopify 域）
-- [ ] Cookie/GDPR 横幅（Settings → Customer privacy）
-- [ ] 社媒占位链接换成真实账号
-- [ ] Social sharing image（Online Store → Preferences，可选，主题 og 兜底已覆盖）
+先查主题 section/block schema 和当前远端模板设置。原生功能能做到就不重写 gallery/cart/variant picker。
 
-## 8. 坑位速查（都是实测踩出来的）
+### 4.1 商品主图
 
-| 坑 | 根因 → 修法 |
+- 先看截图和真实页面，分辨：PDP 多图平铺、单张图片自带拼贴、首页商品卡，还是图片裁切。用户说“主图”不能默认改首页。
+- 常用方案：桌面单张主图 + 下方或侧边缩略图 + 箭头；手机单张滑动 + 圆点/计数/缩略图。具体由品牌方案决定。
+- Horizon 示例：`templates/product.json` 的 `_product-media-gallery` 原生设置 `media_presentation: carousel`、`slideshow_controls_style: thumbnails`、`thumbnail_position: bottom`、`thumbnail_width: 64`。移动分页可保留 dots。**只是该主题示例，先读 schema，不照搬到其他主题。**
+- 保留商品数据、原图顺序、变体关联、zoom 与可售逻辑；布局改动不代表改了后台媒体顺序。
+- 白底商品图通常 contain 保全内容；生活方式图按方案选择 cover 并检查裁切。img width/height 写实际尺寸，避免 lazy slide 预留大空洞。
+- 报告尺寸时区分：上传原图像素、显示比例、响应式显示宽度、缩略图 CSS px。没查原图就不能报原图像素；“自适应”不是固定尺寸。
+- 验收：缩略图/箭头切换、移动滑动、选择变体后主图联动、单图商品、缺图、长宽比例差异、放大与键盘操作。
+
+### 4.2 通用修复
+
+- 商品卡浮层按钮相对图片容器定位，不能盖标题/价格；单图商品 hover 不得淡出成空白。
+- 商家自填 heading 不经过 `t` 翻译过滤器；空值才翻译默认 key。
+- textarea 不套单行输入的全圆角。
+- 首选主题原有 SEO/OG 实现，避免重复标签；核对 title/description/site_name/url/type/image 与 Twitter card。
+
+## 5. 品牌资产、页脚与社媒
+
+- 客户正式 logo 优先，不能擅自重绘字标或加来源地/制造地/功效承诺。资产建议：favicon 512×512、横版字标、分享图 1200×628；尺寸是交付建议而非上传硬限制。
+- 接线：商家设置 > 主题品牌资产兜底。透明 logo 在实际背景、手机 header 和 footer 都检查；图片来源/授权有记录。
+- Instagram/Facebook/TikTok/YouTube/Pinterest 按客户需求做可编辑 URL 字段，图标使用 SVG、明确可访问名称、安全新窗口属性、可见焦点与足够点击区域。
+- **真实账号优先；默认无链接就隐藏。只有客户允许，才临时用平台官网首页**，不得称为品牌官方账号。占位状态记录交付待办，后续可在主题编辑器替换，不必改代码。
+- 社媒一般放品牌 logo/口号下面，按参考确认顺序。避免同时出现重复文字社媒列、旧的“账号待确认”提示。
+- “到主题编辑器补链接”等运维说明只放交付文档，不渲染给消费者。临时官网入口由客户决定上线前替换或隐藏。
+- 文案删除按指定位置执行，不扩大为全站删除法律或商品披露。品牌说明如 “Designed in … Made in …” 需客户确认，不作为模板默认。
+
+## 6. 内容、合规与运营
+
+- 首页按已确认品牌结构搭建：Hero、真实商品/合集、信任信息、故事/指南、FAQ 等按需求选择，不为了模块数量制造空内容。
+- New arrivals / Best sellers 可使用符合业务条件的自动合集，确认排序与可售范围；没有销量证据不宣称具体销量或排行。
+- 品牌故事与使用指南只写有事实依据的内容，品牌名、尺码、时效、可复用与退款承诺全站一致；不得留下供应商品牌或其他客户文案。
+- FAQ 数量依真实问题决定；结构化数据与可见内容一致，不承诺搜索富结果。
+- 政策：refund/privacy/terms/shipping 按实际业务与适用地区确认；模板只是草稿，不是法律保证。去除 return address 等占位。四条政策链接不仅要 200，还要确认内容正确。
+- 联系表单用原生 `{% form 'contact' %}`；实际检查 page 的 template suffix，不依赖 handle 自动匹配假设。
+- 后台需店主确认：配送费率/区域/生产时效、税务/Markets/币种、支付方式、退款地址、域名/SSL、密码页是否关闭、通知邮件/发件域、隐私与 cookie 配置。
+- 标题与 meta description 按可读性及当前平台限制设置，SEO 建议长度不当成固定平台限制。
+- 测试购买路径：商品→变体→数量→购物车→结账入口；付款/真实下单仅在明确授权的测试计划内。只看见 ATC 按钮不能写“购买已测试”。
+
+## 7. 精确部署与证据闭环
+
+1. 查主题角色与授权，pull 当前待改文件并保存修改前备份。
+2. 在新远端基线上做最小修改；构建按主题实际工具链执行（DS 可需 build，原生 Liquid 不凭空加构建）。
+3. `shopify theme check` + JSON/schema 检查，报告错误及既存 warning。check JSON 根可能是数组，解析时先看实际结构。
+4. 复核 diff 与文件清单，精确 push。草稿命令不带 allow-live；已获在线修改授权才带。
+5. 检查退出码和 verbose 错误，不能只靠日志里没有 failure 判断成功。新增 schema 字段先部署再部署引用它的 JSON。
+6. 回读到独立验收目录，对比内容/语义；Shopify 若规范化 JSON，检查字段而不是误判字节差异。
+7. 打开明确的预览主题 URL，核对实际主题；桌面（如 1440×900）和手机（如 390×844）亲眼截图。检查工具实际 viewport，超宽窗口截图不能冒充手机截图。
+8. 验证目标交互及链接，不仅看截图。菜单、商品、社媒、政策、表单、购物车分别记录是否测试。
+9. 发布授权另行处理；正式域名再验一次。回滚使用此次备份且再次核对远端，不覆盖后续商家改动。
+
+验证失败如预览栏遮挡、访问受限，记录“未验证”和具体原因；不能用源码存在、远端回读或之前截图替代本轮视觉/交互结论。浏览器按 browser-skill 使用授权工具；后台任务收集结果，借用页签及时归还。
+
+## 8. 提速方式与踩坑索引
+
+### 8.1 复用什么
+
+复用资料模板、语义 tokens 映射、商品差异表、原生配置 recipe、可编辑组件、部署清单与验收矩阵；**不是复用上一品牌的 HEX、店名、账号或商品 handle**。
+
+首次批量收集资料；先确认一屏小样再铺全站；优先原生配置；按 section 范围打补丁；每次交付只报告结果、预览入口、客户下一步。只要一处页脚改动，不必重建整站。
+
+### 8.2 既有自动化（有条件复用，不保证环境存在）
+
+历史工具路径：`365Storedev/themes/tools/store-bootstrap/`。先发现路径、读说明并确认支持的 API/权限，再使用 dry-run；apply 前看计划。create-only 幂等是基础，另输出 existing/skipped/conflict 清单，不把“跳过”当正确。政策写入能力随 API 版本/权限确认，不能笼统断言所有政策 API 不可写；不支持时留人工项。
+
+### 8.3 坑位速查
+
+| 现象 | 处理 |
 |---|---|
-| 推送显示成功但页面没变 | `themeFilesUpsert` 静默拒绝——`--verbose` 看 `failure`。**schema option label 限 50 字符** |
-| 推 JSON 后自定义 setting 消失 | Shopify 会剥离 schema 未注册的 setting——**先推 section(schema) 再推 JSON 模板** |
-| snippet 里 `article.handle` 匹配不上 | 它带博客前缀（`guides/slug`）——用 `handle \| split: '/' \| last` |
-| 后台 TinyMCE 填长文失败/格式乱 | 用**单换行**分段（双换行会生成空 `<p><br></p>`）；fill 报"无法验证值"是正常的（编辑器会改写），先看内容再决定 |
-| CodeMirror(Show HTML) fill 不上 | 放弃，回 TinyMCE 普通模式填 |
-| 菜单 Link 校验不过 | 粘**完整 URL** 后**按 Enter** 确认（相对路径不收）；或从建议下拉选 |
-| 误点 Discard 丢改动 | 菜单编辑页顶栏 Discard/Save 相邻，点 Save 前先看一眼；删项后必须 Save 才生效 |
-| `page.contact` 模板没生效 | handle 为 contact 自动套用；其他 suffix（faq 等）要在页面侧栏 Theme template 手动选 |
-| 后台找不到"Develop apps / custom app" | 新版已迁 **Dev Dashboard**（dev.shopify.com）：应用只有 Client ID/Secret，token 用 `grant_type=client_credentials` 换（24h 有效） |
-| API 报 `Access denied for menus field` | **导航菜单是独立 scope** `write_online_store_navigation`，不是 `write_content`；合集=products、页面/博客=content、菜单=navigation 三个域别搞混 |
+| dev 主题突然是 live | 每次读取 role，停止未授权在线推送，不能仅按名称判断 |
+| 远端 JSON 与本地不同 | 基于新远端合并，尤其保护首页/全局商家设置 |
+| CLI 表面成功但没变化 | 看退出码、verbose 文件错误、目标店铺/主题、回读；schema option label 注意长度限制 |
+| 自定义 setting 被剥离 | 先推注册该字段的 schema，再推配置 |
+| 首页链接商品 404 | 核对真实 handle、渠道与发布状态；不造假 page 替代 PDP |
+| 导入商品混来源品牌或价格异常 | 差异表报告客户，不自动改价/删品 |
+| 只截图未点图库 | 不得声称切图/变体交互已验证 |
+| `article.handle` 比对失败 | 可能带 blog 前缀，必要时 split 后取最后段 |
+| 后台富文本 fill 校验失败 | 先检查编辑器是否规范化内容，避免重复填入；不用盲目重复相同失败操作 |
+| 导航链接不能保存 | 用建议项或完整 URL，并确认输入已提交；小心相邻 Discard/Save |
+| navigation API 权限缺失 | 核对当前 API 的专用 navigation scopes，不能用 content scope 代替 |
 
-## 8.5 内容搭建自动化（新店首选）
+## 9. 验收与交付门槛
 
-内容侧（合集/菜单/页面/博客）用脚本一键铺：`365Storedev/themes/tools/store-bootstrap/`。
-凭证走 Dev Dashboard 应用（§8 坑位两条），`export SHOP + CLIENT_ID + CLIENT_SECRET` → 先干跑再 `--apply`；
-同一套凭证 `--print-token` 接 CLI 推主题。
-create-only 幂等：已存在即跳过，不覆盖商家编辑。政策页 API 不可写，脚本自动输出人工清单（含物流政策成稿）。
+- [ ] 品牌方案已确认，色彩/字体/图片/语气统一，无上一品牌残留。
+- [ ] 主导航唯一，首页实际商品可进入 PDP，卡片价格/可售与后台一致。
+- [ ] PDP 主图布局正确，图库/变体/数量/购物车交互逐项记录结果。
+- [ ] 桌面与手机布局截图看过，焦点可见、关键文本对比度合格。
+- [ ] 社媒无重复/失效占位；官网占位若保留有客户许可及替换入口。
+- [ ] 政策与联系表单、故事/指南等已实施页面逐一检查，未做项明确标记。
+- [ ] 主题目标、角色、授权、推送文件、备份/回滚与证据已记录。
+- [ ] 支付/运费/税务/域名/密码页等后台缺项列给客户，不因主题完成而宣称就绪。
+- [ ] 提供预览或正式网址、商家修改入口、待办责任人；无凭证泄露。
 
-## 9. 上线验收清单（最后一遍，逐项 curl/截图）
-
-- [ ] 合集页：hover 商品卡按钮不压标题价格；缩略图正方形不裁内容
-- [ ] PDP：画廊无空档、变体/数量/ATC 正常、PDP FAQ 出现
-- [ ] 首页：轮播 3 张（split）、新品/热卖两行真实商品、场景图文、指南卡、FAQ、订阅、四列页脚
-- [ ] `/policies/*` ×4 = 200；`/pages/contact` 有表单；`/pages/faq` 有问答；`/blogs/guides` 有文章
-- [ ] 页头 logo、favicon、OG 标签（`curl | grep og:`）、社媒图标
-- [ ] 主菜单含 Our Story；页脚 Quick links + Policies 双列
+用 [交付模板](references/client-launch-template.md) 收尾。所有勾选基于此次实际证据。
